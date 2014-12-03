@@ -32,7 +32,7 @@
                             </div>
                         </form>  
                                 <button type="button" class="btn btn-primary btn-lg fa fa-plus-circle" data-toggle="modal" data-target="#myModal">
-                                   &nbsp; Tambah Pengaturan Seleksi
+                                   &nbsp; Buat Tes
                                 </button>
                                 
                                 <br/>
@@ -51,14 +51,14 @@
                                             <?php if(isset($tes) && $tes!=null): ?>
                                             <?php foreach($tes as $row): ?>
                                             <tr>
-                                                <td><a href="<?php echo base_url(); ?>tes/kriteria?id_tes=<?php echo $row->id_tes; ?>" ><?php echo $row->jenis_tes?></a></td>
+                                                <td><?php echo $row->jenis_tes?></td>
                                                 <td><?php if($row->status==1) echo "Penilaian"; elseif ($row->status==2) echo "Pengumpulan"; ?></td>
                                                 <td><?php echo $row->bobot ?></td>
                                                 <td>
-                                                    <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModalEdit<?php echo $row->id_tes; ?>">
+                                                    <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal">
                                                         <i class="fa fa-edit"></i>
                                                     </button>
-                                                    <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModalDelete<?php echo $row->id_tes; ?>">
+                                                    <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal">
                                                         <i class="fa fa-times"></i>
                                                     </button>
                                                 </td>
@@ -90,13 +90,14 @@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-        <form role="form" action="<?php echo base_url();?>tes/tambahTes" method="post"> 
+        <form role="form" action="<?php echo base_url();?>test/tambahTest" method="post"> 
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">Tambah Pengaturan Seleksi</h4>
+        <h4 class="modal-title" id="myModalLabel">Buat Test</h4>
       </div>
-      <div class="modal-body">        
-            <input name="tahun" value="<?php echo $tahun; ?>" class="form-control" style="display:none;" >
+      <div class="modal-body">
+        
+
             <div class="form-group">
                 <label>Jenis Test</label>
                 <input name="jenis" class="form-control" style="width: 50%;" >                                
@@ -108,15 +109,12 @@
                     <option value="2">Pengumpulan</option>                    
                 </select>
             </div>
-            <div class="form-group">
-                <label>Bobot</label>
-                <input name="bobot" class="form-control" style="width: 50%;" >                                
-            </div>
+          
         
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Keluar</button>
-        <button type="submit" class="btn btn-primary">Simpan</button>
+        <button type="button" class="btn btn-primary">Simpan</button>
       </div>
       </form>
     </div>
@@ -124,33 +122,48 @@
 </div>
 
     
-<?php if(isset($tes) && $tes!=null):?>
-<?php foreach ($tes as $row): ?> 
-<div class="modal fade" id="myModalEdit<?php echo $row->id_tes;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+<?php if(isset($peserta) && $peserta!=null):?>
+<?php foreach ($peserta as $row): ?> 
+<div class="modal fade" id="myModalEdit<?php echo $row->id_peserta;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
   <div class="modal-dialog">
     <div class="modal-content">
-        <form role="form" action="<?php echo base_url();?>tes/editTes" method="post"> 
+        <form role="form" action="<?php echo base_url();?>peserta/editPeserta" method="post"> 
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">Edit Pengaturan Seleksi</h4>
+        <h4 class="modal-title" id="myModalLabel">Edit Calon Siswa Baru</h4>
       </div>
-      <div class="modal-body" style="overflow-y:auto;max-height: 420px;">        
-           <input name="tahun" value="<?php echo $tahun; ?>" class="form-control" style="display:none;" >
-           <input name="id_tes" value="<?php echo $row->id_tes; ?>" class="form-control" style="display:none;" >
+      <div class="modal-body" style="overflow-y:auto;max-height: 420px;">
+        
+            <input name="tahun" value="<?php echo $tahun; ?>" class="form-control" style="display:none;" >
+            <input name="id_peserta" value="<?php echo $row->id_peserta; ?>" class="form-control" style="display:none;" >
+                   
             <div class="form-group">
-                <label>Jenis Test</label>
-                <input name="jenis" class="form-control" style="width: 50%;" value="<?php echo $row->jenis_tes; ?>">                                
+                <label>Nama</label>
+                <input name="nama" value="<?php echo $row->nama; ?>" class="form-control" style="width: 50%;" >                                
             </div>
             <div class="form-group">
-                <label>Jenis Penilaian</label>
-                <select class="form-control" name="status" style="width: 50%;" >
-                    <option value="1" <?php if ($row->status ==1) echo "Selected"; ?>>Penilaian</option>
-                    <option value="2" <?php if ($row->status ==2) echo "Selected"; ?>>Pengumpulan</option>                    
-                </select>
+                <label>Alamat</label>
+                <input name="alamat" value="<?php echo $row->alamat; ?>" class="form-control" style="width: 50%;" >                                
             </div>
             <div class="form-group">
-                <label>Bobot</label>
-                <input name="bobot" class="form-control" style="width: 50%;" value="<?php echo $row->bobot; ?>">                                
+                <label>Tempat Lahir</label>
+                <input name="tempat" class="form-control" value="<?php echo $row->tempat; ?>" style="width: 50%;" >                                
+            </div>
+            <div class="form-group">
+                <label>Tanggal Lahir</label>
+                <input type="text" name="tanggal" value="<?php echo date("d/m/Y", strtotime($row->ttl)); ?>" id="datepicker<?php echo $row->id_peserta;?>" class="form-control">                              
+            </div>                
+            <div class="form-group">
+                <label>Asal Sekolah</label>
+                <input name="asal" class="form-control" value="<?php echo $row->asal_sekolah; ?>" style="width: 50%;" >                                
+            </div>
+            <div class="form-group">
+                <label>Nilai UN</label>
+                <input name="nilai" class="form-control" style="width: 20%;" value="<?php echo $row->nilaiUN; ?>">                                
+            </div>
+            <div class="form-group">
+                <label>Nama Orang Tua</label>
+                <input name="ortu" class="form-control" style="width: 50%;" value="<?php echo $row->nama_orang_tua; ?>">                                
             </div>
         
       </div>
@@ -165,15 +178,15 @@
     
 <?php endforeach; endif;?>
 
-<?php if(isset($tes) && $tes!=null):?>
-<?php foreach ($tes as $row): ?> 
-<div class="modal fade" id="myModalDelete<?php echo $row->id_tes;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+<?php if(isset($peserta) && $peserta!=null):?>
+<?php foreach ($peserta as $row): ?> 
+<div class="modal fade" id="myModalDelete<?php echo $row->id_peserta;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
   <div class="modal-dialog">
     <div class="modal-content">
-        <form role="form" action="<?php echo base_url();?>tes/deleteTes" method="post"> 
+        <form role="form" action="<?php echo base_url();?>peserta/deletePeserta" method="post"> 
       
       <div class="modal-body" style="overflow-y:auto;max-height: 420px;">
-        <input name="id_tes" value="<?php echo $row->id_tes; ?>" class="form-control" style="display:none;" >
+        <input name="id_peserta" value="<?php echo $row->id_peserta; ?>" class="form-control" style="display:none;" >
             Anda yakin menghapus data ini ?
       </div>
       <div class="modal-footer">

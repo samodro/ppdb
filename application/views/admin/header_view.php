@@ -13,6 +13,8 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="<?php echo base_url();?>cssb/bootstrap.min.css" rel="stylesheet">
+    
+    <link href="<?php echo base_url();?>css/datepicker.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
     <link href="<?php echo base_url();?>cssb/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
@@ -26,7 +28,22 @@
     <!-- Custom Fonts -->
     <link href="<?php echo base_url();?>font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-   
+       <script src="<?php echo base_url();?>jsb/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="<?php echo base_url();?>jsb/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="<?php echo base_url();?>jsb/plugins/metisMenu/metisMenu.min.js"></script>
+
+    <!-- DataTables JavaScript -->
+    <script src="<?php echo base_url();?>jsb/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="<?php echo base_url();?>jsb/plugins/dataTables/dataTables.bootstrap.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="<?php echo base_url();?>jsb/sb-admin-2.js"></script>
+    
+    <script src="<?php echo base_url();?>js/bootstrap-datepicker.js"></script>
  
 
     
@@ -275,11 +292,11 @@
                         <a href="<?php echo base_url();?>petugas/lihatPetugas"><i class="fa fa-fw fa-empire"></i> Petugas</a>
                     </li> 
                     <li>
-                        <a href="<?php echo base_url();?>peserta/lihatPeserta"><i class="fa fa-fw fa-users"></i> Calon Siswa</a>
-                    </li> 
-                    <li>
                         <a href="<?php echo base_url();?>tes/lihatTes"><i class="fa fa-fw fa-calendar-o"></i> Pengaturan Seleksi</a>
-                    </li>                    
+                    </li>
+                    <li>
+                        <a href="<?php echo base_url();?>peserta/lihatPeserta"><i class="fa fa-fw fa-users"></i> Calon Siswa</a>
+                    </li>                                         
                     <li>
                         <a href="<?php echo base_url();?>seleksi/lihatSeleksi"><i class="fa fa-fw fa-bar-chart-o"></i> Seleksi</a>
                     </li>

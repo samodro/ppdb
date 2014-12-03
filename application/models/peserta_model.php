@@ -3,23 +3,18 @@
  * Model pendaftaran NLC
  */
 
-/*
-     1  = penilaian
-     * 2  = pengumpulan
-     */
-
-class tes_model extends CI_Model{
-    private  $table_tes;
+class peserta_model extends CI_Model{
+    private  $table_peserta;
     
     public function __construct() {
         parent::__construct();
-        $this->table_tes    =   'tes';
+        $this->table_peserta    =   'peserta';
         
     }
     
   
-    function add_tes($data){
-        $this->db->insert($this->table_tes, $data);
+    function add_peserta($data){
+        $this->db->insert($this->table_peserta, $data);
         if($this->db->affected_rows() > 0)
         {
             return true;
@@ -30,10 +25,10 @@ class tes_model extends CI_Model{
         }
     }
     
-    function select_tes()
+    function select_peserta()
     {
         $this->db->where('trash','n');
-        $SQL    =   $this->db->get($this->table_tes);
+        $SQL    =   $this->db->get($this->table_peserta);
         if($SQL->num_rows() > 0)
         {
             foreach ($SQL->result() as $row) {
@@ -47,36 +42,11 @@ class tes_model extends CI_Model{
         }
     }
     
-    function update_tes($id_tes, $data)
-    {
-        $this->db->where('id_tes', $id_tes);
-        $this->db->update($this->table_tes, $data);
-        if($this->db->affected_rows() > 0)
-            return true;
-        else
-            return false;
-    }
-    
-    
-    function delete_tes($id_tes)
-    {
-        $this->db->where('id_tes', $id_tes);
-        $this->db->delete($this->table_tes);
-        if($this->db->affected_rows() > 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }      
-    
-    function select_tes_periode($periode)
+    function select_peserta_periode($periode)
     {
         $this->db->where('trash','n');
-        $this->db->where('tahun',$periode);
-        $SQL    =   $this->db->get($this->table_tes);
+        $this->db->where('periode',$periode);
+        $SQL    =   $this->db->get($this->table_peserta);
         if($SQL->num_rows() > 0)
         {
             foreach ($SQL->result() as $row) {
@@ -90,26 +60,34 @@ class tes_model extends CI_Model{
         }
     }
     
-    function get_tes($id_tes)
+    function update_peserta($id_peserta, $data)
     {
-        $SQL = "select * from tes where id_tes = ? and trash = 'n'";
-        $query = $this->db->query($SQL, $id_tes);
-        if($this->db->affected_rows() == 1)
+        $this->db->where('id_peserta', $id_peserta);
+        $this->db->update($this->table_peserta, $data);
+        if($this->db->affected_rows() > 0)
+            return true;
+        else
+            return false;
+    }
+    
+    
+    function delete_peserta($id_peserta)
+    {
+        $this->db->where('id_peserta', $id_peserta);
+        $this->db->delete($this->table_peserta);
+        if($this->db->affected_rows() > 0)
         {
-            foreach($query->result() as $row)
-            {
-                return $row;    
-            }
+            return true;
         }
         else
         {
-            return null;
+            return false;
         }
-    }   
+    }       
     
-    function get_tes_pegawai($id_user)
+    function select_periode()
     {
-        $SQL = "select * from tes where id_user = $id_user and trash = 'n'";
+        $SQL = "select periode from peserta where trash = 'n' group by periode";
         $query = $this->db->query($SQL);
         if($this->db->affected_rows() > 0)
         {
@@ -123,11 +101,28 @@ class tes_model extends CI_Model{
         {
             return null;
         }
+    }   
+    
+    function get_peserta($id_peserta)
+    {
+        $SQL = "select * from peserta where id_peserta = $id_peserta and trash = 'n'";
+        $query = $this->db->query($SQL);
+        if($this->db->affected_rows() > 0)
+        {
+            foreach ($query->result() as $row) 
+            {
+                return $row;
+            }
+        }
+        else
+        {
+            return null;
+        }
     }
     
-    function get_tes_afterinsert($timestamp, $zakat, $no_rekening)
+    function get_peserta_afterinsert($timestamp, $zakat, $no_rekening)
     {
-        $SQL = "select * from tes where  zakat = $zakat and no_rekening = '$no_rekening' and timestamp = ? and trash = 'n'";
+        $SQL = "select * from peserta where  zakat = $zakat and no_rekening = '$no_rekening' and timestamp = ? and trash = 'n'";
         $query = $this->db->query($SQL, $timestamp);
         if($this->db->affected_rows() == 1)
         {

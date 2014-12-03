@@ -3,23 +3,24 @@
  * Model pendaftaran NLC
  */
 
-/*
-     1  = penilaian
-     * 2  = pengumpulan
-     */
 
-class tes_model extends CI_Model{
-    private  $table_tes;
+/*
+ * 1 = pengumpulan, jika sudah = 7
+ * 2 = penilaian huruf, 
+ * 3 = penilaian angka, 
+ */
+class kriteria_model extends CI_Model{
+    private  $table_kriteria;
     
     public function __construct() {
         parent::__construct();
-        $this->table_tes    =   'tes';
+        $this->table_kriteria    =   'kriteria';
         
     }
     
   
-    function add_tes($data){
-        $this->db->insert($this->table_tes, $data);
+    function add_kriteria($data){
+        $this->db->insert($this->table_kriteria, $data);
         if($this->db->affected_rows() > 0)
         {
             return true;
@@ -30,10 +31,10 @@ class tes_model extends CI_Model{
         }
     }
     
-    function select_tes()
+    function select_kriteria()
     {
         $this->db->where('trash','n');
-        $SQL    =   $this->db->get($this->table_tes);
+        $SQL    =   $this->db->get($this->table_kriteria);
         if($SQL->num_rows() > 0)
         {
             foreach ($SQL->result() as $row) {
@@ -47,10 +48,10 @@ class tes_model extends CI_Model{
         }
     }
     
-    function update_tes($id_tes, $data)
+    function update_kriteria($id_kriteria, $data)
     {
-        $this->db->where('id_tes', $id_tes);
-        $this->db->update($this->table_tes, $data);
+        $this->db->where('id_kriteria', $id_kriteria);
+        $this->db->update($this->table_kriteria, $data);
         if($this->db->affected_rows() > 0)
             return true;
         else
@@ -58,10 +59,10 @@ class tes_model extends CI_Model{
     }
     
     
-    function delete_tes($id_tes)
+    function delete_kriteria($id_kriteria)
     {
-        $this->db->where('id_tes', $id_tes);
-        $this->db->delete($this->table_tes);
+        $this->db->where('id_kriteria', $id_kriteria);
+        $this->db->delete($this->table_kriteria);
         if($this->db->affected_rows() > 0)
         {
             return true;
@@ -72,11 +73,11 @@ class tes_model extends CI_Model{
         }
     }      
     
-    function select_tes_periode($periode)
+    function select_kriteria_tes($id_tes)
     {
         $this->db->where('trash','n');
-        $this->db->where('tahun',$periode);
-        $SQL    =   $this->db->get($this->table_tes);
+        $this->db->where('id_tes',$id_tes);
+        $SQL    =   $this->db->get($this->table_kriteria);
         if($SQL->num_rows() > 0)
         {
             foreach ($SQL->result() as $row) {
@@ -90,10 +91,10 @@ class tes_model extends CI_Model{
         }
     }
     
-    function get_tes($id_tes)
+    function get_kriteria($id_kriteria)
     {
-        $SQL = "select * from tes where id_tes = ? and trash = 'n'";
-        $query = $this->db->query($SQL, $id_tes);
+        $SQL = "select * from kriteria where id_kriteria = ? and trash = 'n'";
+        $query = $this->db->query($SQL, $id_kriteria);
         if($this->db->affected_rows() == 1)
         {
             foreach($query->result() as $row)
@@ -107,9 +108,9 @@ class tes_model extends CI_Model{
         }
     }   
     
-    function get_tes_pegawai($id_user)
+    function get_kriteria_pegawai($id_user)
     {
-        $SQL = "select * from tes where id_user = $id_user and trash = 'n'";
+        $SQL = "select * from kriteria where id_user = $id_user and trash = 'n'";
         $query = $this->db->query($SQL);
         if($this->db->affected_rows() > 0)
         {
@@ -125,9 +126,9 @@ class tes_model extends CI_Model{
         }
     }
     
-    function get_tes_afterinsert($timestamp, $zakat, $no_rekening)
+    function get_kriteria_afterinsert($timestamp, $zakat, $no_rekening)
     {
-        $SQL = "select * from tes where  zakat = $zakat and no_rekening = '$no_rekening' and timestamp = ? and trash = 'n'";
+        $SQL = "select * from kriteria where  zakat = $zakat and no_rekening = '$no_rekening' and timestamp = ? and trash = 'n'";
         $query = $this->db->query($SQL, $timestamp);
         if($this->db->affected_rows() == 1)
         {

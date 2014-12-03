@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Tes Kemampuan Bahasa
+                            <?php echo $tes->jenis_tes; ?>
                         </h1>
                         
                     </div>
@@ -15,8 +15,7 @@
                 <!-- /.row -->
 
                 <div class="row">
-                    <div class="col-lg-6">
-                        <form role="form" action="<?php echo base_url();?>test/doTambahTest">                                                             
+                    <div class="col-lg-6">                                                                                  
                                 <button type="button" class="btn btn-primary btn-lg fa fa-plus-circle" data-toggle="modal" data-target="#myModal">
                                    &nbsp; Buat Kriteria
                                 </button>
@@ -29,44 +28,33 @@
                                             <tr>
                                                 <th>Jenis Kriteria</th>   
                                                 <th>Tipe Penilaian</th>
-                                                <th>Bobot</th>
+                                            <?php if($tes->status==1): ?>    <th>Bobot</th> <? endif; ?>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <?php if(isset($kriteria) && $kriteria!=null): ?>
+                                            <?php foreach($kriteria as $row): ?>
                                             <tr>
-                                                <td>Tes Kemampuan Bahasa Indonesia</td> 
-                                                <td>Penilaian Angka</td>
-                                                <td>1</td>
+                                                <td><?php echo $row->jenis_kriteria; ?></td> 
+                                                <td><?php if ($row->status==2) echo "Penilaian Huruf"; else if($row->status==3) echo "Penilaian Angka"; else echo "Pengumpulan"; ?></td>
+                                                 <?php if($tes->status==1): ?><td><?php echo $row->bobot; ?></td><? endif; ?>
                                                 <td>
-                                                    <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal">
+                                                    <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModalEdit<?php echo $row->id_kriteria; ?>">
                                                         <i class="fa fa-edit"></i>
                                                     </button>
-                                                    <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal">
+                                                    <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModalDelete<?php echo $row->id_kriteria; ?>">
                                                         <i class="fa fa-times"></i>
                                                     </button>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td>Tes Kemampuan Bahasa Inggris</td>  
-                                                <td>Penilaian Angka</td>
-                                                <td>2</td>
-                                                <td>
-                                                    <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal">
-                                                        <i class="fa fa-edit"></i>
-                                                    </button>
-                                                    <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal">
-                                                        <i class="fa fa-times"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
+                                            <?php endforeach;endif; ?>                                              
                                         </tbody>
                                     </table>
                                 </div>
                             </div>                    
 
-                            
-                        </form>
+                                                    
 
                         
 
@@ -86,14 +74,15 @@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-        <form role="form" action="<?php echo base_url();?>test/tambahTest" method="post"> 
+        <form role="form" action="<?php echo base_url();?>tes/tambahKriteria" method="post"> 
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">Buat Kriteria</h4>
+        <h4 class="modal-title" id="myModalLabel">Tambah Kriteria</h4>
       </div>
       <div class="modal-body">
         
-
+            <input name="tahun" value="<?php echo $tes->tahun; ?>" class="form-control" style="display:none;" >
+            <input name="id_tes" value="<?php echo $tes->id_tes; ?>" class="form-control" style="display:none;" >
             <div class="form-group">
                 <label>Jenis Kriteria</label>
                 <input name="jenis" class="form-control" style="width:50%;">                                
@@ -101,20 +90,97 @@
             <div class="form-group">
                 <label>Jenis Penilaian</label>
                 <select class="form-control" name="status" style="width: 50%;">
-                    <option value="1">Penilaian Angka</option>
-                    <option value="1">Penilaian Huruf</option>                                        
+                    <?php if($tes->status==1): ?>
+                    <option value="2">Penilaian Huruf</option>
+                    <option value="3">Penilaian Angka</option> 
+                    <?php else: ?>
+                    <option value="1">Pengumpulan</option> 
+                    <?php endif; ?>
                 </select>
             </div>
+            <?php if($tes->status==1): ?>
+            <div class="form-group">
+                <label>Bobot Kriteria</label>
+                <input name="bobot" class="form-control" style="width:50%;">                                
+            </div>
+            <?php endif; ?>
             
         
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Keluar</button>
-        <button type="button" class="btn btn-primary">Simpan</button>
+        <button type="submit" class="btn btn-primary">Simpan</button>
       </div>
       </form>
     </div>
   </div>
 </div>
 
+<?php if(isset($kriteria) && $kriteria!=null):?>
+<?php foreach ($kriteria as $row): ?> 
+<div class="modal fade" id="myModalEdit<?php echo $row->id_kriteria;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <form role="form" action="<?php echo base_url();?>tes/editKriteria" method="post"> 
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Edit Pengaturan Kriteria</h4>
+      </div>
+      <div class="modal-body" style="overflow-y:auto;max-height: 420px;">        
+           <input name="tahun" value="<?php echo $tes->tahun; ?>" class="form-control" style="display:none;" >
+           <input name="id_tes" value="<?php echo $tes->id_tes; ?>" class="form-control" style="display:none;" >
+           <input name="id_kriteria" value="<?php echo $row->id_kriteria; ?>" class="form-control" style="display:none;" >
+            <div class="form-group">
+                <label>Jenis Kriteria</label>
+                <input name="jenis" class="form-control" style="width: 50%;" value="<?php echo $row->jenis_kriteria; ?>">                                
+            </div>
+            <div class="form-group">
+                <label>Jenis Penilaian</label>
+                <select class="form-control" name="status" style="width: 50%;" >
+                    <?php if($tes->status==1): ?>
+                    <option value="2" <?php if($row->status==2) echo "Selected";?>>Penilaian Huruf</option>
+                    <option value="3" <?php if($row->status==3) echo "Selected";?>>Penilaian Angka</option> 
+                    <?php else: ?>
+                    <option value="1">Pengumpulan</option> 
+                    <?php endif; ?>                 
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Bobot</label>
+                <input name="bobot" class="form-control" style="width: 50%;" value="<?php echo $row->bobot; ?>">                                
+            </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Keluar</button>
+        <button type="submit" class="btn btn-primary" >Simpan</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+    
+<?php endforeach; endif;?>
 
+<?php if(isset($kriteria) && $kriteria!=null):?>
+<?php foreach ($kriteria as $row): ?> 
+<div class="modal fade" id="myModalDelete<?php echo $row->id_kriteria;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <form role="form" action="<?php echo base_url();?>tes/deleteKriteria" method="post"> 
+      
+      <div class="modal-body" style="overflow-y:auto;max-height: 420px;">
+          <input name="id_tes" value="<?php echo $tes->id_tes; ?>" class="form-control" style="display:none;" >
+        <input name="id_kriteria" value="<?php echo $row->id_kriteria; ?>" class="form-control" style="display:none;" >
+            Anda yakin menghapus data ini ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Tidak</button>
+        <button type="submit" class="btn btn-danger" >Yakin</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<?php endforeach; endif;?>
