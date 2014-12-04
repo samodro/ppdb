@@ -7,9 +7,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Seleksi Penerimaan Siswa Baru 2014/2015
-                        </h1>
-                        
+                            Seleksi Penerimaan Siswa Baru <?php echo $tahun."/".($tahun+1); ?>                        
                     </div>
                 </div>
                 <!-- /.row -->
@@ -19,10 +17,15 @@
 
                         <form role="form" action="<?php echo base_url();?>tes/doTambahTes">
                             <div class="form-group">
-                                <label>Periode Tes</label>
+                                <label>Periode Seleksi</label>
                                 <select class="form-control" name="status" style="width: 50%;">
-                                    <option value="2014">2014/2015</option>
-                                    <option value="2013">2013/2014</option>                    
+                                    <?php if(isset($periode) && $periode!=null):?>
+                                    <?php foreach ($periode as $row): ?>
+                                        <option value="<?php echo $row->tahun;?>" <?php if($row->tahun==$tahun) echo "selected"; ?>><?php echo $row->tahun;?>/<?php echo $row->tahun+1;?></option>
+                                    <?php endforeach;?>
+                                    <?php else:?>
+                                        <option value="<?php echo date('Y');?>"><?php echo date('Y');?>/<?php echo date('Y')+1;?></option>                                    
+                                    <?php endif; ?>                      
                                 </select>
                             </div>                                 
                                 <div class="table-responsive">
@@ -35,36 +38,14 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <?php if(isset($tes) && $tes!=null): ?>
+                                            <?php foreach($tes as $row): ?>
                                             <tr>
-                                                <td>Tes Administratif</td>
-                                                <td>Pengumpulan</td>
-                                                <td>2</td>
+                                                <td><a href="<?php echo base_url(); ?>seleksi/detailSeleksi?id_tes=<?php echo $row->id_tes; ?>" ><?php echo $row->jenis_tes?></a></td>
+                                                <td><?php if($row->status==1) echo "Penilaian"; elseif ($row->status==2) echo "Pengumpulan"; ?></td>
+                                                <td><?php echo $row->bobot ?></td>
                                             </tr>
-                                            <tr>
-                                                <td>Tes Kemampuan Dasar</td>
-                                                <td>Penilaian</td>
-                                                <td>3</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Tes Kemampuan Agama</td>
-                                                <td>Penilaian</td>
-                                                <td>1</td>
-                                            </tr>
-                                            <tr>
-                                                <td><a href="<?php echo base_url();?>seleksi/detailSeleksi">Tes Kemampuan Bahasa<a/></td>
-                                                <td>Penilaian</td>
-                                                <td>1</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Tes Psikologi</td>
-                                                <td>Penilaian</td>
-                                                <td>3</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Tes Wawancara</td>
-                                                <td>Penilaian</td>
-                                                <td>1</td>
-                                            </tr>
+                                            <?php endforeach;endif; ?>                                            
                                         </tbody>
                                     </table>
                                 </div>

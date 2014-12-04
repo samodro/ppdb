@@ -3,23 +3,23 @@
  * Model pendaftaran NLC
  */
 
-/*
-     1  = penilaian
-     * 2  = pengumpulan
-     */
 
-class tes_model extends CI_Model{
-    private  $table_tes;
+/*
+ * 1 = belum lengkap
+ * 2 = sudah lengkap
+ */
+class seleksi_model extends CI_Model{
+    private  $table_seleksi;
     
     public function __construct() {
         parent::__construct();
-        $this->table_tes    =   'tes';
+        $this->table_seleksi    =   'seleksi';
         
     }
     
   
-    function add_tes($data){
-        $this->db->insert($this->table_tes, $data);
+    function add_seleksi($data){
+        $this->db->insert($this->table_seleksi, $data);
         if($this->db->affected_rows() > 0)
         {
             return true;
@@ -30,10 +30,10 @@ class tes_model extends CI_Model{
         }
     }
     
-    function select_tes()
+    function select_seleksi()
     {
         $this->db->where('trash','n');
-        $SQL    =   $this->db->get($this->table_tes);
+        $SQL    =   $this->db->get($this->table_seleksi);
         if($SQL->num_rows() > 0)
         {
             foreach ($SQL->result() as $row) {
@@ -47,10 +47,10 @@ class tes_model extends CI_Model{
         }
     }
     
-    function update_tes($id_tes, $data)
+    function update_seleksi($id_seleksi, $data)
     {
-        $this->db->where('id_tes', $id_tes);
-        $this->db->update($this->table_tes, $data);
+        $this->db->where('id_seleksi', $id_seleksi);
+        $this->db->update($this->table_seleksi, $data);
         if($this->db->affected_rows() > 0)
             return true;
         else
@@ -58,10 +58,10 @@ class tes_model extends CI_Model{
     }
     
     
-    function delete_tes($id_tes)
+    function delete_seleksi($id_seleksi)
     {
-        $this->db->where('id_tes', $id_tes);
-        $this->db->delete($this->table_tes);
+        $this->db->where('id_seleksi', $id_seleksi);
+        $this->db->delete($this->table_seleksi);
         if($this->db->affected_rows() > 0)
         {
             return true;
@@ -72,12 +72,11 @@ class tes_model extends CI_Model{
         }
     }      
     
-    function select_tes_periode($periode)
+    function select_seleksi_tes($id_tes)
     {
         $this->db->where('trash','n');
-        $this->db->where('tahun',$periode);
-        $this->db->order_by('id_tes','asc');
-        $SQL    =   $this->db->get($this->table_tes);
+        $this->db->where('id_tes',$id_tes);
+        $SQL    =   $this->db->get($this->table_seleksi);
         if($SQL->num_rows() > 0)
         {
             foreach ($SQL->result() as $row) {
@@ -91,10 +90,10 @@ class tes_model extends CI_Model{
         }
     }
     
-    function get_tes($id_tes)
+    function get_seleksi($id_seleksi)
     {
-        $SQL = "select * from tes where id_tes = ? and trash = 'n'";
-        $query = $this->db->query($SQL, $id_tes);
+        $SQL = "select * from seleksi where id_seleksi = ? and trash = 'n'";
+        $query = $this->db->query($SQL, $id_seleksi);
         if($this->db->affected_rows() == 1)
         {
             foreach($query->result() as $row)
@@ -108,9 +107,9 @@ class tes_model extends CI_Model{
         }
     }   
     
-    function get_tes_pegawai($id_user)
+    function select_seleksi_peserta($id_tes)
     {
-        $SQL = "select * from tes where id_user = $id_user and trash = 'n'";
+        $SQL = "select * from seleksi s, peserta p where p.id_peserta = s.id_peserta and  s.id_tes = $id_tes and p.trash = 'n' and s.trash = 'n'";
         $query = $this->db->query($SQL);
         if($this->db->affected_rows() > 0)
         {
@@ -126,9 +125,9 @@ class tes_model extends CI_Model{
         }
     }
     
-    function get_tes_afterinsert($timestamp, $zakat, $no_rekening)
+    function get_seleksi_afterinsert($timestamp, $zakat, $no_rekening)
     {
-        $SQL = "select * from tes where  zakat = $zakat and no_rekening = '$no_rekening' and timestamp = ? and trash = 'n'";
+        $SQL = "select * from seleksi where  zakat = $zakat and no_rekening = '$no_rekening' and timestamp = ? and trash = 'n'";
         $query = $this->db->query($SQL, $timestamp);
         if($this->db->affected_rows() == 1)
         {
@@ -142,6 +141,7 @@ class tes_model extends CI_Model{
             return null;
         }
     }   
+    
     
     
 }

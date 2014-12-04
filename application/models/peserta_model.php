@@ -120,9 +120,9 @@ class peserta_model extends CI_Model{
         }
     }
     
-    function get_peserta_afterinsert($timestamp, $zakat, $no_rekening)
+    function get_peserta_afterinsert($timestamp, $nama, $ttl)
     {
-        $SQL = "select * from peserta where  zakat = $zakat and no_rekening = '$no_rekening' and timestamp = ? and trash = 'n'";
+        $SQL = "select * from peserta where  nama like '$nama' and ttl = '$ttl' and timestamp = ? and trash = 'n'";
         $query = $this->db->query($SQL, $timestamp);
         if($this->db->affected_rows() == 1)
         {

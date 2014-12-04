@@ -25,6 +25,8 @@ class Peserta extends CI_Controller {
             
             $this->load->model('peserta_model');
             $this->load->model('periode_model');
+            $this->load->model('tes_model');
+            $this->load->model('seleksi_model');
         }
         
 	public function index()
@@ -125,6 +127,23 @@ class Peserta extends CI_Controller {
                 
                 //echo  $this->input->post('tahun');
                 $this->peserta_model->add_peserta($peserta);
+                
+                $pesertaafter = $this->peserta_model->get_peserta_afterinsert($peserta["timestamp"], $peserta["nama"], $peserta["ttl"]);
+                $tes = $this->tes_model->select_tes_periode($this->input->post('tahun'));
+                
+                
+                
+                $seleksi = array(
+                    'id_seleksi'=> '',
+                    'id_peserta'=> $pesertaafter->id_peserta,
+                    'id_tes'=> $tes[0]->id_tes,
+                    'totalnilai' => '0',
+                    'status' => '0',
+                    'tahun' => $pesertaafter->periode,
+                    'trash' => 'n'                                        
+                );
+                
+                $this->seleksi_model->add_seleksi($seleksi);
                 
                 redirect(base_url().'peserta/lihatPeserta');
             }
