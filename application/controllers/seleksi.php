@@ -25,6 +25,8 @@ class Seleksi extends CI_Controller {
             $this->load->model('tes_model');
             $this->load->model('periode_model');
             $this->load->model('seleksi_model');
+            $this->load->model('kriteria_seleksi_model');
+            $this->load->model('peserta_model');
             
             session_start();
             
@@ -77,9 +79,20 @@ class Seleksi extends CI_Controller {
         
         public function kriteriaSeleksi()
         {
+            if($this->input->get('id')!='')
+            {
+                $data['kriteria'] = $this->kriteria_seleksi_model->select_kriteriaseleksi_seleksi($this->input->get('id'));
+                $data['seleksi'] = $this->seleksi_model->get_seleksi($this->input->get('id'));
+                $data['tes'] = $this->tes_model->get_tes($data['seleksi']->id_tes);
+                $data['peserta'] = $this->peserta_model->get_peserta($data['seleksi']->id_peserta);
                 $this->load->view('admin/header_view');
-                $this->load->view('admin/seleksi/kriteria_seleksi_view');
+                $this->load->view('admin/seleksi/kriteria_seleksi_view',$data);
                 $this->load->view('admin/footer_view');
+            }
+            else
+            {
+                redirect(base_url().'seleksi/lihatSeleksi');
+            }
         }
                 
         

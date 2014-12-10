@@ -27,6 +27,8 @@ class Peserta extends CI_Controller {
             $this->load->model('periode_model');
             $this->load->model('tes_model');
             $this->load->model('seleksi_model');
+            $this->load->model('kriteria_model');
+            $this->load->model('kriteria_seleksi_model');
         }
         
 	public function index()
@@ -144,6 +146,24 @@ class Peserta extends CI_Controller {
                 );
                 
                 $this->seleksi_model->add_seleksi($seleksi);
+                
+                $seleksiafter = $this->seleksi_model->get_seleksi_afterinsert($pesertaafter->id_peserta, $tes[0]->id_tes, $pesertaafter->periode);
+                $kriteria = $this->kriteria_model->select_kriteria_tes($tes[0]->id_tes);
+                
+                foreach ($kriteria as $row)
+                {
+                    $kriteriaseleksi = array (
+                        'id_kriteria_seleksi' => '',
+                        'id_seleksi' => $seleksiafter->id_seleksi,
+                        'id_kriteria' => $row->id_kriteria,
+                        'jenis_kriteria' => $row->jenis_kriteria,
+                        'nilai' => '0',
+                        'status' => 0,
+                        'trash' => 'n'
+                    );
+                    
+                    $this->kriteria_seleksi_model->add_kriteriaseleksi($kriteriaseleksi);
+                }
                 
                 redirect(base_url().'peserta/lihatPeserta');
             }

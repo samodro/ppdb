@@ -125,10 +125,10 @@ class seleksi_model extends CI_Model{
         }
     }
     
-    function get_seleksi_afterinsert($timestamp, $zakat, $no_rekening)
+    function get_seleksi_afterinsert($id_peserta, $id_tes, $tahun)
     {
-        $SQL = "select * from seleksi where  zakat = $zakat and no_rekening = '$no_rekening' and timestamp = ? and trash = 'n'";
-        $query = $this->db->query($SQL, $timestamp);
+        $SQL = "select * from seleksi where  id_peserta = '$id_peserta' and id_tes = '$id_tes' and tahun = $tahun and trash = 'n'";
+        $query = $this->db->query($SQL);
         if($this->db->affected_rows() == 1)
         {
             foreach($query->result() as $row)

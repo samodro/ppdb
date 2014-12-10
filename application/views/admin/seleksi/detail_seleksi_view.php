@@ -27,7 +27,7 @@
                                                             <th>Nama Peserta</th>
                                                             <th>Asal Sekolah</th>
                                                             <th>Nilai UN</th>
-                                                            <th>Nilai Tes</th>
+                                                            <th><?php if($tes->status==2) echo "Berkas"; else echo "Nilai Tes"; ?></th>
                                                             <th>Status</th>
                                                         </tr>
                                                     </thead>
@@ -38,7 +38,16 @@
                                                             <td><?php echo $row->nama; ?></td>
                                                             <td><?php echo $row->asal_sekolah; ?></td>
                                                             <td><?php echo $row->nilaiUN; ?></td>
-                                                            <td><a href="<?php echo base_url()?>seleksi/kriteriaSeleksi?id=<?php echo $row->id_seleksi;?>"><?php echo $row->totalnilai; ?></a></td>
+                                                            <td><a href="<?php echo base_url()?>seleksi/kriteriaSeleksi?id=<?php echo $row->id_seleksi;?>"><?php if($tes->status==2) 
+                                                            {
+                                                                if($row->status==0) echo "Belum Lengkap";
+                                                                else echo "Lengkap";
+                                                            }
+                                                            else
+                                                            {
+                                                                echo $row->totalnilai; 
+                                                            }
+                                                            ?></a></td>
                                                             <td>
                                                                 <?php if($row->status==0) echo '<i class="fa fa-times">'; else echo '<i class="fa fa-check">'; ?></i>                                                              
                                                             </td>

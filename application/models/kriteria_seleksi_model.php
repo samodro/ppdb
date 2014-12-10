@@ -9,18 +9,19 @@
  * 2 = penilaian huruf, jika sudah = 8
  * 3 = penilaian angka, jika sudah = 9
  */
-class kriteria_model extends CI_Model{
-    private  $table_kriteria;
+
+class kriteria_seleksi_model extends CI_Model{
+    private  $table_kriteriaseleksi;
     
     public function __construct() {
         parent::__construct();
-        $this->table_kriteria    =   'kriteria';
+        $this->table_kriteriaseleksi    =   'kriteriaseleksi';
         
     }
     
   
-    function add_kriteria($data){
-        $this->db->insert($this->table_kriteria, $data);
+    function add_kriteriaseleksi($data){
+        $this->db->insert($this->table_kriteriaseleksi, $data);
         if($this->db->affected_rows() > 0)
         {
             return true;
@@ -31,10 +32,10 @@ class kriteria_model extends CI_Model{
         }
     }
     
-    function select_kriteria()
+    function select_kriteriaseleksi()
     {
         $this->db->where('trash','n');
-        $SQL    =   $this->db->get($this->table_kriteria);
+        $SQL    =   $this->db->get($this->table_kriteriaseleksi);
         if($SQL->num_rows() > 0)
         {
             foreach ($SQL->result() as $row) {
@@ -48,10 +49,10 @@ class kriteria_model extends CI_Model{
         }
     }
     
-    function update_kriteria($id_kriteria, $data)
+    function update_kriteriaseleksi($id_kriteriaseleksi, $data)
     {
-        $this->db->where('id_kriteria', $id_kriteria);
-        $this->db->update($this->table_kriteria, $data);
+        $this->db->where('id_kriteriaseleksi', $id_kriteriaseleksi);
+        $this->db->update($this->table_kriteriaseleksi, $data);
         if($this->db->affected_rows() > 0)
             return true;
         else
@@ -59,10 +60,10 @@ class kriteria_model extends CI_Model{
     }
     
     
-    function delete_kriteria($id_kriteria)
+    function delete_kriteriaseleksi($id_kriteriaseleksi)
     {
-        $this->db->where('id_kriteria', $id_kriteria);
-        $this->db->delete($this->table_kriteria);
+        $this->db->where('id_kriteriaseleksi', $id_kriteriaseleksi);
+        $this->db->delete($this->table_kriteriaseleksi);
         if($this->db->affected_rows() > 0)
         {
             return true;
@@ -73,11 +74,11 @@ class kriteria_model extends CI_Model{
         }
     }      
     
-    function select_kriteria_tes($id_tes)
+    function select_kriteriaseleksi_seleksi($id_seleksi)
     {
         $this->db->where('trash','n');
-        $this->db->where('id_tes',$id_tes);
-        $SQL    =   $this->db->get($this->table_kriteria);
+        $this->db->where('id_seleksi',$id_seleksi);
+        $SQL    =   $this->db->get($this->table_kriteriaseleksi);
         if($SQL->num_rows() > 0)
         {
             foreach ($SQL->result() as $row) {
@@ -91,10 +92,29 @@ class kriteria_model extends CI_Model{
         }
     }
     
-    function get_kriteria($id_kriteria)
+    
+    function select_kriteriaseleksi_new($id_seleksi)
     {
-        $SQL = "select * from kriteria where id_kriteria = ? and trash = 'n'";
-        $query = $this->db->query($SQL, $id_kriteria);
+        $SQL = "select * from kriteriaseleksi ks, kriteria k where id_seleksi = $id_seleksi and ks.id_kriteria = k.id_kriteria and trash = 'n'";
+        $query = $this->db->query($SQL);
+        if($this->db->affected_rows() == 1)
+        if($SQL->num_rows() > 0)
+        {
+            foreach ($SQL->result() as $row) {
+                $data[] =   $row;
+            }
+            return $data;
+        }
+        else
+        {
+            return null;
+        }
+    }  
+    
+    function get_kriteriaseleksi($id_kriteriaseleksi)
+    {
+        $SQL = "select * from kriteriaseleksi where id_kriteriaseleksi = ? and trash = 'n'";
+        $query = $this->db->query($SQL, $id_kriteriaseleksi);
         if($this->db->affected_rows() == 1)
         {
             foreach($query->result() as $row)
@@ -108,9 +128,9 @@ class kriteria_model extends CI_Model{
         }
     }   
     
-    function get_kriteria_pegawai($id_user)
+    function select_kriteriaseleksi_peserta($id_tes)
     {
-        $SQL = "select * from kriteria where id_user = $id_user and trash = 'n'";
+        $SQL = "select * from kriteriaseleksi s, peserta p where p.id_peserta = s.id_peserta and  s.id_tes = $id_tes and p.trash = 'n' and s.trash = 'n'";
         $query = $this->db->query($SQL);
         if($this->db->affected_rows() > 0)
         {
@@ -126,9 +146,9 @@ class kriteria_model extends CI_Model{
         }
     }
     
-    function get_kriteria_afterinsert($timestamp, $zakat, $no_rekening)
+    function get_kriteriaseleksi_afterinsert($timestamp, $zakat, $no_rekening)
     {
-        $SQL = "select * from kriteria where  zakat = $zakat and no_rekening = '$no_rekening' and timestamp = ? and trash = 'n'";
+        $SQL = "select * from kriteriaseleksi where  zakat = $zakat and no_rekening = '$no_rekening' and timestamp = ? and trash = 'n'";
         $query = $this->db->query($SQL, $timestamp);
         if($this->db->affected_rows() == 1)
         {
@@ -142,6 +162,7 @@ class kriteria_model extends CI_Model{
             return null;
         }
     }   
+    
     
     
 }

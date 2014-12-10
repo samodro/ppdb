@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Tes Kemampuan Bahasa                            
+                            <?php echo $tes->jenis_tes; ?> <?php echo $tes->tahun."/".($tes->tahun+1); ?>                            
                         </h1>
                         
                     </div>
@@ -16,7 +16,8 @@
 
                 <div class="row">
                     <div class="col-lg-8">
-
+<?php $ci = &get_instance();
+                                                    $ci->load->model('kriteria_model');?>
                         <form role="form" action="<?php echo base_url();?>tes/doTambahTes">                                                                                                                                                            
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-hover table-striped">
@@ -24,37 +25,29 @@
                                             <tr>
                                                 <th>Nama Peserta</th>
                                                 <th>Jenis Kriteria</th>
-                                                <th>Nilai</th>
-                                                <th>Bobot</th>
+                                                <th>
+                                                    <?php 
+                                                    if($tes->status!=1) echo "Nilai";
+                                                    else echo "Berkas"; ?></th>                                           
                                                 <th>Status</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <?php if(isset($kriteria) && $kriteria!=null): ?>
+                                            <?php foreach($kriteria as $row): ?>
                                             <tr>
-                                                <td>Bejo Sugiantoro</td>
-                                                <td>Tes Kemampuan Bahasa Inggris</td>
-                                                <td>A</td>
-                                                <td>2</td>
-                                                <td><i class="fa fa-check"></i></td>
+                                                <td><?php echo $peserta->nama; ?></td>
+                                                <td><?php echo $row->jenis_kriteria; ?></td>
+                                                <td><?php echo $row->nilai; ?></td>                                                                                                                                                
+                                                <td><?php if($row->status==1) echo '<i class="fa fa-check">'; else echo '<i class="fa fa-times">'; ?></i></td>
                                                 <td>
                                                     <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal">
                                                         <i class="fa fa-edit"></i>
                                                     </button>
                                                 </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Bejo Sugiantoro</td>
-                                                <td>Tes Kemampuan Bahasa Indonesia</td>
-                                                <td>B</td>
-                                                <td>1</td>
-                                                <td><i class="fa fa-check"></i></td>
-                                                <td>
-                                                    <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal">
-                                                        <i class="fa fa-edit"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
+                                            </tr>    
+                                            <?php endforeach; endif; ?>
                                         </tbody>
                                     </table>
                                 </div>
