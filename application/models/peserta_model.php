@@ -60,6 +60,8 @@ class peserta_model extends CI_Model{
         }
     }
     
+    
+    
     function update_peserta($id_peserta, $data)
     {
         $this->db->where('id_peserta', $id_peserta);
@@ -102,6 +104,24 @@ class peserta_model extends CI_Model{
             return null;
         }
     }   
+    
+    function select_peserta_periode_total($periode)
+    {
+        $SQL = "select * from (select p.*, sum(s.totalnilai) as 'total' from peserta p, seleksi s where p.id_peserta = s.id_peserta and p.periode = '$periode' and s.tahun = '$periode' and p.trash = 'n' and s.trash = 'n' group by p.id_peserta) a order by a.total desc";
+        $query = $this->db->query($SQL);
+        if($this->db->affected_rows() > 0)
+        {
+            foreach ($query->result() as $row) 
+            {
+                $data[] =   $row;
+            }
+            return $data;
+        }
+        else
+        {
+            return null;
+        }
+    }
     
     function get_peserta($id_peserta)
     {

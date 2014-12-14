@@ -300,6 +300,9 @@
                     <li>
                         <a href="<?php echo base_url();?>seleksi/lihatSeleksi"><i class="fa fa-fw fa-bar-chart-o"></i> Seleksi</a>
                     </li>
+                    <li>
+                        <a href="<?php echo base_url();?>hasil/hasilSeleksi"><i class="fa fa-fw fa-files-o"></i> Hasil Seleksi</a>
+                    </li>
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
