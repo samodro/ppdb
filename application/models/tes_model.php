@@ -4,8 +4,9 @@
  */
 
 /*
-     1  = penilaian
+     1  = penilaian huruf
      * 2  = pengumpulan
+ *      3 = penilaian angka
      */
 
 class tes_model extends CI_Model{

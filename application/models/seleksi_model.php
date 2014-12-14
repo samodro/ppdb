@@ -90,6 +90,24 @@ class seleksi_model extends CI_Model{
         }
     }
     
+    function select_seleksi_byPeserta($id_peserta)
+    {
+        $this->db->where('trash','n');
+        $this->db->where('id_peserta',$id_peserta);
+        $SQL    =   $this->db->get($this->table_seleksi);
+        if($SQL->num_rows() > 0)
+        {
+            foreach ($SQL->result() as $row) {
+                $data[] =   $row;
+            }
+            return $data;
+        }
+        else
+        {
+            return null;
+        }
+    }
+    
     function get_seleksi($id_seleksi)
     {
         $SQL = "select * from seleksi where id_seleksi = ? and trash = 'n'";
@@ -106,6 +124,23 @@ class seleksi_model extends CI_Model{
             return null;
         }
     }   
+    
+    function get_seleksi_byPesertaTes($id_peserta, $id_tes)
+    {
+        $SQL = "select * from seleksi where id_peserta = ? and id_tes = $id_tes and trash = 'n'";
+        $query = $this->db->query($SQL, $id_peserta);
+        if($this->db->affected_rows() == 1)
+        {
+            foreach($query->result() as $row)
+            {
+                return $row;    
+            }
+        }
+        else
+        {
+            return null;
+        }
+    }  
     
     function select_seleksi_peserta($id_tes)
     {

@@ -34,7 +34,7 @@
                                             <tr>
                                                 <th>Jenis Tes</th>
                                                 <th>Tipe Tes</th>
-                                                <th>Bobot</th>
+                                               <!-- <th>Bobot</th>-->
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -42,8 +42,8 @@
                                             <?php foreach($tes as $row): ?>
                                             <tr>
                                                 <td><a href="<?php echo base_url(); ?>seleksi/detailSeleksi?id_tes=<?php echo $row->id_tes; ?>" ><?php echo $row->jenis_tes?></a></td>
-                                                <td><?php if($row->status==1) echo "Penilaian"; elseif ($row->status==2) echo "Pengumpulan"; ?></td>
-                                                <td><?php echo $row->bobot ?></td>
+                                                <td><?php if($row->status==1) echo "Penilaian Huruf"; elseif ($row->status==2) echo "Pengumpulan"; else echo "Penilaian Angka"; ?></td>
+                                                <!--<td><?php echo $row->bobot ?></td>-->
                                             </tr>
                                             <?php endforeach;endif; ?>                                            
                                         </tbody>

@@ -27,7 +27,7 @@
                                                             <th>Nama Peserta</th>
                                                             <th>Asal Sekolah</th>
                                                             <th>Nilai UN</th>
-                                                            <th><?php if($tes->status==2) echo "Berkas"; else echo "Nilai Tes"; ?></th>
+                                                            <th><?php if($tes->status==2) echo "Berkas"; else echo "Jumlah Nilai"; ?></th>
                                                             <th>Status</th>
                                                         </tr>
                                                     </thead>

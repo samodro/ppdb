@@ -43,7 +43,7 @@
                                             <tr>
                                                 <th>Jenis Tes</th>
                                                 <th>Tipe Tes</th>
-                                                <th>Bobot</th>
+                                                <!--<th>Bobot</th>-->
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -52,8 +52,8 @@
                                             <?php foreach($tes as $row): ?>
                                             <tr>
                                                 <td><a href="<?php echo base_url(); ?>tes/kriteria?id_tes=<?php echo $row->id_tes; ?>" ><?php echo $row->jenis_tes?></a></td>
-                                                <td><?php if($row->status==1) echo "Penilaian"; elseif ($row->status==2) echo "Pengumpulan"; ?></td>
-                                                <td><?php echo $row->bobot ?></td>
+                                                <td><?php if($row->status==1) echo "Penilaian Huruf"; elseif ($row->status==2) echo "Pengumpulan"; elseif ($row->status==3) echo "Penilaian Angka"; ?></td>
+                                               <!-- <td><?php echo $row->bobot ?></td>-->
                                                 <td>
                                                     <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModalEdit<?php echo $row->id_tes; ?>">
                                                         <i class="fa fa-edit"></i>
@@ -104,14 +104,15 @@
             <div class="form-group">
                 <label>Jenis Penilaian</label>
                 <select class="form-control" name="status" style="width: 50%;">
-                    <option value="1">Penilaian</option>
-                    <option value="2">Pengumpulan</option>                    
+                    <option value="1">Penilaian Huruf</option>
+                    <option value="3">Penilaian Angka</option>  
+                    <option value="2">Pengumpulan</option>  
                 </select>
             </div>
-            <div class="form-group">
+           <!-- <div class="form-group">
                 <label>Bobot</label>
                 <input name="bobot" class="form-control" style="width: 50%;" >                                
-            </div>
+            </div>-->
         
       </div>
       <div class="modal-footer">
@@ -144,14 +145,15 @@
             <div class="form-group">
                 <label>Jenis Penilaian</label>
                 <select class="form-control" name="status" style="width: 50%;" >
-                    <option value="1" <?php if ($row->status ==1) echo "Selected"; ?>>Penilaian</option>
-                    <option value="2" <?php if ($row->status ==2) echo "Selected"; ?>>Pengumpulan</option>                    
+                    <option value="1" <?php if ($row->status ==1) echo "Selected"; ?>>Penilaian Huruf</option>
+                    <option value="3" <?php if ($row->status ==3) echo "Selected"; ?>>Penilaian Angka</option>  
+                    <option value="2" <?php if ($row->status ==2) echo "Selected"; ?>>Pengumpulan</option>                                                          
                 </select>
             </div>
-            <div class="form-group">
+            <!--<div class="form-group">
                 <label>Bobot</label>
                 <input name="bobot" class="form-control" style="width: 50%;" value="<?php echo $row->bobot; ?>">                                
-            </div>
+            </div>-->
         
       </div>
       <div class="modal-footer">

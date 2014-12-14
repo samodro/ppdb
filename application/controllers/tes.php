@@ -56,7 +56,7 @@ class Tes extends CI_Controller {
         
         public function editKriteria()
         {
-            if($this->input->post('jenis') && $this->input->post('bobot'))
+            if($this->input->post('jenis'))
             {
 
                 $kriteria = $this->kriteria_model->get_kriteria($this->input->post('id_kriteria'));                
@@ -64,7 +64,8 @@ class Tes extends CI_Controller {
                                                 
                 $kriteria->jenis_kriteria  = $this->input->post('jenis');                
                 $kriteria->status = $this->input->post('status');
-                $kriteria->bobot = $this->input->post('bobot');                                                                                                                
+                
+                if($this->input->post('bobot')) $kriteria->bobot = $this->input->post('bobot');                                                                                                                
                 
                 //echo  $this->input->post('tahun');
                 $this->kriteria_model->update_kriteria($kriteria->id_kriteria,$kriteria);

@@ -51,7 +51,7 @@ class kriteria_seleksi_model extends CI_Model{
     
     function update_kriteriaseleksi($id_kriteriaseleksi, $data)
     {
-        $this->db->where('id_kriteriaseleksi', $id_kriteriaseleksi);
+        $this->db->where('id_kriteria_seleksi', $id_kriteriaseleksi);
         $this->db->update($this->table_kriteriaseleksi, $data);
         if($this->db->affected_rows() > 0)
             return true;
@@ -62,7 +62,7 @@ class kriteria_seleksi_model extends CI_Model{
     
     function delete_kriteriaseleksi($id_kriteriaseleksi)
     {
-        $this->db->where('id_kriteriaseleksi', $id_kriteriaseleksi);
+        $this->db->where('id_kriteria_seleksi', $id_kriteriaseleksi);
         $this->db->delete($this->table_kriteriaseleksi);
         if($this->db->affected_rows() > 0)
         {
@@ -113,7 +113,7 @@ class kriteria_seleksi_model extends CI_Model{
     
     function get_kriteriaseleksi($id_kriteriaseleksi)
     {
-        $SQL = "select * from kriteriaseleksi where id_kriteriaseleksi = ? and trash = 'n'";
+        $SQL = "select * from kriteriaseleksi where id_kriteria_seleksi = ? and trash = 'n'";
         $query = $this->db->query($SQL, $id_kriteriaseleksi);
         if($this->db->affected_rows() == 1)
         {

@@ -27,7 +27,7 @@
                                         <thead>
                                             <tr>
                                                 <th>Jenis Kriteria</th>   
-                                                <th>Tipe Penilaian</th>
+                                                
                                             <?php if($tes->status==1): ?>    <th>Bobot</th> <? endif; ?>
                                                 <th></th>
                                             </tr>
@@ -37,7 +37,7 @@
                                             <?php foreach($kriteria as $row): ?>
                                             <tr>
                                                 <td><?php echo $row->jenis_kriteria; ?></td> 
-                                                <td><?php if ($row->status==2) echo "Penilaian Huruf"; else if($row->status==3) echo "Penilaian Angka"; else echo "Pengumpulan"; ?></td>
+                                                
                                                  <?php if($tes->status==1): ?><td><?php echo $row->bobot; ?></td><? endif; ?>
                                                 <td>
                                                     <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModalEdit<?php echo $row->id_kriteria; ?>">
@@ -83,21 +83,12 @@
         
             <input name="tahun" value="<?php echo $tes->tahun; ?>" class="form-control" style="display:none;" >
             <input name="id_tes" value="<?php echo $tes->id_tes; ?>" class="form-control" style="display:none;" >
+            <input name="status" value="<?php echo $tes->status; ?>" class="form-control" style="display:none;" >
             <div class="form-group">
                 <label>Jenis Kriteria</label>
                 <input name="jenis" class="form-control" style="width:50%;">                                
             </div>
-            <div class="form-group">
-                <label>Jenis Penilaian</label>
-                <select class="form-control" name="status" style="width: 50%;">
-                    <?php if($tes->status==1): ?>
-                    <option value="2">Penilaian Huruf</option>
-                    <option value="3">Penilaian Angka</option> 
-                    <?php else: ?>
-                    <option value="1">Pengumpulan</option> 
-                    <?php endif; ?>
-                </select>
-            </div>
+            
             <?php if($tes->status==1): ?>
             <div class="form-group">
                 <label>Bobot Kriteria</label>
@@ -129,27 +120,18 @@
       <div class="modal-body" style="overflow-y:auto;max-height: 420px;">        
            <input name="tahun" value="<?php echo $tes->tahun; ?>" class="form-control" style="display:none;" >
            <input name="id_tes" value="<?php echo $tes->id_tes; ?>" class="form-control" style="display:none;" >
+           <input name="status" value="<?php echo $tes->status; ?>" class="form-control" style="display:none;" >
            <input name="id_kriteria" value="<?php echo $row->id_kriteria; ?>" class="form-control" style="display:none;" >
             <div class="form-group">
                 <label>Jenis Kriteria</label>
                 <input name="jenis" class="form-control" style="width: 50%;" value="<?php echo $row->jenis_kriteria; ?>">                                
             </div>
-            <div class="form-group">
-                <label>Jenis Penilaian</label>
-                <select class="form-control" name="status" style="width: 50%;" >
-                    <?php if($tes->status==1): ?>
-                    <option value="2" <?php if($row->status==2) echo "Selected";?>>Penilaian Huruf</option>
-                    <option value="3" <?php if($row->status==3) echo "Selected";?>>Penilaian Angka</option> 
-                    <?php else: ?>
-                    <option value="1">Pengumpulan</option> 
-                    <?php endif; ?>                 
-                </select>
-            </div>
+           <?php if($tes->status==1): ?>
             <div class="form-group">
                 <label>Bobot</label>
                 <input name="bobot" class="form-control" style="width: 50%;" value="<?php echo $row->bobot; ?>">                                
             </div>
-        
+           <?php endif;?>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Keluar</button>

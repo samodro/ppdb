@@ -25,6 +25,7 @@ class Seleksi extends CI_Controller {
             $this->load->model('tes_model');
             $this->load->model('periode_model');
             $this->load->model('seleksi_model');
+            $this->load->model('kriteria_model');
             $this->load->model('kriteria_seleksi_model');
             $this->load->model('peserta_model');
             
@@ -81,9 +82,9 @@ class Seleksi extends CI_Controller {
         {
             if($this->input->get('id')!='')
             {
-                $data['kriteria'] = $this->kriteria_seleksi_model->select_kriteriaseleksi_seleksi($this->input->get('id'));
-                $data['seleksi'] = $this->seleksi_model->get_seleksi($this->input->get('id'));
-                $data['tes'] = $this->tes_model->get_tes($data['seleksi']->id_tes);
+                $data['kriteria'] = $this->kriteria_seleksi_model->select_kriteriaseleksi_seleksi($this->input->get('id'));                             
+                $data['seleksi'] = $this->seleksi_model->get_seleksi($this->input->get('id'));                                                             
+                $data['tes'] = $this->tes_model->get_tes($data['seleksi']->id_tes);                                
                 $data['peserta'] = $this->peserta_model->get_peserta($data['seleksi']->id_peserta);
                 $this->load->view('admin/header_view');
                 $this->load->view('admin/seleksi/kriteria_seleksi_view',$data);
@@ -93,6 +94,156 @@ class Seleksi extends CI_Controller {
             {
                 redirect(base_url().'seleksi/lihatSeleksi');
             }
+        }
+        
+        public function updateStatus()
+        {
+            $kriteria = $this->kriteria_seleksi_model->get_kriteriaseleksi($this->uri->segment(3));
+            if($kriteria->status == 0)
+            {
+                $kriteria->status = 1;                
+            }
+            else
+            {
+                $kriteria->status = 0;
+            }            
+            
+            $this->kriteria_seleksi_model->update_kriteriaseleksi($kriteria->id_kriteria_seleksi, $kriteria);
+           
+            
+            $seleksi = $this->updateStatusSeleksi($kriteria->id_seleksi);
+            
+            if($seleksi->status==1) $this->tambahSeleksi($seleksi);
+             
+            //echo $seleksi->status;
+            redirect(base_url().'seleksi/kriteriaSeleksi?id='.$kriteria->id_seleksi);
+        }
+        
+        public function tambahSeleksi($seleksi)
+        {
+            $peserta = $this->peserta_model->get_peserta($seleksi->id_peserta);
+            
+            $cekSeleksi = $this->seleksi_model->select_seleksi_byPeserta($seleksi->id_peserta);
+            if(count($cekSeleksi)==1)
+            {
+                            
+                $listtes = $this->tes_model->select_tes_periode($seleksi->tahun);
+                                
+                //var_dump($listtes);
+                foreach($listtes as $tes)
+                {
+                    //var_dump($tes);
+                    
+                    if($this->seleksi_model->get_seleksi_byPesertaTes($peserta->id_peserta, $tes->id_tes)) continue;
+                    $seleksi = array(
+                            'id_seleksi'=> '',
+                            'id_peserta'=> $peserta->id_peserta,
+                            'id_tes'=> $tes->id_tes,
+                            'totalnilai' => '0',
+                            'status' => '0',
+                            'tahun' => $peserta->periode,
+                            'trash' => 'n'                                        
+                        );
+
+                    $this->seleksi_model->add_seleksi($seleksi);
+
+                    $seleksiafter = $this->seleksi_model->get_seleksi_afterinsert($peserta->id_peserta, $tes->id_tes, $peserta->periode);
+                    $kriteria = $this->kriteria_model->select_kriteria_tes($tes->id_tes);
+
+                    foreach ($kriteria as $row)
+                    {
+                        $kriteriaseleksi = array (
+                            'id_kriteria_seleksi' => '',
+                            'id_seleksi' => $seleksiafter->id_seleksi,
+                            'id_kriteria' => $row->id_kriteria,
+                            'jenis_kriteria' => $row->jenis_kriteria,
+                            'nilai' => '0',
+                            'status' => 0,
+                            'trash' => 'n'
+                        );
+
+                        $this->kriteria_seleksi_model->add_kriteriaseleksi($kriteriaseleksi);
+                    }
+                }
+            }
+                
+        }
+        
+        public function AHP()
+        {
+            
+        }
+        
+        
+        public function editNilai()
+        {
+            if($this->input->post('id_kriteria_seleksi') && $this->input->post('nilai'))
+            {
+                $kriteria = $this->kriteria_seleksi_model->get_kriteriaseleksi($this->input->post('id_kriteria_seleksi'));
+                $kriteria->nilai = $this->input->post('nilai');
+                $kriteria->status = 1;
+                $this->kriteria_seleksi_model->update_kriteriaseleksi($kriteria->id_kriteria_seleksi, $kriteria);
+                
+                if($this->input->post('status')==1)
+                {
+                    
+                    //AHP
+                    $this->updateStatusSeleksi($kriteria->id_seleksi);
+                }
+                else
+                {
+                    $listKriteria = $this->kriteria_seleksi_model->select_kriteriaseleksi_seleksi($kriteria->id_seleksi);
+                    
+                    $total = 0;
+                    $complete = true;
+                    foreach($listKriteria as $row)
+                    {
+                        $total += $row->nilai;
+                        if($row->status==0) $complete = false;
+                    }
+                    
+                    $seleksi = $this->seleksi_model->get_seleksi($kriteria->id_seleksi);
+                    $seleksi->totalnilai = $total;
+                    if($complete) $seleksi->status = 1;
+                    $this->seleksi_model->update_seleksi($seleksi->id_seleksi, $seleksi);                    
+                }
+                redirect(base_url().'seleksi/kriteriaSeleksi?id='.$kriteria->id_seleksi);
+            }
+            else
+            {
+                redirect(base_url().'seleksi/lihatSeleksi');
+            }
+        }
+            
+        public function updateStatusSeleksi($id_seleksi)
+        {
+            $kriteria = $this->kriteria_seleksi_model->select_kriteriaseleksi_seleksi($id_seleksi);
+                
+            $done = true;
+
+            foreach($kriteria as $row)
+            {
+                if($row->status==0)
+                {
+                    $done = false;
+                    break;
+                }
+            }
+
+            $seleksi = $this->seleksi_model->get_seleksi($id_seleksi);
+
+            if($done)
+            {
+                $seleksi->status = 1;                
+            }
+            else
+            {
+                $seleksi->status = 0;
+            }
+                
+            $this->seleksi_model->update_seleksi($seleksi->id_seleksi, $seleksi);
+            
+            return $seleksi;
         }
                 
         
