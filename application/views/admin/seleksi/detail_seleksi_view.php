@@ -29,6 +29,7 @@
                                                             <th>Nilai UN</th>
                                                             <th><?php if($tes->status==2) echo "Berkas"; else echo "Jumlah Nilai"; ?></th>
                                                             <th>Status</th>
+                                                            <th></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -38,7 +39,7 @@
                                                             <td><?php echo $row->nama; ?></td>
                                                             <td><?php echo $row->asal_sekolah; ?></td>
                                                             <td><?php echo $row->nilaiUN; ?></td>
-                                                            <td><a href="<?php echo base_url()?>seleksi/kriteriaSeleksi?id=<?php echo $row->id_seleksi;?>"><?php if($tes->status==2) 
+                                                            <td><?php if($tes->status==2) 
                                                             {
                                                                 if($row->status==0) echo "Belum Lengkap";
                                                                 else echo "Lengkap";
@@ -47,9 +48,12 @@
                                                             {
                                                                 echo $row->totalnilai; 
                                                             }
-                                                            ?></a></td>
+                                                            ?></td>
                                                             <td>
                                                                 <?php if($row->status==0) echo '<i class="fa fa-times">'; else echo '<i class="fa fa-check">'; ?></i>                                                              
+                                                            </td>
+                                                            <td>
+                                                                <a href="<?php echo base_url()?>seleksi/kriteriaSeleksi?id=<?php echo $row->id_seleksi;?>"> <button class="btn btn-primary btn-xs" type="button">Pilih</button></a>
                                                             </td>
                                                         </tr>
                                                         <?php endforeach; endif; ?>                                                                                            

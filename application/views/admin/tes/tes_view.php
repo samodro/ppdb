@@ -51,7 +51,7 @@
                                             <?php if(isset($tes) && $tes!=null): ?>
                                             <?php foreach($tes as $row): ?>
                                             <tr>
-                                                <td><a href="<?php echo base_url(); ?>tes/kriteria?id_tes=<?php echo $row->id_tes; ?>" ><?php echo $row->jenis_tes?></a></td>
+                                                <td><?php echo $row->jenis_tes?></td>
                                                 <td><?php if($row->status==1) echo "Penilaian Huruf"; elseif ($row->status==2) echo "Pengumpulan"; elseif ($row->status==3) echo "Penilaian Angka"; ?></td>
                                                <!-- <td><?php echo $row->bobot ?></td>-->
                                                 <td>
@@ -61,6 +61,7 @@
                                                     <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModalDelete<?php echo $row->id_tes; ?>">
                                                         <i class="fa fa-times"></i>
                                                     </button>
+                                                    <a href="<?php echo base_url(); ?>tes/kriteria?id_tes=<?php echo $row->id_tes; ?>" > <button class="btn btn-warning btn-xs" type="button">Lihat Kriteria</button></a>
                                                 </td>
                                             </tr>
                                             <?php endforeach;endif; ?>                                            

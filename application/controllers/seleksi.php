@@ -174,6 +174,20 @@ class Seleksi extends CI_Controller {
             
         }
         
+        public function updateNilaiMahasiswa($id_peserta)
+        {
+            $seleksi = $this->seleksi_model->select_seleksi_byPeserta($id_peserta);
+            
+            $total = 0;
+            foreach($seleksi as $row)
+            {
+                $total += $row->totalnilai;
+            }
+                        
+            $peserta = $this->peserta_model->get_peserta($id_peserta);
+            //$peserta->
+            
+        }
         
         public function editNilai()
         {
@@ -205,7 +219,9 @@ class Seleksi extends CI_Controller {
                     $seleksi = $this->seleksi_model->get_seleksi($kriteria->id_seleksi);
                     $seleksi->totalnilai = $total;
                     if($complete) $seleksi->status = 1;
-                    $this->seleksi_model->update_seleksi($seleksi->id_seleksi, $seleksi);                    
+                    $this->seleksi_model->update_seleksi($seleksi->id_seleksi, $seleksi);    
+                    
+                    //$this->updateNilaiMahasiswa($seleksi->id_peserta);
                 }
                 redirect(base_url().'seleksi/kriteriaSeleksi?id='.$kriteria->id_seleksi);
             }

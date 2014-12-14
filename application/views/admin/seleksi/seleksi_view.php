@@ -34,6 +34,7 @@
                                             <tr>
                                                 <th>Jenis Tes</th>
                                                 <th>Tipe Tes</th>
+                                                <th></th>
                                                <!-- <th>Bobot</th>-->
                                             </tr>
                                         </thead>
@@ -41,8 +42,9 @@
                                             <?php if(isset($tes) && $tes!=null): ?>
                                             <?php foreach($tes as $row): ?>
                                             <tr>
-                                                <td><a href="<?php echo base_url(); ?>seleksi/detailSeleksi?id_tes=<?php echo $row->id_tes; ?>" ><?php echo $row->jenis_tes?></a></td>
+                                                <td><?php echo $row->jenis_tes?></td>
                                                 <td><?php if($row->status==1) echo "Penilaian Huruf"; elseif ($row->status==2) echo "Pengumpulan"; else echo "Penilaian Angka"; ?></td>
+                                                <td><a href="<?php echo base_url(); ?>seleksi/detailSeleksi?id_tes=<?php echo $row->id_tes; ?>" > <button class="btn btn-primary btn-xs" type="button">Pilih</button></a></td>
                                                 <!--<td><?php echo $row->bobot ?></td>-->
                                             </tr>
                                             <?php endforeach;endif; ?>                                            

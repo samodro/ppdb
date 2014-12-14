@@ -31,7 +31,7 @@
                                                     </th>
                                                     <?php endif; ?>
                                                 <th>Status</th>
-                                               <?php if($tes->status!=2) echo "<th></th>"; ?>
+                                               <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -42,18 +42,22 @@
                                                 <td><?php echo $row->jenis_kriteria; ?></td>
                                                 <?php if($tes->status!=2):?><td><?php echo $row->nilai; ?></td>   <?php endif;?>                                                                                                                                             
                                                 <td><?php 
-                                                    if($tes->status!=2) :
+                                                    //if($tes->status!=2) :
                                                 if($row->status==1) echo '<i class="fa fa-check">'; else echo '<i class="fa fa-times">'; 
-                                                else:
-                                                   echo '<a href='.base_url().'seleksi/updateStatus/'.$row->id_kriteria_seleksi.'>'; if($row->status==1) echo '<i class="fa fa-check">'; else echo '<i class="fa fa-times">'; echo '</a>';
-                                                endif;
-?></i></td>
-                                                <?php if($tes->status!=2):?><td>
+                                                //else:
+                                                 //  echo '<a href='.base_url().'seleksi/updateStatus/'.$row->id_kriteria_seleksi.'>'; if($row->status==1) echo '<i class="fa fa-check">'; else echo '<i class="fa fa-times">'; echo '</a>';
+                                               // endif;
+?></i></td>                                     <td>
+                                                <?php if($tes->status!=2):?>
                                                     <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal<?php echo $row->id_kriteria_seleksi; ?>">
                                                         <i class="fa fa-edit"></i>
                                                     </button>
+                                                
+                                                <?php else:?>
+                                                    <a href=<?php echo base_url().'seleksi/updateStatus/'.$row->id_kriteria_seleksi.'>'; ?> <button class="btn btn-success btn-xs" type="button">Ubah Status</button></a>
+                                                    
+                                                  <?php  endif;?>
                                                 </td>
-                                                <?php endif;?>
                                             </tr>    
                                             <?php endforeach; endif; ?>
                                         </tbody>
