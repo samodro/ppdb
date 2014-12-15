@@ -48,7 +48,7 @@
                                                     </button>
                                                 </td>
                                             </tr>
-                                            <?php endforeach;endif; ?>                                              
+                                            <?php endforeach; endif; ?>                                              
                                         </tbody>
                                     </table>
                                 </div>
