@@ -21,6 +21,11 @@ class Seleksi extends CI_Controller {
         public function __construct() 
         {
             parent::__construct();            
+            
+            if($this->session->userdata('id_user')==null)
+            {
+                redirect(base_url().'admin');
+            }
            
             $this->load->model('tes_model');
             $this->load->model('periode_model');
@@ -174,18 +179,23 @@ class Seleksi extends CI_Controller {
             
         }
         
-        public function updateNilaiMahasiswa($id_peserta)
+        public function updateStatusMahasiswa($id_peserta)
         {
             $seleksi = $this->seleksi_model->select_seleksi_byPeserta($id_peserta);
             
-            $total = 0;
+            $complete = true;
             foreach($seleksi as $row)
             {
-                $total += $row->totalnilai;
+                if($row->status==0) $complete = false;
             }
-                        
+                       
             $peserta = $this->peserta_model->get_peserta($id_peserta);
-            //$peserta->
+            
+            if($complete && $peserta->status_peserta==0) $peserta->status_peserta = 1;
+            
+            $this->peserta_model->update_peserta($peserta->id_peserta, $peserta);
+            
+            
             
         }
         
@@ -221,7 +231,7 @@ class Seleksi extends CI_Controller {
                     if($complete) $seleksi->status = 1;
                     $this->seleksi_model->update_seleksi($seleksi->id_seleksi, $seleksi);    
                     
-                    //$this->updateNilaiMahasiswa($seleksi->id_peserta);
+                    $this->updateStatusMahasiswa($seleksi->id_peserta);
                 }
                 redirect(base_url().'seleksi/kriteriaSeleksi?id='.$kriteria->id_seleksi);
             }

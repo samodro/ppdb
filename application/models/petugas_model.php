@@ -42,6 +42,23 @@ class petugas_model extends CI_Model{
         }
     }
     
+    function login($username, $password)
+    {
+        $SQL = "select * from petugas where username = '$username' and pass = '$password' and trash = 'n' ";
+        $query = $this->db->query($SQL);
+        if($this->db->affected_rows() == 1)
+        {
+            foreach($query->result() as $row)
+            {
+                return $row;    
+            }
+        }
+        else
+        {
+            return null;
+        }
+    }
+    
     function select_petugas_periode($periode)
     {
         $this->db->where('trash','n');

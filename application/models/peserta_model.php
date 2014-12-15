@@ -105,9 +105,9 @@ class peserta_model extends CI_Model{
         }
     }   
     
-    function select_peserta_periode_total($periode)
+    function select_peserta_periode_total($periode,$kuota)
     {
-        $SQL = "select * from (select p.*, sum(s.totalnilai) as 'total' from peserta p, seleksi s where p.id_peserta = s.id_peserta and p.periode = '$periode' and s.tahun = '$periode' and p.trash = 'n' and s.trash = 'n' group by p.id_peserta) a order by a.total desc";
+        $SQL = "select * from (select p.*, sum(s.totalnilai) as 'total' from peserta p, seleksi s where p.id_peserta = s.id_peserta and p.periode = '$periode' and p.status_peserta > 0 and s.tahun = '$periode' and p.trash = 'n' and s.trash = 'n' group by p.id_peserta) a order by a.total desc limit 0, $kuota";
         $query = $this->db->query($SQL);
         if($this->db->affected_rows() > 0)
         {

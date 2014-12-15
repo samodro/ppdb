@@ -20,6 +20,8 @@
                                                     $ci->load->model('kriteria_model');?>
                         <form role="form" action="<?php echo base_url();?>tes/doTambahTes">                                                                                                                                                            
                                 <div class="table-responsive">
+                                    
+                                    <?php if(isset($kriteria) && $kriteria!=null): ?>
                                     <table class="table table-bordered table-hover table-striped">
                                         <thead>
                                             <tr>
@@ -35,7 +37,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php if(isset($kriteria) && $kriteria!=null): ?>
+                                            
                                             <?php foreach($kriteria as $row): ?>
                                             <tr>
                                                 <td><?php echo $peserta->nama; ?></td>
@@ -59,9 +61,10 @@
                                                   <?php  endif;?>
                                                 </td>
                                             </tr>    
-                                            <?php endforeach; endif; ?>
+                                            <?php endforeach;  ?>
                                         </tbody>
                                     </table>
+                                    <?php endif; ?>
                                 </div>
                                                                             
                             </form>
@@ -69,7 +72,7 @@
                         
 
                     </div>
-                <a href="<?php echo base_url().'/seleksi/detailSeleksi?id_tes='.$tes->id_tes;?>"> <button class="btn btn-primary" type="button">Kembali</button></a>
+                <a href="<?php echo base_url().'seleksi/detailSeleksi?id_tes='.$tes->id_tes;?>"> <button class="btn btn-primary btn-lg" type="button">Kembali</button></a>
                 </div>
             
                 <!-- /.row -->

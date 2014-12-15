@@ -25,11 +25,19 @@ class Admin extends CI_Controller {
             
             $this->load->model('periode_model');
             $this->load->model('tes_model');
+            $this->load->model('petugas_model');
         }
         
 	public function index()
 	{		
-                $this->load->view('admin/login_view');                
+            if($this->session->userdata('id_user')!=null)
+            {
+                redirect(base_url().'admin/dashboard');
+            }
+            else
+            {
+                $this->load->view('admin/login_view');  
+            }
 	}
         
         public function dashboard()
@@ -41,6 +49,8 @@ class Admin extends CI_Controller {
                     $data = array(
                         'id_periode' => '',
                         'tahun'  => date("Y"),
+                        'status_periode' => 0,
+                        'kuota' => 100,
                         'trash' => 'n'
                     );
                     $this->periode_model->add_periode($data);
@@ -60,6 +70,45 @@ class Admin extends CI_Controller {
                 $this->load->view('admin/header_view');
                 $this->load->view('admin/dashboard_view');
                 $this->load->view('admin/footer_view');
+        }
+        
+        public function login()
+        {
+            if($this->input->post('username') && $this->input->post('password'))
+            {
+                  $petugas = $this->petugas_model->login($this->input->post('username'), $this->input->post('password'));
+                  if($petugas)
+                  {
+                      $this->session->set_userdata(array(
+                            'id_user'       => $petugas->id_user,
+                            'nama'          => $petugas->nama,
+                            'username'      => $petugas->username,
+                            'pass'       => $petugas->pass,
+                            'type'          => $petugas->type,                            
+                      ));
+                      redirect(base_url().'admin/dashboard');
+                  }
+                  else
+                  {
+                      redirect(base_url().'admin');
+                  }
+            }
+            else
+            {
+                redirect(base_url().'admin');
+            }
+        }
+        
+        public function logout()
+        {
+            $this->session->unset_userdata(array(
+                            'id_user'       => '',
+                            'nama'          => '',
+                            'username'      => '',
+                            'pass'          => '',
+                            'type'          => '',                            
+                      ));
+            redirect(base_url().'admin');
         }
         
         public function coba()

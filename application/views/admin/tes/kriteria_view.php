@@ -23,6 +23,7 @@
                                 <br/>
                                 <br/>
                                 <div class="table-responsive">
+                                    <?php if(isset($kriteria) && $kriteria!=null): ?>
                                     <table class="table table-bordered table-hover table-striped">
                                         <thead>
                                             <tr>
@@ -33,7 +34,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php if(isset($kriteria) && $kriteria!=null): ?>
+                                            
                                             <?php foreach($kriteria as $row): ?>
                                             <tr>
                                                 <td><?php echo $row->jenis_kriteria; ?></td> 
@@ -48,9 +49,10 @@
                                                     </button>
                                                 </td>
                                             </tr>
-                                            <?php endforeach; endif; ?>                                              
+                                            <?php endforeach; ?>                                              
                                         </tbody>
                                     </table>
+                                    <?php endif; ?>
                                 </div>
                             </div>                    
 
@@ -59,6 +61,7 @@
                         
 
                     </div>
+                <a href="<?php echo base_url().'tes/lihatTes';?>"> <button class="btn btn-primary btn-lg" type="button">Kembali</button></a>
                 </div>
                 <!-- /.row -->
 

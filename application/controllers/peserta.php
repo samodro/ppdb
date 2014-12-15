@@ -23,6 +23,11 @@ class Peserta extends CI_Controller {
             
             parent::__construct();
             
+            if($this->session->userdata('id_user')==null)
+            {
+                redirect(base_url().'admin');
+            }
+            
             $this->load->model('peserta_model');
             $this->load->model('periode_model');
             $this->load->model('tes_model');
@@ -77,7 +82,9 @@ class Peserta extends CI_Controller {
                 $peserta->tempat = $this->input->post('tempat');
                 $peserta->asal_sekolah = $this->input->post('asal');
                 $peserta->nilaiUN = $this->input->post('nilai');            
-                $peserta->nama_orang_tua = $this->input->post('ortu');                                                                                                  
+                $peserta->nama_orang_tua = $this->input->post('ortu'); 
+                $peserta->psikotest = $this->input->post('psikotest');
+                
                 
                 //echo  $this->input->post('tahun');
                 $this->peserta_model->update_peserta($peserta->id_peserta,$peserta);
@@ -123,7 +130,9 @@ class Peserta extends CI_Controller {
                         'nilaiUN' => $this->input->post('nilai'),
                         'periode' => $this->input->post('tahun'),
                         'nama_orang_tua' => $this->input->post('ortu'),                                                                       
-                        'timestamp' => date("Y-m-d H:i:s"),                        
+                        'timestamp' => date("Y-m-d H:i:s"), 
+                        'status_peserta' => 0,
+                        'psikotest' => $this->input->post('psikotest'),
                         'trash' => 'n',
                 );
                 

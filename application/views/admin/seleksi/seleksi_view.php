@@ -29,6 +29,7 @@
                                 </select>
                             </div>                                 
                                 <div class="table-responsive">
+                                    <?php if(isset($tes) && $tes!=null): ?>
                                     <table class="table table-bordered table-hover table-striped">
                                         <thead>
                                             <tr>
@@ -39,17 +40,18 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php if(isset($tes) && $tes!=null): ?>
+                                            
                                             <?php foreach($tes as $row): ?>
                                             <tr>
                                                 <td><?php echo $row->jenis_tes?></td>
                                                 <td><?php if($row->status==1) echo "Penilaian Huruf"; elseif ($row->status==2) echo "Pengumpulan"; else echo "Penilaian Angka"; ?></td>
-                                                <td><a href="<?php echo base_url(); ?>seleksi/detailSeleksi?id_tes=<?php echo $row->id_tes; ?>" > <button class="btn btn-primary btn-xs" type="button">Pilih</button></a></td>
+                                                <td><a href="<?php echo base_url(); ?>seleksi/detailSeleksi?id_tes=<?php echo $row->id_tes; ?>" > <button class="btn btn-success btn-xs" type="button">Pilih</button></a></td>
                                                 <!--<td><?php echo $row->bobot ?></td>-->
                                             </tr>
-                                            <?php endforeach;endif; ?>                                            
+                                            <?php endforeach;?>                                            
                                         </tbody>
                                     </table>
+                                    <?php endif; ?>
                                 </div>
                             </div>                    
 

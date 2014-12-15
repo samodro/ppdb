@@ -23,6 +23,11 @@ class Petugas extends CI_Controller {
             
             parent::__construct();
             
+            if($this->session->userdata('id_user') && $this->session->userdata('type')!='admin')
+            {
+                redirect(base_url.'admin');
+            }
+            
             $this->load->model('petugas_model');           
         }
         

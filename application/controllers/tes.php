@@ -23,6 +23,11 @@ class Tes extends CI_Controller {
         {
             parent::__construct();            
            
+            if($this->session->userdata('id_user')==null)
+            {
+                redirect(base_url().'admin');
+            }
+            
             $this->load->model('tes_model');
             $this->load->model('periode_model');
             $this->load->model('kriteria_model');

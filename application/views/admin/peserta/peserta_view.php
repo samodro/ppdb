@@ -39,6 +39,7 @@
                                 <br/>
                                 <br/>
                                 <div class="table-responsive">
+                                    <?php if(isset($peserta) && $peserta!=null):?>
                                     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                         <thead>
                                             <tr>
@@ -49,8 +50,8 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php if(isset($peserta) && $peserta!=null):
-                                                foreach ($peserta as $row): ?>
+                                            
+                                             <?php   foreach ($peserta as $row): ?>
                                             <tr>
                                                 
                                                 <td><?php echo $row->nama; ?> </td>                                                
@@ -65,9 +66,10 @@
                                                     </button>
                                                 </td>
                                             </tr>
-                                            <?php endforeach; endif;?>
+                                            <?php endforeach; ?>
                                         </tbody>
                                     </table>
+                                    <?php endif; ?>
                                 </div>                                                                      
                             
                         </div>
@@ -123,6 +125,10 @@
                 <input name="nilai" class="form-control" style="width: 20%;" >                                
             </div>
             <div class="form-group">
+                <label>Psikotest</label>
+                <input name="psikotest" class="form-control" style="width: 50%;" >                                
+            </div>
+            <div class="form-group">
                 <label>Nama Orang Tua</label>
                 <input name="ortu" class="form-control" style="width: 50%;" >                                
             </div>
@@ -175,6 +181,10 @@
             <div class="form-group">
                 <label>Nilai UN</label>
                 <input name="nilai" class="form-control" style="width: 20%;" value="<?php echo $row->nilaiUN; ?>">                                
+            </div>
+            <div class="form-group">
+                <label>Psikotest</label>
+                <input name="psikotest" class="form-control" style="width: 20%;" value="<?php echo $row->psikotest; ?>">                                
             </div>
             <div class="form-group">
                 <label>Nama Orang Tua</label>

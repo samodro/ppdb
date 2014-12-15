@@ -15,12 +15,12 @@
                 <!-- /.row -->
 
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-8">
 
                         <form role="form" action="<?php echo base_url();?>tes/doTambahTes">
                             <div class="form-group">
                                 <label>Periode Seleksi</label>
-                                <select class="form-control" id="periode" name="status" style="width: 50%;">
+                                <select class="form-control" id="periode" name="status" style="width: 35%;">
                                     <?php if(isset($periode) && $periode!=null):?>
                                     <?php foreach ($periode as $row): ?>
                                         <option value="<?php echo $row->tahun;?>" <?php if($row->tahun==$tahun) echo "selected"; ?>><?php echo $row->tahun;?>/<?php echo $row->tahun+1;?></option>
@@ -38,6 +38,7 @@
                                 <br/>
                                 <br/>
                                 <div class="table-responsive">
+                                     <?php if(isset($tes) && $tes!=null): ?>
                                     <table class="table table-bordered table-hover table-striped">
                                         <thead>
                                             <tr>
@@ -48,7 +49,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php if(isset($tes) && $tes!=null): ?>
+                                           
                                             <?php foreach($tes as $row): ?>
                                             <tr>
                                                 <td><?php echo $row->jenis_tes?></td>
@@ -64,9 +65,10 @@
                                                     <a href="<?php echo base_url(); ?>tes/kriteria?id_tes=<?php echo $row->id_tes; ?>" > <button class="btn btn-warning btn-xs" type="button">Lihat Kriteria</button></a>
                                                 </td>
                                             </tr>
-                                            <?php endforeach;endif; ?>                                            
+                                            <?php endforeach;?>                                            
                                         </tbody>
                                     </table>
+                                    <?php endif; ?>
                                 </div>
                             </div>                    
 
