@@ -93,14 +93,16 @@ class kriteria_seleksi_model extends CI_Model{
     }
     
     
+    
+    
     function select_kriteriaseleksi_new($id_seleksi)
     {
-        $SQL = "select * from kriteriaseleksi ks, kriteria k where id_seleksi = $id_seleksi and ks.id_kriteria = k.id_kriteria and trash = 'n'";
+        $SQL = "select *, ks.status as 'status_asli', sk.bobot as 'bobot_sub', k.bobot as 'bobot_kri' from kriteriaseleksi ks, kriteria k, sub_kriteria sk where ks.nilai = sk.jenis_sub_kriteria and  k.id_tes = sk.id_tes and id_seleksi = $id_seleksi and ks.id_kriteria = k.id_kriteria and k.trash = 'n' and ks.trash = 'n'";
         $query = $this->db->query($SQL);
-        if($this->db->affected_rows() == 1)
-        if($SQL->num_rows() > 0)
+        if($this->db->affected_rows() > 0)
         {
-            foreach ($SQL->result() as $row) {
+            foreach ($query->result() as $row) 
+            {
                 $data[] =   $row;
             }
             return $data;

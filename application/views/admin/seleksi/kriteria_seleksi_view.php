@@ -99,15 +99,14 @@
       <div class="modal-body">
           <input name="id_kriteria_seleksi" value="<?php echo $row->id_kriteria_seleksi; ?>" class="form-control" style="display:none;" >
            <input name="status" value="<?php echo $tes->status; ?>" class="form-control" style="display:none;" >
+           <input name="detail" value="0" id="detail" class="form-control" style="display:none;" >
             <?php if($tes->status==1):?>
             <div class="form-group">
                 <label>Nilai</label>
                 <select class="form-control" name="nilai" style="width: 15%;">
-                    <option value="A" <?php if($row->nilai=="A") echo "selected";?> >A</option>
-                    <option value="B" <?php if($row->nilai=="B") echo "selected";?> >B</option>
-                    <option value="C" <?php if($row->nilai=="C") echo "selected";?> >C</option>
-                    <option value="D" <?php if($row->nilai=="D") echo "selected";?> >D</option>
-                    <option value="E" <?php if($row->nilai=="E") echo "selected";?> >E</option>
+                    <?php foreach($sub_kriteria as $sub): ?>
+                        <option value="<?php echo $sub->jenis_sub_kriteria;?>" <?php if($row->nilai==$sub->jenis_sub_kriteria) echo "selected";?> ><?php echo $sub->jenis_sub_kriteria;?></option>                   
+                    <?php endforeach; ?>
                 </select>
             </div>
         <?php elseif($tes->status==3): ?>
@@ -129,10 +128,13 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Keluar</button>
-        <button type="submit" class="btn btn-primary">Simpan</button>
+        <button type="submit" name="submit" class="btn btn-primary">Simpan</button>
+        <button type="submit" name="detailsubmit" class="btn btn-warning">Detail</button>
       </div>
       </form>
     </div>
   </div>
 </div>
     <?php     endforeach; endif;?>
+
+    

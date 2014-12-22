@@ -29,7 +29,7 @@
                                             <tr>
                                                 <th>Jenis Kriteria</th>   
                                                 
-                                            <?php if($tes->status==1): ?>    <th>Bobot</th> <? endif; ?>
+                                            <?php if($tes->status==1): ?>    <th>Bobot</th> <?php endif; ?>
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -39,7 +39,7 @@
                                             <tr>
                                                 <td><?php echo $row->jenis_kriteria; ?></td> 
                                                 
-                                                 <?php if($tes->status==1): ?><td><?php echo $row->bobot; ?></td><? endif; ?>
+                                                 <?php if($tes->status==1): ?><td><?php echo $row->bobot; ?></td><?php endif; ?>
                                                 <td>
                                                     <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModalEdit<?php echo $row->id_kriteria; ?>">
                                                         <i class="fa fa-edit"></i>

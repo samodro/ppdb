@@ -4,23 +4,23 @@
  */
 
 /*
-     1  = penilaian huruf
+     1  = penilaian sub_kriteria
      * 2  = pengumpulan
  *      3 = penilaian angka
      */
 
-class tes_model extends CI_Model{
-    private  $table_tes;
+class sub_kriteria_model extends CI_Model{
+    private  $table_sub_kriteria;
     
     public function __construct() {
         parent::__construct();
-        $this->table_tes    =   'tes';
+        $this->table_sub_kriteria    =   'sub_kriteria';
         
     }
     
   
-    function add_tes($data){
-        $this->db->insert($this->table_tes, $data);
+    function add_sub_kriteria($data){
+        $this->db->insert($this->table_sub_kriteria, $data);
         if($this->db->affected_rows() > 0)
         {
             return true;
@@ -31,10 +31,10 @@ class tes_model extends CI_Model{
         }
     }
     
-    function select_tes()
+    function select_sub_kriteria()
     {
         $this->db->where('trash','n');
-        $SQL    =   $this->db->get($this->table_tes);
+        $SQL    =   $this->db->get($this->table_sub_kriteria);
         if($SQL->num_rows() > 0)
         {
             foreach ($SQL->result() as $row) {
@@ -48,10 +48,10 @@ class tes_model extends CI_Model{
         }
     }
     
-    function update_tes($id_tes, $data)
+    function update_sub_kriteria($id_sub_kriteria, $data)
     {
-        $this->db->where('id_tes', $id_tes);
-        $this->db->update($this->table_tes, $data);
+        $this->db->where('id_sub_kriteria', $id_sub_kriteria);
+        $this->db->update($this->table_sub_kriteria, $data);
         if($this->db->affected_rows() > 0)
             return true;
         else
@@ -59,10 +59,10 @@ class tes_model extends CI_Model{
     }
     
     
-    function delete_tes($id_tes)
+    function delete_sub_kriteria($id_sub_kriteria)
     {
-        $this->db->where('id_tes', $id_tes);
-        $this->db->delete($this->table_tes);
+        $this->db->where('id_sub_kriteria', $id_sub_kriteria);
+        $this->db->delete($this->table_sub_kriteria);
         if($this->db->affected_rows() > 0)
         {
             return true;
@@ -73,12 +73,12 @@ class tes_model extends CI_Model{
         }
     }      
     
-    function select_tes_periode($periode)
+    function select_sub_kriteria_periode($periode)
     {
         $this->db->where('trash','n');
         $this->db->where('tahun',$periode);
-        $this->db->order_by('id_tes','asc');
-        $SQL    =   $this->db->get($this->table_tes);
+        $this->db->order_by('id_sub_kriteria','asc');
+        $SQL    =   $this->db->get($this->table_sub_kriteria);
         if($SQL->num_rows() > 0)
         {
             foreach ($SQL->result() as $row) {
@@ -92,10 +92,10 @@ class tes_model extends CI_Model{
         }
     }
     
-    function get_tes($id_tes)
+    function get_sub_kriteria($id_sub_kriteria)
     {
-        $SQL = "select * from tes where id_tes = ? and trash = 'n'";
-        $query = $this->db->query($SQL, $id_tes);
+        $SQL = "select * from sub_kriteria where id_sub_kriteria = ? and trash = 'n'";
+        $query = $this->db->query($SQL, $id_sub_kriteria);
         if($this->db->affected_rows() == 1)
         {
             foreach($query->result() as $row)
@@ -109,9 +109,9 @@ class tes_model extends CI_Model{
         }
     }   
     
-    function get_tes_pegawai($id_user)
+    function select_sub_kriteria_byIdTes($id_tes)
     {
-        $SQL = "select * from tes where id_user = $id_user and trash = 'n'";
+        $SQL = "select * from sub_kriteria where id_tes = $id_tes and trash = 'n'";
         $query = $this->db->query($SQL);
         if($this->db->affected_rows() > 0)
         {
@@ -127,9 +127,10 @@ class tes_model extends CI_Model{
         }
     }
     
-    function get_tes_afterinsert($jenis_tes, $tahun)
+    
+    function get_sub_kriteria_afterinsert($jenis_sub_kriteria, $tahun)
     {
-        $SQL = "select * from tes where  jenis_tes = '$jenis_tes' and tahun = '$tahun' and trash = 'n'";
+        $SQL = "select * from sub_kriteria where  jenis_sub_kriteria = '$jenis_sub_kriteria' and tahun = '$tahun' and trash = 'n'";
         $query = $this->db->query($SQL);
         if($this->db->affected_rows() == 1)
         {

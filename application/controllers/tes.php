@@ -31,6 +31,7 @@ class Tes extends CI_Controller {
             $this->load->model('tes_model');
             $this->load->model('periode_model');
             $this->load->model('kriteria_model');
+            $this->load->model('sub_kriteria_model');
             
             session_start();
             
@@ -185,6 +186,31 @@ class Tes extends CI_Controller {
             }                        
         }
         
+        public function automaticHuruf($id_tes)
+        {
+            $sub = array(
+                'id_sub_kriteria' => '',
+                'id_tes' => $id_tes,
+                'jenis_sub_kriteria' => 'A',
+                'bobot' => '5',
+                'trash' => 'n'
+                
+            );
+            
+            $i = 5;
+            $letters = range('A', 'E');
+            
+            foreach ($letters as $row)
+            {
+                $sub['jenis_sub_kriteria'] = $row; 
+                $sub['bobot'] = $i--;
+                
+                
+                $this->sub_kriteria_model->add_sub_kriteria($sub);
+            }        
+            
+        }
+        
         public function tambahTes()
         {
             if($this->input->post('jenis'))
@@ -198,12 +224,17 @@ class Tes extends CI_Controller {
                                 'trash' => 'n',
                             );
                 $this->tes_model->add_tes($tes);
+                
+                $this->automaticHuruf($this->tes_model->get_tes_afterinsert($tes['jenis_tes'],$tes['tahun'])->id_tes);
+                
                 redirect(base_url().'tes/lihatTes');
             }
             else
             {
                 redirect(base_url().'tes/lihatTes');
             }
+            
+            
         }
         
 

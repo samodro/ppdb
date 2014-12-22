@@ -82,8 +82,7 @@ class Peserta extends CI_Controller {
                 $peserta->tempat = $this->input->post('tempat');
                 $peserta->asal_sekolah = $this->input->post('asal');
                 $peserta->nilaiUN = $this->input->post('nilai');            
-                $peserta->nama_orang_tua = $this->input->post('ortu'); 
-                $peserta->psikotest = $this->input->post('psikotest');
+                $peserta->nama_orang_tua = $this->input->post('ortu');                 
                 
                 
                 //echo  $this->input->post('tahun');
@@ -131,8 +130,7 @@ class Peserta extends CI_Controller {
                         'periode' => $this->input->post('tahun'),
                         'nama_orang_tua' => $this->input->post('ortu'),                                                                       
                         'timestamp' => date("Y-m-d H:i:s"), 
-                        'status_peserta' => 0,
-                        'psikotest' => $this->input->post('psikotest'),
+                        'status_peserta' => 0,                        
                         'trash' => 'n',
                 );
                 

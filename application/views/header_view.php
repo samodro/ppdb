@@ -41,7 +41,7 @@
       <li><a href="<?php echo base_url();?>home/jadwalkegiatan">Jadwal Kegiatan</a></li>
       <li><a href="<?php echo base_url();?>home/hasilseleksi">Hasil Seleksi</a></li>
       <li><a href="<?php echo base_url();?>home/hubungikami">Hubungi Kami</a></li>
-      <li><a href="<?php echo base_url();?>home/login">Login</a></li>
+      
       
     </ul>
       </div>

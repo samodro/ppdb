@@ -33,6 +33,7 @@ class Seleksi extends CI_Controller {
             $this->load->model('kriteria_model');
             $this->load->model('kriteria_seleksi_model');
             $this->load->model('peserta_model');
+            $this->load->model('sub_kriteria_model');
             
             session_start();
             
@@ -89,7 +90,8 @@ class Seleksi extends CI_Controller {
             {
                 $data['kriteria'] = $this->kriteria_seleksi_model->select_kriteriaseleksi_seleksi($this->input->get('id'));                             
                 $data['seleksi'] = $this->seleksi_model->get_seleksi($this->input->get('id'));                                                             
-                $data['tes'] = $this->tes_model->get_tes($data['seleksi']->id_tes);                                
+                $data['tes'] = $this->tes_model->get_tes($data['seleksi']->id_tes);    
+                $data['sub_kriteria'] = $this->sub_kriteria_model->select_sub_kriteria_byIdTes($data['seleksi']->id_tes);
                 $data['peserta'] = $this->peserta_model->get_peserta($data['seleksi']->id_peserta);
                 $this->load->view('admin/header_view');
                 $this->load->view('admin/seleksi/kriteria_seleksi_view',$data);
@@ -174,10 +176,7 @@ class Seleksi extends CI_Controller {
                 
         }
         
-        public function AHP()
-        {
-            
-        }
+        
         
         public function updateStatusMahasiswa($id_peserta)
         {
@@ -199,6 +198,300 @@ class Seleksi extends CI_Controller {
             
         }
         
+        public function AHPsubKriteria($id_tes)
+        {
+            $sub_kriteria = $this->sub_kriteria_model->select_sub_kriteria_byIdTes($id_tes);
+            
+            $ahp1 = array();
+            $totalahp1 = array(); 
+            $totalahp2 = array(); 
+            
+            $i = 0;
+            
+            foreach($sub_kriteria as $row)
+            {
+                $ahp1[$i] = array();
+            }
+            
+            
+            $i = 0;
+            foreach($sub_kriteria as $row)
+            {
+                
+                $j = 0;
+                $totalahp1[$i] = 0;
+                foreach($sub_kriteria as $kolom)
+                {
+                    $ahp1[$j][$i] = $kolom->bobot/$row->bobot;
+                    //echo $j." - ".$i." - ".$ahp1[$j][$i]."<br/>";
+                    $totalahp1[$i] += $ahp1[$j][$i];
+                    $j++;
+                }
+                $i++;
+            }
+            
+            
+            
+            //echo count($sub_kriteria);
+            echo "<h1>SUB KRITERIA</h1>";
+            echo "<br/> TABEL 1 <br/>";
+            
+            echo "<table border='2'><thead><tr>";
+            echo "<th></th>";
+            for($i = 0; $i<count($sub_kriteria); $i++)
+            {
+                echo "<th>".$sub_kriteria[$i]->jenis_sub_kriteria."</th>";
+            }
+            echo "</tr></thead>";
+            
+            for($i = 0; $i<count($sub_kriteria); $i++)
+            {
+                echo "<tr>";
+                echo "<td>".$sub_kriteria[$i]->jenis_sub_kriteria."</td>";
+                for($j = 0; $j<count($sub_kriteria); $j++)
+                {
+                    echo "<td>".sprintf("%.2f", $ahp1[$i][$j])."</td>";
+                }
+                echo "</tr>";
+            }
+            
+            echo "<tr>";
+            echo "<td>Total</td>";                      
+            for($i = 0; $i<count($sub_kriteria); $i++)
+            {
+                echo "<td>".$totalahp1[$i]."</td>";
+            }
+            
+            echo "</tr></table>";
+            
+            
+          
+            
+           
+            for($i = 0; $i<count($sub_kriteria); $i++)
+            {
+                $totalahp2[$i] = 0;
+                for($j = 0; $j<count($sub_kriteria); $j++)
+                {
+                    $ahp1[$i][$j] /= $totalahp1[$i];
+                     
+                    
+                    $totalahp2[$i] += $ahp1[$i][$j];
+                }
+                
+            }
+            
+                      
+            
+            echo "<br/> TABEL 2 <br/>";
+            echo "<table border='2'><thead><tr>";
+            echo "<th></th>";
+            for($i = 0; $i<count($sub_kriteria); $i++)
+            {
+                echo "<th>".$sub_kriteria[$i]->jenis_sub_kriteria."</th>";
+            }
+            echo "<th>Eigen Vektor Normalisasi sub-Kriteria</th></tr></thead>";
+            for($i = 0; $i<count($sub_kriteria); $i++)
+            {
+                echo "<tr>";
+                echo "<td>".$sub_kriteria[$i]->jenis_sub_kriteria."</td>";
+                for($j = 0; $j<count($sub_kriteria); $j++)
+                {
+                    echo "<td>".sprintf("%.2f", $ahp1[$i][$j])."</td>";
+                }
+                echo "<td>".$totalahp2[$i]."</td>";
+                echo "</tr>";
+            }
+            
+            echo "</table>"; 
+            
+            $subKriteria = array();
+            $i = 0;
+            foreach($sub_kriteria as $row)
+            {
+                
+                $subKriteria[$i] = array(
+                    'jenis_sub_kriteria' => $row->jenis_sub_kriteria,
+                    'bobot' => $row->bobot,
+                    'ahp' => $totalahp2[$i]
+                );
+                $i++;
+            }
+               
+            return $subKriteria;
+            
+        }
+        
+        public function AHPKriteria($kriteria)
+        {
+            $seleksi = $this->seleksi_model->get_seleksi($kriteria->id_seleksi);
+            
+            $subKriteria = $this->AHPsubKriteria($seleksi->id_tes);
+            
+            $listKriteria = $this->kriteria_seleksi_model->select_kriteriaseleksi_new($kriteria->id_seleksi);
+            
+            //var_dump($subKriteria);
+            //echo count($listKriteria);
+            $ahp1 = array();
+            $totalahp1 = array(); 
+            $totalahp2 = array(); 
+            
+            $i = 0;
+            
+            foreach($listKriteria as $row)
+            {
+                $ahp1[$i] = array();
+            }
+            
+            
+            $i = 0;
+            foreach($listKriteria as $row)
+            {
+                
+                $j = 0;
+                $totalahp1[$i] = 0;
+                foreach($listKriteria as $kolom)
+                {
+                    $ahp1[$j][$i] = $kolom->bobot_kri/$row->bobot_kri;
+                    //echo $j." - ".$i." - ".$ahp1[$j][$i]."<br/>";
+                    $totalahp1[$i] += $ahp1[$j][$i];
+                    $j++;
+                }
+                $i++;
+            }
+            
+            
+            
+            //echo count($listKriteria);
+            echo "<h1>KRITERIA</h1>";
+            echo "<br/> TABEL 1 <br/>";
+            
+            echo "<table border='2'><thead><tr>";
+            echo "<th></th>";
+            for($i = 0; $i<count($listKriteria); $i++)
+            {
+                echo "<th>".$listKriteria[$i]->jenis_kriteria."</th>";
+            }
+            echo "</tr></thead>";
+            for($i = 0; $i<count($listKriteria); $i++)
+            {
+                echo "<tr>";
+                echo "<td>".$listKriteria[$i]->jenis_kriteria."</td>";
+                for($j = 0; $j<count($listKriteria); $j++)
+                {
+                    echo "<td>".$ahp1[$i][$j]."</td>";
+                }
+                echo "</tr>";
+            }
+            
+            echo "<tr>";
+            echo "<td>Total</td>";                      
+            for($i = 0; $i<count($listKriteria); $i++)
+            {
+                echo "<td>".$totalahp1[$i]."</td>";
+            }
+            
+            echo "</tr></table>";
+            
+           
+            for($i = 0; $i<count($listKriteria); $i++)
+            {
+                $totalahp2[$i] = 0;
+                for($j = 0; $j<count($listKriteria); $j++)
+                {
+                    $ahp1[$i][$j] /= $totalahp1[$i];
+                    
+                    
+                    $totalahp2[$i] += $ahp1[$i][$j];
+                }                
+            }
+            
+            echo "<br/> TABEL 2 <br/>";
+            echo "<table border='2'><thead><tr>";
+            echo "<th></th>";
+            for($i = 0; $i<count($listKriteria); $i++)
+            {
+                echo "<th>".$listKriteria[$i]->jenis_kriteria."</th>";
+            }
+            echo "<th>Eigen Vektor Normalisasi Kriteria</th></tr></thead>";
+            for($i = 0; $i<count($listKriteria); $i++)
+            {
+                echo "<tr>";
+                echo "<td>".$listKriteria[$i]->jenis_kriteria."</td>";
+                for($j = 0; $j<count($listKriteria); $j++)
+                {
+                    echo "<td>".$ahp1[$i][$j]."</td>";
+                }
+                echo "<td>".$totalahp2[$i]."</td>";
+                echo "</tr>";
+            }
+            
+           echo "</table>";
+            
+           $total = 0;
+           $i = 0;
+           
+           echo "<br/> TABEL 3 <br/>";
+           echo "<table border='2'><thead><tr>";
+           echo "<th>Jenis Kriteria</th>";
+           echo "<th>Nilai</th>";
+           echo "<th>Eigen Vektor sub-Kriteria</th>";
+           echo "<th>Eigen Vektor Kriteria</th>";
+           echo "<th>Status</th>";
+           echo "<th>Hasil</th>";
+
+           echo "</tr></thead>";
+           
+           foreach($listKriteria as $row)
+           {
+               echo "<tr>";
+               echo "<td>".$row->jenis_kriteria."</td>";
+               if($row->status_asli==1)
+               {
+                   echo "<td>".$row->nilai."</td>";
+                   foreach($subKriteria as $sub)
+                   {
+                       //echo $sub['jenis_sub_kriteria']."-".$row->nilai."<br/>";
+                       if($sub['jenis_sub_kriteria'] == $row->nilai)
+                       {
+                           echo "<td>".$sub['ahp']."</td>";
+                           $row->ahp = $sub['ahp'];
+                       }
+                   }
+                   echo "<td>".$totalahp2[$i]."</td>";
+                   echo "<td>".$row->status_asli."</td>";
+                   
+                   echo "<td>".$row->ahp * $totalahp2[$i]."</td>";
+                   $total += $row->ahp * $totalahp2[$i];
+                   
+               }
+               else
+               {
+                   echo "<td>".$row->nilai."</td>";
+                   foreach($subKriteria as $sub)
+                   {
+                       if($sub['jenis_sub_kriteria'] == $row->nilai)
+                       {
+                           echo "<td>".$sub['ahp']."</td>";
+                       }
+                   }
+                   echo "<td>".$totalahp2[$i]."</td>";
+                   echo "<td>".$row->status_asli."</td>";
+                   echo "<td>0</td>";
+               }
+               echo "</tr>";
+               $i++;
+           }
+           echo "<tr><td></td><td></td><td></td><td></td>";
+           echo "<td></td><td>".$total."</td></tr></table>";
+           
+           $seleksi->totalnilai = $total;
+           
+           $this->seleksi_model->update_seleksi($seleksi->id_seleksi, $seleksi);
+           $this->updateStatusMahasiswa($seleksi->id_peserta);
+        }
+        
+        
         public function editNilai()
         {
             if($this->input->post('id_kriteria_seleksi') && $this->input->post('nilai'))
@@ -211,8 +504,9 @@ class Seleksi extends CI_Controller {
                 if($this->input->post('status')==1)
                 {
                     
-                    //AHP
+                    $this->AHPKriteria($kriteria);
                     $this->updateStatusSeleksi($kriteria->id_seleksi);
+                    
                 }
                 else
                 {
@@ -233,7 +527,11 @@ class Seleksi extends CI_Controller {
                     
                     $this->updateStatusMahasiswa($seleksi->id_peserta);
                 }
-                redirect(base_url().'seleksi/kriteriaSeleksi?id='.$kriteria->id_seleksi);
+                
+                if(isset($_POST['submit']))
+                {
+                    redirect(base_url().'seleksi/kriteriaSeleksi?id='.$kriteria->id_seleksi);
+                }
             }
             else
             {

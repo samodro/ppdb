@@ -44,25 +44,28 @@
                                             <tr>
                                                 <th>Jenis Tes</th>
                                                 <th>Tipe Tes</th>
-                                                <!--<th>Bobot</th>-->
+                                                <th>Bobot</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                            
-                                            <?php foreach($tes as $row): ?>
+                                            <?php $i = 0; foreach($tes as $row): ?>
                                             <tr>
                                                 <td><?php echo $row->jenis_tes?></td>
                                                 <td><?php if($row->status==1) echo "Penilaian Huruf"; elseif ($row->status==2) echo "Pengumpulan"; elseif ($row->status==3) echo "Penilaian Angka"; ?></td>
-                                               <!-- <td><?php echo $row->bobot ?></td>-->
+                                                <td><?php echo $row->bobot ?></td>
                                                 <td>
+                                                    <?php if($i++!=0):?>
                                                     <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModalEdit<?php echo $row->id_tes; ?>">
                                                         <i class="fa fa-edit"></i>
                                                     </button>
                                                     <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModalDelete<?php echo $row->id_tes; ?>">
                                                         <i class="fa fa-times"></i>
                                                     </button>
+                                                     <?php endif; ?>
                                                     <a href="<?php echo base_url(); ?>tes/kriteria?id_tes=<?php echo $row->id_tes; ?>" > <button class="btn btn-warning btn-xs" type="button">Lihat Kriteria</button></a>
+                                                   
                                                 </td>
                                             </tr>
                                             <?php endforeach;?>                                            
@@ -153,10 +156,10 @@
                     <option value="2" <?php if ($row->status ==2) echo "Selected"; ?>>Pengumpulan</option>                                                          
                 </select>
             </div>
-            <!--<div class="form-group">
+            <div class="form-group">
                 <label>Bobot</label>
                 <input name="bobot" class="form-control" style="width: 50%;" value="<?php echo $row->bobot; ?>">                                
-            </div>-->
+            </div>
         
       </div>
       <div class="modal-footer">

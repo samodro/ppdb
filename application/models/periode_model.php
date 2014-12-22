@@ -90,6 +90,23 @@ class periode_model extends CI_Model{
         }
     }
     
+    function get_periodebyTahun($tahun)
+    {
+        $SQL = "select * from periode where tahun = '$tahun' and trash = 'n'";
+        $query = $this->db->query($SQL);
+        if($this->db->affected_rows() > 0)
+        {
+            foreach ($query->result() as $row) 
+            {
+                return $row;
+            }
+        }
+        else
+        {
+            return null;
+        }
+    }
+    
     function get_periode_afterinsert($timestamp, $zakat, $no_rekening)
     {
         $SQL = "select * from periode where  zakat = $zakat and no_rekening = '$no_rekening' and timestamp = ? and trash = 'n'";

@@ -105,9 +105,9 @@ class peserta_model extends CI_Model{
         }
     }   
     
-    function select_peserta_periode_total($periode,$kuota)
+    function select_peserta_periode_total_lolos($periode,$kuota)
     {
-        $SQL = "select * from (select p.*, sum(s.totalnilai) as 'total' from peserta p, seleksi s where p.id_peserta = s.id_peserta and p.periode = '$periode' and p.status_peserta > 0 and s.tahun = '$periode' and p.trash = 'n' and s.trash = 'n' group by p.id_peserta) a order by a.total desc limit 0, $kuota";
+        $SQL = "select * from (select p.*, sum(s.totalnilai * t.bobot) as 'total' from peserta p, seleksi s, tes t where t.id_tes = s.id_tes and p.id_peserta = s.id_peserta and p.periode = '$periode' and p.status_peserta > 0 and s.tahun = '$periode' and p.trash = 'n' and s.trash = 'n' group by p.id_peserta) a order by a.total desc limit 0, $kuota";
         $query = $this->db->query($SQL);
         if($this->db->affected_rows() > 0)
         {
@@ -122,6 +122,25 @@ class peserta_model extends CI_Model{
             return null;
         }
     }
+    
+    function select_peserta_periode_total($periode)
+    {
+        $SQL = "select * from (select p.*, sum(s.totalnilai * t.bobot) as 'total' from peserta p, seleksi s, tes t where t.id_tes = s.id_tes and p.id_peserta = s.id_peserta and p.periode = '$periode' and p.status_peserta > 0 and s.tahun = '$periode' and p.trash = 'n' and s.trash = 'n' group by p.id_peserta) a order by a.total desc";
+        $query = $this->db->query($SQL);
+        if($this->db->affected_rows() > 0)
+        {
+            foreach ($query->result() as $row) 
+            {
+                $data[] =   $row;
+            }
+            return $data;
+        }
+        else
+        {
+            return null;
+        }
+    }
+    
     
     function get_peserta($id_peserta)
     {
@@ -156,6 +175,20 @@ class peserta_model extends CI_Model{
             return null;
         }
     }   
+    
+    function update_status($id_peserta, $status)
+    {
+        $SQL = "update peserta set status_peserta = '$status' where id_peserta = $id_peserta ";
+        $query = $this->db->query($SQL);
+        if($this->db->affected_rows() > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     
     
 }

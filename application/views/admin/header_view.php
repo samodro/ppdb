@@ -14,6 +14,8 @@
     <!-- Bootstrap Core CSS -->
     <link href="<?php echo base_url();?>cssb/bootstrap.min.css" rel="stylesheet">
     
+    <link href="<?php echo base_url();?>cssb/newBootstrap.css" rel="stylesheet">
+    
     <link href="<?php echo base_url();?>css/datepicker.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->

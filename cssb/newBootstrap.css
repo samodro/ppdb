@@ -1,0 +1,20 @@
+/* 
+    Document   : newBootstrap
+    Created on : Dec 20, 2014, 2:11:33 AM
+    Author     : toshiba
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+
+
+.modal-vertical-centered {
+  transform: translate(0, 120%) !important;
+  -ms-transform: translate(0, 120%) !important; /* IE 9 */
+  -webkit-transform: translate(0, 120%) !important; /* Safari and Chrome */
+}

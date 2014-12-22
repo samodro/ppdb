@@ -123,11 +123,7 @@
             <div class="form-group">
                 <label>Nilai UN</label>
                 <input name="nilai" class="form-control" style="width: 20%;" >                                
-            </div>
-            <div class="form-group">
-                <label>Psikotest</label>
-                <input name="psikotest" class="form-control" style="width: 50%;" >                                
-            </div>
+            </div>           
             <div class="form-group">
                 <label>Nama Orang Tua</label>
                 <input name="ortu" class="form-control" style="width: 50%;" >                                
@@ -182,10 +178,7 @@
                 <label>Nilai UN</label>
                 <input name="nilai" class="form-control" style="width: 20%;" value="<?php echo $row->nilaiUN; ?>">                                
             </div>
-            <div class="form-group">
-                <label>Psikotest</label>
-                <input name="psikotest" class="form-control" style="width: 20%;" value="<?php echo $row->psikotest; ?>">                                
-            </div>
+         
             <div class="form-group">
                 <label>Nama Orang Tua</label>
                 <input name="ortu" class="form-control" style="width: 50%;" value="<?php echo $row->nama_orang_tua; ?>">                                
