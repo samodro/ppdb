@@ -14,8 +14,12 @@
                 </div>
                 <!-- /.row -->
 
-                <div class="row">
-                    <div class="col-lg-6">                                                                                  
+                <div class="row">                 
+                    
+                    <div class="col-lg-6">   
+                       <?php if($CR!=null && $CR>0.1):?>
+                        <div class="alert alert-danger alert-dismissable" role="alert"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><strong>Perhatian!</strong> Preferensi pembobotan tidak konsisten dengan nilai CR = <?php echo sprintf("%.2f", $CR);?></div>
+                        <?php endif;?>
                                 <button type="button" class="btn btn-primary btn-lg fa fa-plus-circle" data-toggle="modal" data-target="#myModal">
                                    &nbsp; Buat Kriteria
                                 </button>
@@ -29,7 +33,7 @@
                                             <tr>
                                                 <th>Jenis Kriteria</th>   
                                                 
-                                            <?php if($tes->status==1): ?>    <th>Bobot</th> <?php endif; ?>
+                                            <?php if($tes->status==1 || $tes->status==5): ?>    <th>Bobot</th> <?php endif; ?>
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -39,7 +43,7 @@
                                             <tr>
                                                 <td><?php echo $row->jenis_kriteria; ?></td> 
                                                 
-                                                 <?php if($tes->status==1): ?><td><?php echo $row->bobot; ?></td><?php endif; ?>
+                                                 <?php if($tes->status==1 || $tes->status==5): ?><td><?php echo $row->bobot; ?></td><?php endif; ?>
                                                 <td>
                                                     <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModalEdit<?php echo $row->id_kriteria; ?>">
                                                         <i class="fa fa-edit"></i>
@@ -92,7 +96,7 @@
                 <input name="jenis" class="form-control" style="width:50%;">                                
             </div>
             
-            <?php if($tes->status==1): ?>
+            <?php if($tes->status==1||$tes->status==5): ?>
             <div class="form-group">
                 <label>Bobot Kriteria</label>
                 <input name="bobot" class="form-control" style="width:50%;">                                
@@ -129,7 +133,7 @@
                 <label>Jenis Kriteria</label>
                 <input name="jenis" class="form-control" style="width: 50%;" value="<?php echo $row->jenis_kriteria; ?>">                                
             </div>
-           <?php if($tes->status==1): ?>
+           <?php if($tes->status==1||$tes->status==5): ?>
             <div class="form-group">
                 <label>Bobot</label>
                 <input name="bobot" class="form-control" style="width: 50%;" value="<?php echo $row->bobot; ?>">                                

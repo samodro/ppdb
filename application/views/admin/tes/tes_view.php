@@ -1,4 +1,6 @@
-
+<?php $CI = &get_instance(); 
+        $CI->load->model('kriteria_model');
+?>
         <div id="page-wrapper">
 
             <div class="container-fluid">
@@ -45,6 +47,7 @@
                                                 <th>Jenis Tes</th>
                                                 <th>Tipe Tes</th>
                                                 <th>Bobot</th>
+                                                <th>Validasi Kriteria</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -53,8 +56,9 @@
                                             <?php $i = 0; foreach($tes as $row): ?>
                                             <tr>
                                                 <td><?php echo $row->jenis_tes?></td>
-                                                <td><?php if($row->status==1) echo "Penilaian Huruf"; elseif ($row->status==2) echo "Pengumpulan"; elseif ($row->status==3) echo "Penilaian Angka"; ?></td>
+                                                <td><?php if($row->status==1 || $row->status==5) echo "Penilaian Huruf"; elseif ($row->status==2) echo "Pengumpulan"; elseif ($row->status==3) echo "Penilaian Angka"; ?></td>
                                                 <td><?php echo $row->bobot ?></td>
+                                                <td><?php if($row->status==5 || $CI->kriteria_model->select_kriteria_tes($row->id_tes)==null ) echo "<font color='red'>Tidak Valid</font>"; else echo "Valid";?></td>
                                                 <td>
                                                     <?php if($i++!=0):?>
                                                     <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModalEdit<?php echo $row->id_tes; ?>">
@@ -115,10 +119,10 @@
                     <option value="2">Pengumpulan</option>  
                 </select>
             </div>
-           <!-- <div class="form-group">
+            <div class="form-group">
                 <label>Bobot</label>
                 <input name="bobot" class="form-control" style="width: 50%;" >                                
-            </div>-->
+            </div>
         
       </div>
       <div class="modal-footer">

@@ -7,6 +7,7 @@
      1  = penilaian huruf
      * 2  = pengumpulan
  *      3 = penilaian angka
+ * 5 = penilaian huruf namun CR > 0.1
      */
 
 class tes_model extends CI_Model{
