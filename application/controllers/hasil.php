@@ -144,10 +144,10 @@ class Hasil extends CI_Controller {
             {
                 $periode = $this->periode_model->get_periodebyTahun($tahun);
                 
-                if($periode->status_periode==0)
-                    $periode->status_periode = 1;
+                if($periode->status_periode<=1)
+                    $periode->status_periode = 2;
                 else
-                    $periode->status_periode = 0;
+                    $periode->status_periode = 1;
                 
                 $this->periode_model->update_periode($periode->id_periode, $periode);
                 

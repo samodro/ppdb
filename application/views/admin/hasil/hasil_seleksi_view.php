@@ -41,7 +41,7 @@
                         </button>
                         
                         <button type="button" class="btn btn-success btn-lg fa fa-upload" data-toggle="modal" data-target="#myModalPublish">
-                                   &nbsp; <?php if($periodenow->status_periode==0) echo "Publish"; else echo "Unpublish"; ?>
+                                   &nbsp; <?php if($periodenow->status_periode<=1) echo "Publish"; else echo "Unpublish"; ?>
                         </button>
                                 
                                 <br/>

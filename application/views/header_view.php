@@ -31,9 +31,7 @@
   </div>
   <div class="navbar-collapse collapse navbar-responsive-collapse">
     <ul class="nav navbar-nav">
-<!--      <li><a href="#">Agenda</a></li>
-      <li><a href="#">Galeri</a></li>
-      <li><a href="#">PPDB</a></li> -->
+
     
          <li><a href="<?php echo base_url();?>home/peraturan">Peraturan</a></li>
       <li><a href="<?php echo base_url();?>home/persyaratan">Persyaratan</a></li>      

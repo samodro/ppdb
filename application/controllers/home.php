@@ -12,6 +12,9 @@ class home extends CI_Controller {
         parent::__construct();
         $this->load->helper('url');
         $this->load->library('session');
+        $this->load->model('peserta_model');
+        $this->load->model('periode_model');
+        
     }
 
     public function index()
@@ -112,10 +115,42 @@ class home extends CI_Controller {
 		$this->load->view('seleksi_view');
 	}
         
-  public function hasilseleksi()
-	{
-		$this->load->view('hasilseleksi_view');
-	}
+    public function hasilseleksi()
+    {
+        if($this->input->get('tahun')!='')
+        {
+            $tahun =  $this->input->get('tahun');
+        }
+        else
+        {
+            $tahun = date("Y");
+        }
+
+        $data['tahun'] = $tahun;
+
+        $data['periode'] = $this->periode_model->select_periode();
+
+        $kuota = 0;
+
+
+        foreach($data['periode'] as $row)
+        {
+            if($row->tahun == $tahun) 
+            {
+                $kuota = $row->kuota;
+                $status = $row->status_periode;
+                $data['periodenow'] = $row;
+
+            }
+        }
+        $data['peserta'] = $this->peserta_model->select_peserta_periode_total($tahun);
+
+        $data['kuota'] = $kuota;
+        $data['status'] = $status;
+        $this->load->view('header_view');
+        $this->load->view('hasilseleksi_view',$data);
+        $this->load->view('footer_view');
+    }
    
     public function ppdb()
 	{
