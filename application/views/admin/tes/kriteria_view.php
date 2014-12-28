@@ -17,7 +17,7 @@
                 <div class="row">                 
                     
                     <div class="col-lg-6">   
-                       <?php if($CR!=null && $CR>0.1):?>
+                       <?php if(isset($CR) && $CR!=null && $CR>0.1):?>
                         <div class="alert alert-danger alert-dismissable" role="alert"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><strong>Perhatian!</strong> Preferensi pembobotan tidak konsisten dengan nilai CR = <?php echo sprintf("%.2f", $CR);?></div>
                         <?php endif;?>
                                 <button type="button" class="btn btn-primary btn-lg fa fa-plus-circle" data-toggle="modal" data-target="#myModal">
