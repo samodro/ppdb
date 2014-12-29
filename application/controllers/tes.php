@@ -47,9 +47,10 @@ class Tes extends CI_Controller {
         public function AHPKriteria($listKriteria, $tes)
         {
             
-            //var_dump($subKriteria);
+            //var_dump($listKriteria);
+            
             //echo count($listKriteria);
-            if($listKriteria!=null && count($listKriteria!=0))
+            if($listKriteria!=null && count($listKriteria)>0)
             {
                 $ahp1 = array();
                 $totalahp1 = array(); 
@@ -106,32 +107,38 @@ class Tes extends CI_Controller {
 
                 }
 
+                if(count($listKriteria)>2)
+                {
+
+                   $CI = ($max-count($listKriteria))/(count($listKriteria)-1);
+
+                   //echo "CI :".$CI."<br/>";
+                   $RI = array (
+                       1 => 0.00,
+                       2 => 0.00,
+                       3 => 0.58,
+                       4 => 0.90,
+                       5 => 1.12,
+                       6 => 1.24,
+                       7 => 1.32,	
+                       8 => 1.41,	
+                       9 => 1.45,	
+                       10 => 1.49,	
+                       11 => 1.51,	
+                       12 => 1.48,	
+                       13 => 1.56,
+                       14 => 1.57,	
+                       15 => 1.59
+                   );
+                   //var_dump($RI);
 
 
-               $CI = ($max-count($listKriteria))/(count($listKriteria)-1);
-
-               //echo "CI :".$CI."<br/>";
-               $RI = array (
-                   1 => 0.00,
-                   2 => 0.00,
-                   3 => 0.58,
-                   4 => 0.90,
-                   5 => 1.12,
-                   6 => 1.24,
-                   7 => 1.32,	
-                   8 => 1.41,	
-                   9 => 1.45,	
-                   10 => 1.49,	
-                   11 => 1.51,	
-                   12 => 1.48,	
-                   13 => 1.56,
-                   14 => 1.57,	
-                   15 => 1.59
-               );
-               //var_dump($RI);
-
-
-               $CR = $CI/$RI[count($listKriteria)];
+                   $CR = $CI/$RI[count($listKriteria)];
+                }
+                else
+                {
+                    $CR = 0.00;
+                }
 
                if ($CR>0.1)
                {
