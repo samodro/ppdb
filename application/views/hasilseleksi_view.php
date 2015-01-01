@@ -1,5 +1,5 @@
      <div class="jumbotron">
-          <?php if($status==2): ?>
+          <?php if(isset($status) && $status==2): ?>
           <h2>Hasil Seleksi Penerimaan Calon Siswa Baru <?php echo $tahun."/".($tahun+1); ?></h2>
              <br/>
     <div class="table-responsive">

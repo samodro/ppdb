@@ -230,9 +230,6 @@ class Seleksi extends CI_Controller {
                 $i++;
             }
             
-            
-            
-            //echo count($sub_kriteria);
             echo "<h1>SUB KRITERIA</h1>";
             echo "<br/> TABEL 1 <br/>";
             
@@ -528,7 +525,9 @@ class Seleksi extends CI_Controller {
                     $this->updateStatusMahasiswa($seleksi->id_peserta);
                 }
                 
-                if(isset($_POST['submit']))
+                $formSubmit = $this->input->post('submitForm');
+                
+                if( $formSubmit == 'newsubmit' )                
                 {
                     redirect(base_url().'seleksi/kriteriaSeleksi?id='.$kriteria->id_seleksi);
                 }

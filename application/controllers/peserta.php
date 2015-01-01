@@ -112,7 +112,7 @@ class Peserta extends CI_Controller {
         }
         public function tambahPeserta()
         {
-            if($this->input->post('nama') && $this->input->post('alamat'))
+            if($this->input->post('nama') && $this->input->post('asal'))
             {
                 $tgl = substr($this->input->post('tanggal'), 0, 2);
                 $bln = substr($this->input->post('tanggal'), 3, 2);
@@ -137,7 +137,7 @@ class Peserta extends CI_Controller {
                 //echo  $this->input->post('tahun');
                 $this->peserta_model->add_peserta($peserta);
                 
-                $pesertaafter = $this->peserta_model->get_peserta_afterinsert($peserta["timestamp"], $peserta["nama"], $peserta["ttl"]);
+                $pesertaafter = $this->peserta_model->get_peserta_afterinsert($peserta["timestamp"], $peserta["nama"], $peserta["asal_sekolah"]);
                 $tes = $this->tes_model->select_tes_periode($this->input->post('tahun'));
                 
                 

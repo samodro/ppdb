@@ -1,4 +1,5 @@
-
+<?php $ci = &get_instance();
+                                                    $ci->load->model('kriteria_model');?>
         <div id="page-wrapper">
 
             <div class="container-fluid">
@@ -16,8 +17,7 @@
 
                 <div class="row">
                     <div class="col-lg-8">
-<?php $ci = &get_instance();
-                                                    $ci->load->model('kriteria_model');?>
+
                         <form role="form" action="<?php echo base_url();?>tes/doTambahTes">                                                                                                                                                            
                                 <div class="table-responsive">
                                     
@@ -128,8 +128,10 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Keluar</button>
-        <button type="submit" name="submit" class="btn btn-primary">Simpan</button>
-        <button type="submit" name="detailsubmit" class="btn btn-warning">Detail</button>
+        <button type="submit" name="submitForm" value="newsubmit" class="btn btn-primary">Simpan</button>
+        <?php if($tes->status==1) :?>
+            <button type="submit" name="submitForm" value="detailsubmit" class="btn btn-warning">Detail</button>
+        <?php endif;?>
       </div>
       </form>
     </div>

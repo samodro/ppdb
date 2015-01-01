@@ -145,8 +145,8 @@ class home extends CI_Controller {
         }
         $data['peserta'] = $this->peserta_model->select_peserta_periode_total($tahun);
 
-        $data['kuota'] = $kuota;
-        $data['status'] = $status;
+        $data['kuota'] = @$kuota;
+        $data['status'] = @$status;
         $this->load->view('header_view');
         $this->load->view('hasilseleksi_view',$data);
         $this->load->view('footer_view');
