@@ -66,11 +66,11 @@ class Petugas extends CI_Controller {
                 //echo  $this->input->post('tahun');
                 $this->petugas_model->add_petugas($petugas);
                 
-                redirect(base_url().'petugas/lihatPetugas');
+                redirect(base_url().'petugas/lihatPetugas','refresh');
             }
             else
             {
-                redirect(base_url().'petugas/lihatPetugas');
+                redirect(base_url().'petugas/lihatPetugas','refresh');
             }
         }
         
@@ -81,7 +81,7 @@ class Petugas extends CI_Controller {
                 $petugas = $this->petugas_model->get_petugas($this->input->post('id_user'));                                                                                
                 $petugas->trash  = 'y';
                 $this->petugas_model->update_petugas($petugas->id_user,$petugas);
-                redirect(base_url().'petugas/lihatpetugas');
+                redirect(base_url().'petugas/lihatpetugas','refresh');
             }
             else
             {
@@ -105,7 +105,7 @@ class Petugas extends CI_Controller {
                 //echo  $this->input->post('tahun');
                 $this->petugas_model->update_petugas($petugas->id_user,$petugas);
                 
-                redirect(base_url().'petugas/lihatpetugas');
+                redirect(base_url().'petugas/lihatpetugas','refresh');
             }
             else
             {

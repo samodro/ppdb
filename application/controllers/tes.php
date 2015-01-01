@@ -317,7 +317,7 @@ class Tes extends CI_Controller {
                 }
                 else
                 {
-                    redirect(base_url().'tes/lihatTes');
+                    redirect(base_url().'tes/lihatTes','refresh');
                 }
         }
         
@@ -337,11 +337,11 @@ class Tes extends CI_Controller {
                 //echo  $this->input->post('tahun');
                 $this->kriteria_model->update_kriteria($kriteria->id_kriteria,$kriteria);
                 
-                redirect(base_url().'tes/kriteria?id_tes='.$this->input->post('id_tes'));
+                redirect(base_url().'tes/kriteria?id_tes='.$this->input->post('id_tes'),'refresh');
             }
             else
             {
-                redirect(base_url().'tes/kriteria?id_tes='.$this->input->post('id_tes'));
+                redirect(base_url().'tes/kriteria?id_tes='.$this->input->post('id_tes'),'refresh');
             }
         }
 
@@ -374,11 +374,11 @@ class Tes extends CI_Controller {
                                 'trash' => 'n',
                             );
                 $this->kriteria_model->add_kriteria($kriteria);
-                redirect(base_url().'tes/kriteria?id_tes='.$this->input->post('id_tes'));
+                redirect(base_url().'tes/kriteria?id_tes='.$this->input->post('id_tes'),'refresh');
             }
             else
             {
-                redirect(base_url().'tes/kriteria?id_tes='.$this->input->post('id_tes'));
+                redirect(base_url().'tes/kriteria?id_tes='.$this->input->post('id_tes'),'refresh');
             }
         }
         
@@ -424,11 +424,11 @@ class Tes extends CI_Controller {
                 //echo  $this->input->post('tahun');
                 $this->tes_model->update_tes($tes->id_tes,$tes);
                 
-                redirect(base_url().'tes/lihatTes');
+                redirect(base_url().'tes/lihatTes','refresh');
             }
             else
             {
-                redirect(base_url().'tes/lihatTes');
+                redirect(base_url().'tes/lihatTes','refresh');
             }
         }
 
@@ -439,11 +439,11 @@ class Tes extends CI_Controller {
                 $tes = $this->tes_model->get_tes($this->input->post('id_tes'));                                                                                
                 $tes->trash  = 'y';
                 $this->tes_model->update_tes($tes->id_tes,$tes);
-                redirect(base_url().'tes/lihatTes');
+                redirect(base_url().'tes/lihatTes','refresh');
             }
             else
             {
-                redirect(base_url().'tes/lihatTes');
+                redirect(base_url().'tes/lihatTes','refresh');
             }                        
         }
         
@@ -488,11 +488,11 @@ class Tes extends CI_Controller {
                 
                 $this->automaticHuruf($this->tes_model->get_tes_afterinsert($tes['jenis_tes'],$tes['tahun'])->id_tes);
                 
-                redirect(base_url().'tes/lihatTes');
+                redirect(base_url().'tes/lihatTes','refresh');
             }
             else
             {
-                redirect(base_url().'tes/lihatTes');
+                redirect(base_url().'tes/lihatTes','refresh');
             }
             
             

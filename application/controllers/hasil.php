@@ -97,11 +97,11 @@ class Hasil extends CI_Controller {
                 }
                 $this->peserta_model->update_peserta($peserta->id_peserta, $peserta);
                 
-                redirect(base_url().'hasil/hasilSeleksi?tahun='.$this->input->post('tahun'));
+                redirect(base_url().'hasil/hasilSeleksi?tahun='.$this->input->post('tahun'),'refresh');
             }
             else
             {
-                redirect(base_url().'ta/admin');
+                redirect(base_url().'ta/admin','refresh');
             }
         }
         
@@ -127,11 +127,11 @@ class Hasil extends CI_Controller {
 
                 }
 
-                redirect(base_url().'hasil/hasilSeleksi?tahun='.$this->input->post('tahun'));
+                redirect(base_url().'hasil/hasilSeleksi?tahun='.$this->input->post('tahun'),'refresh');
             }
             else
             {
-                redirect(base_url().'ta/admin');
+                redirect(base_url().'ta/admin','refresh');
             }
             
             
@@ -151,11 +151,11 @@ class Hasil extends CI_Controller {
                 
                 $this->periode_model->update_periode($periode->id_periode, $periode);
                 
-                redirect(base_url().'hasil/hasilSeleksi?tahun='.$this->input->post('tahun'));
+                redirect(base_url().'hasil/hasilSeleksi?tahun='.$this->input->post('tahun'),'refresh');
             }
             else
             {
-                redirect(base_url().'ta/admin');
+                redirect(base_url().'ta/admin','refresh');
             }
         }
         

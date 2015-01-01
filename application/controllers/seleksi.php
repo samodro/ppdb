@@ -80,7 +80,7 @@ class Seleksi extends CI_Controller {
                 }
                 else
                 {
-                    redirect(base_url().'seleksi/lihatSeleksi');
+                    redirect(base_url().'seleksi/lihatSeleksi','refresh');
                 }
         }
         
@@ -99,7 +99,7 @@ class Seleksi extends CI_Controller {
             }
             else
             {
-                redirect(base_url().'seleksi/lihatSeleksi');
+                redirect(base_url().'seleksi/lihatSeleksi','refresh');
             }
         }
         
@@ -123,7 +123,7 @@ class Seleksi extends CI_Controller {
             if($seleksi->status==1) $this->tambahSeleksi($seleksi);
              
             //echo $seleksi->status;
-            redirect(base_url().'seleksi/kriteriaSeleksi?id='.$kriteria->id_seleksi);
+            redirect(base_url().'seleksi/kriteriaSeleksi?id='.$kriteria->id_seleksi,'refresh');
         }
         
         public function tambahSeleksi($seleksi)
@@ -527,14 +527,15 @@ class Seleksi extends CI_Controller {
                 
                 $formSubmit = $this->input->post('submitForm');
                 
+                
                 if( $formSubmit == 'newsubmit' )                
                 {
-                    redirect(base_url().'seleksi/kriteriaSeleksi?id='.$kriteria->id_seleksi);
+                    redirect(base_url().'seleksi/kriteriaSeleksi?id='.$kriteria->id_seleksi,'refresh');
                 }
             }
             else
             {
-                redirect(base_url().'seleksi/lihatSeleksi');
+                redirect(base_url().'seleksi/lihatSeleksi','refresh');
             }
         }
             

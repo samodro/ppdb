@@ -88,7 +88,7 @@ class Peserta extends CI_Controller {
                 //echo  $this->input->post('tahun');
                 $this->peserta_model->update_peserta($peserta->id_peserta,$peserta);
                 
-                redirect(base_url().'peserta/lihatPeserta');
+                redirect(base_url().'peserta/lihatPeserta','refresh');
             }
             else
             {
@@ -172,11 +172,12 @@ class Peserta extends CI_Controller {
                     $this->kriteria_seleksi_model->add_kriteriaseleksi($kriteriaseleksi);
                 }
                 
-                redirect(base_url().'peserta/lihatPeserta');
+                
+                redirect(base_url().'peserta/lihatPeserta','refresh');
             }
             else
             {
-                redirect(base_url().'peserta/lihatPeserta');
+                redirect(base_url().'peserta/lihatPeserta','refresh');
             }
         }
         
