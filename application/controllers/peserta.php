@@ -172,7 +172,10 @@ class Peserta extends CI_Controller {
                     $this->kriteria_seleksi_model->add_kriteriaseleksi($kriteriaseleksi);
                 }
                 
+<<<<<<< HEAD
                 
+=======
+>>>>>>> e7d8b4b877d3f49a8263d4de481cb9bc59f5e163
                 redirect(base_url().'peserta/lihatPeserta','refresh');
             }
             else
