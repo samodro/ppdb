@@ -99,7 +99,7 @@
             <?php if($tes->status==1||$tes->status==5): ?>
             <div class="form-group">
                 <label>Bobot Kriteria</label>
-                <input name="bobot" class="form-control" style="width:50%;">                                
+                <input name="bobot" class="form-control" style="width:50%;" value="1">                                
             </div>
             <?php endif; ?>
             

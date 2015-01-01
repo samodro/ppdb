@@ -28,7 +28,10 @@ class Petugas extends CI_Controller {
                 redirect(base_url.'admin');
             }
             
-            $this->load->model('petugas_model');           
+            $this->load->model('petugas_model');     
+            
+            session_start();
+            
         }
         
 	public function index()

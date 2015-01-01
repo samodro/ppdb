@@ -15,6 +15,9 @@ class home extends CI_Controller {
         $this->load->model('peserta_model');
         $this->load->model('periode_model');
         
+        session_start();
+            
+        
     }
 
     public function index()

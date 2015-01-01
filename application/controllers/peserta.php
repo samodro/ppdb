@@ -34,6 +34,8 @@ class Peserta extends CI_Controller {
             $this->load->model('seleksi_model');
             $this->load->model('kriteria_model');
             $this->load->model('kriteria_seleksi_model');
+            
+            session_start();
         }
         
 	public function index()
@@ -172,10 +174,6 @@ class Peserta extends CI_Controller {
                     $this->kriteria_seleksi_model->add_kriteriaseleksi($kriteriaseleksi);
                 }
                 
-<<<<<<< HEAD
-                
-=======
->>>>>>> e7d8b4b877d3f49a8263d4de481cb9bc59f5e163
                 redirect(base_url().'peserta/lihatPeserta','refresh');
             }
             else

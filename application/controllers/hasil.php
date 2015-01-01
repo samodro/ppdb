@@ -34,6 +34,9 @@ class Hasil extends CI_Controller {
             $this->load->model('seleksi_model');
             $this->load->model('kriteria_model');
             $this->load->model('kriteria_seleksi_model');
+            
+            session_start();
+            
         }
         
 	public function index()

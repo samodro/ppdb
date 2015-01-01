@@ -26,6 +26,9 @@ class Admin extends CI_Controller {
             $this->load->model('periode_model');
             $this->load->model('tes_model');
             $this->load->model('petugas_model');
+            
+            session_start();
+            
         }
         
 	public function index()

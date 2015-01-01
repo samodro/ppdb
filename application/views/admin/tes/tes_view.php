@@ -121,7 +121,7 @@
             </div>
             <div class="form-group">
                 <label>Bobot</label>
-                <input name="bobot" class="form-control" style="width: 50%;" >                                
+                <input name="bobot" class="form-control" style="width: 50%;" value="1" >                                
             </div>
         
       </div>

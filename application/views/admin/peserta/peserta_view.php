@@ -16,7 +16,7 @@
 
                 <div class="row">
                     <div class="col-lg-12">
-
+                        
                         <form role="form" action="<?php echo base_url();?>peserta/lihatPeserta">
                             <div class="form-group">
                                 <label>Periode Seleksi</label>
@@ -37,7 +37,7 @@
                                 </button>
                                 
                                 <br/>
-                                <br/>
+                                <br/>                                
                                 <div class="table-responsive">
                                     <?php if(isset($peserta) && $peserta!=null):?>
                                     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
