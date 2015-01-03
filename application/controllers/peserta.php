@@ -36,6 +36,7 @@ class Peserta extends CI_Controller {
             $this->load->model('kriteria_seleksi_model');
             
             session_start();
+            
         }
         
 	public function index()

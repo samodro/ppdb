@@ -44,8 +44,7 @@
                                         <thead>
                                             <tr>
                                                 <th>Nama Peserta</th>                                                   
-                                                <th>Asal Sekolah</th>
-                                                <th>Nilai UN</th>                                                
+                                                <th>Asal Sekolah</th>                                                                                          
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -55,8 +54,7 @@
                                             <tr>
                                                 
                                                 <td><?php echo $row->nama; ?> </td>                                                
-                                                <td><?php echo $row->asal_sekolah; ?></td>
-                                                <td><?php echo $row->nilaiUN; ?></td>                                                
+                                                <td><?php echo $row->asal_sekolah; ?></td>                                                                                               
                                                 <td>
                                                     <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModalEdit<?php echo $row->id_peserta;?>">
                                                         <i class="fa fa-edit"></i>
