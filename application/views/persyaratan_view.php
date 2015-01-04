@@ -1,23 +1,43 @@
       <div class="jumbotron">
-          <h2>Persyaratan Pendaftaran</h2>
+          <?php if($edit==null): ?>
+          <h2><?php echo $artikel->judul_artikel; ?></h2>
           <p>
-              1.       Formulir pendaftaran yang telah diisi<br/>
-
-                2.       Ijazah SD/MI/sederajat<br/>
-
-                3.       Salinan ijazah SD/MI/sederajat yang telah dilegalisir<br/>
-
-                4.       Salinan rapor sekolah dasar yang telah dilegalisir<br/>
-
-                5.       SKHUN SD/MI/sederajat<br/>
-
-                6.       Salinan SD/MI/sederajat yang telah dilegalisir<br/>
-
-                7.       Pas foto calon peserta didik ukuran 3x4 cm sebanyak 2 lembar<br/>
-
-                8.       Salinan akta kelahiran
-                      </p>
+              <?php echo $artikel->isi_artikel; ?>
+          </p>
+                      
+          <?php elseif($user!=null && $edit!=null): ?>
+           <form role="form" action="<?php echo base_url();?>home/persyaratan" method="post"> 
+          <?php echo '<div class="form-group">
+                <h3>Judul</h3>
+                <input name="judul_artikel" value="'. $artikel->judul_artikel .'" class="form-control" style="width: 50%;" >                                
+            </div>'; ?>    
+          <?php echo '<h3>Isi Konten</h3>'; ?>
+          <?php echo $this->ckeditor->editor("isi_artikel",$artikel->isi_artikel); ?>
+               
+          <?php endif; ?>
+          <?php if($user!=null && $edit==null): ?>
+          <form role="form" action="<?php echo base_url();?>home/persyaratan" method="post"> 
+              
+              <input name="edit" value="edit" class="form-control" style="display:none;" >
+              
+              <button type="submit" class="btn btn-success btn-lg pull-right" >
+                Edit Konten
+              </button>
+          </form>
+          <?php elseif ($user!=null && $edit!=null): ?>
+           
+              
+              <input name="simpan" value="simpan" class="form-control" style="display:none;" >
+              
+              <button type="submit" class="btn btn-warning btn-lg pull-right" >
+                Simpan
+              </button>
+          </form>
+          <?php endif; ?>
+          <br/>
          </div>
+
+
     </div>
 
 

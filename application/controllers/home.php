@@ -14,6 +14,9 @@ class home extends CI_Controller {
         $this->load->library('session');
         $this->load->model('peserta_model');
         $this->load->model('periode_model');
+        $this->load->model('artikel_model');
+        $this->load->library('ckeditor');
+        $this->load->library('ckfinder');
         
         session_start();
             
@@ -22,8 +25,35 @@ class home extends CI_Controller {
 
     public function index()
     {
+        if($this->input->post('judul_artikel') && $this->input->post('isi_artikel'))
+        {
+            $artikel = $this->artikel_model->get_artikelbyJenis('home');
+            
+            $artikel->isi_artikel = $this->input->post('isi_artikel');
+            $artikel->judul_artikel = $this->input->post('judul_artikel');
+            
+            $this->artikel_model->update_artikel($artikel->id_artikel, $artikel);
+        }
+        
+        $this->ckeditor->basePath = base_url().'ckeditor/';
+        /*$this->ckeditor->config['toolbar'] = array(
+                        array( 'Source', '-', 'Bold', 'Italic', 'Underline', '-','Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo','-','NumberedList','BulletedList' )
+                                                            );
+         * 
+         */
+        $this->ckeditor->config['language'] = 'indonesia';
+        $this->ckeditor->config['width'] = '730px';
+        $this->ckeditor->config['height'] = '300px';            
+
+        //Add Ckfinder to Ckeditor
+        $this->ckfinder->SetupCKEditor($this->ckeditor,'../../ckfinder/'); 
+        
+        $data['edit'] = $this->input->post('edit');
+        $data['user'] = $this->session->userdata('id_user');
+        $data['artikel'] = $this->artikel_model->get_artikelbyJenis('home');
+        
         $this->load->view('header_view');
-        $this->load->view('home_view');
+        $this->load->view('home_view',$data);
         $this->load->view('footer_view');
     }
     
@@ -65,11 +95,38 @@ class home extends CI_Controller {
     }
     
     public function peraturan()
-	{
-                
-                $this->load->view('peraturan_view');
-               
-	}
+    {
+        if($this->input->post('judul_artikel') && $this->input->post('isi_artikel'))
+        {
+            $artikel = $this->artikel_model->get_artikelbyJenis('peraturan');
+            
+            $artikel->isi_artikel = $this->input->post('isi_artikel');
+            $artikel->judul_artikel = $this->input->post('judul_artikel');
+            
+            $this->artikel_model->update_artikel($artikel->id_artikel, $artikel);
+        }
+        
+        $this->ckeditor->basePath = base_url().'ckeditor/';
+        /*$this->ckeditor->config['toolbar'] = array(
+                        array( 'Source', '-', 'Bold', 'Italic', 'Underline', '-','Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo','-','NumberedList','BulletedList' )
+                                                            );
+         * 
+         */
+        $this->ckeditor->config['language'] = 'indonesia';
+        $this->ckeditor->config['width'] = '730px';
+        $this->ckeditor->config['height'] = '300px';            
+
+        //Add Ckfinder to Ckeditor
+        $this->ckfinder->SetupCKEditor($this->ckeditor,'../../ckfinder/'); 
+        
+        $data['edit'] = $this->input->post('edit');
+        $data['user'] = $this->session->userdata('id_user');
+        $data['artikel'] = $this->artikel_model->get_artikelbyJenis('peraturan');
+        
+        $this->load->view('header_view');
+        $this->load->view('peraturan_view',$data);
+        $this->load->view('footer_view');
+    }
     
     public function peraturanadmin()
 	{
@@ -79,9 +136,39 @@ class home extends CI_Controller {
         
     public function persyaratan()
     {
+        
+        if($this->input->post('judul_artikel') && $this->input->post('isi_artikel'))
+        {
+            $artikel = $this->artikel_model->get_artikelbyJenis('persyaratan');
+            
+            $artikel->isi_artikel = $this->input->post('isi_artikel');
+            $artikel->judul_artikel = $this->input->post('judul_artikel');
+            
+            $this->artikel_model->update_artikel($artikel->id_artikel, $artikel);
+        }
+        
+        $this->ckeditor->basePath = base_url().'ckeditor/';
+        /*$this->ckeditor->config['toolbar'] = array(
+                        array( 'Source', '-', 'Bold', 'Italic', 'Underline', '-','Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo','-','NumberedList','BulletedList' )
+                                                            );
+         * 
+         */
+        $this->ckeditor->config['language'] = 'indonesia';
+        $this->ckeditor->config['width'] = '730px';
+        $this->ckeditor->config['height'] = '300px';            
+
+        //Add Ckfinder to Ckeditor
+        $this->ckfinder->SetupCKEditor($this->ckeditor,'../../ckfinder/'); 
+        
+        $data['edit'] = $this->input->post('edit');
+        $data['user'] = $this->session->userdata('id_user');
+        $data['artikel'] = $this->artikel_model->get_artikelbyJenis('persyaratan');
+        
         $this->load->view('header_view');
-        $this->load->view('persyaratan_view');
+        $this->load->view('persyaratan_view',$data);
         $this->load->view('footer_view');
+        
+        
 		
     }
     
@@ -91,11 +178,38 @@ class home extends CI_Controller {
 	}
         
     public function tatacarapendaftaran()
-	{		
-                $this->load->view('header_view');
-                $this->load->view('tatacarapendaftaran_view');
-                $this->load->view('footer_view');
-	}
+    {		
+        if($this->input->post('judul_artikel') && $this->input->post('isi_artikel'))
+        {
+            $artikel = $this->artikel_model->get_artikelbyJenis('tata cara pendaftaran');
+            
+            $artikel->isi_artikel = $this->input->post('isi_artikel');
+            $artikel->judul_artikel = $this->input->post('judul_artikel');
+            
+            $this->artikel_model->update_artikel($artikel->id_artikel, $artikel);
+        }
+        
+        $this->ckeditor->basePath = base_url().'ckeditor/';
+        /*$this->ckeditor->config['toolbar'] = array(
+                        array( 'Source', '-', 'Bold', 'Italic', 'Underline', '-','Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo','-','NumberedList','BulletedList' )
+                                                            );
+         * 
+         */
+        $this->ckeditor->config['language'] = 'indonesia';
+        $this->ckeditor->config['width'] = '730px';
+        $this->ckeditor->config['height'] = '300px';            
+
+        //Add Ckfinder to Ckeditor
+        $this->ckfinder->SetupCKEditor($this->ckeditor,'../../ckfinder/'); 
+        
+        $data['edit'] = $this->input->post('edit');
+        $data['user'] = $this->session->userdata('id_user');
+        $data['artikel'] = $this->artikel_model->get_artikelbyJenis('tata cara pendaftaran');
+        
+        $this->load->view('header_view');
+        $this->load->view('tatacarapendaftaran_view',$data);
+        $this->load->view('footer_view');
+    }
         
    public function tatacarapendaftaranadmin()
 	{
@@ -103,11 +217,39 @@ class home extends CI_Controller {
 	}
         
    public function jadwalkegiatan()
-	{
-                $this->load->view('header_view');
-                $this->load->view('jadwalkegiatan_view');
-                $this->load->view('footer_view');		
-	}
+   {		
+        if($this->input->post('judul_artikel') && $this->input->post('isi_artikel'))
+        {
+            $artikel = $this->artikel_model->get_artikelbyJenis('jadwal kegiatan');
+            
+            $artikel->isi_artikel = $this->input->post('isi_artikel');
+            $artikel->judul_artikel = $this->input->post('judul_artikel');
+            
+            $this->artikel_model->update_artikel($artikel->id_artikel, $artikel);
+        }
+        
+        $this->ckeditor->basePath = base_url().'ckeditor/';
+        /*$this->ckeditor->config['toolbar'] = array(
+                        array( 'Source', '-', 'Bold', 'Italic', 'Underline', '-','Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo','-','NumberedList','BulletedList' )
+                                                            );
+         * 
+         */
+        $this->ckeditor->config['language'] = 'indonesia';
+        $this->ckeditor->config['width'] = '730px';
+        $this->ckeditor->config['height'] = '300px';            
+
+        //Add Ckfinder to Ckeditor
+        $this->ckfinder->SetupCKEditor($this->ckeditor,'../../ckfinder/'); 
+        
+        $data['edit'] = $this->input->post('edit');
+        $data['user'] = $this->session->userdata('id_user');
+        $data['artikel'] = $this->artikel_model->get_artikelbyJenis('jadwal kegiatan');
+        
+        $this->load->view('header_view');
+        $this->load->view('jadwalkegiatan_view',$data);
+        $this->load->view('footer_view');
+   }
+   
    public function jadwalkegiatanadmin()
 	{
 		$this->load->view('jadwalkegiatan_view_admin');
@@ -206,9 +348,38 @@ class home extends CI_Controller {
 	}
        
    public function hubungikami()
-	{
-		$this->load->view('hubungikami_view');
-	}
+   {
+       if($this->input->post('judul_artikel') && $this->input->post('isi_artikel'))
+        {
+            $artikel = $this->artikel_model->get_artikelbyJenis('hubungi kami');
+            
+            $artikel->isi_artikel = $this->input->post('isi_artikel');
+            $artikel->judul_artikel = $this->input->post('judul_artikel');
+            
+            $this->artikel_model->update_artikel($artikel->id_artikel, $artikel);
+        }
+        
+        $this->ckeditor->basePath = base_url().'ckeditor/';
+        /*$this->ckeditor->config['toolbar'] = array(
+                        array( 'Source', '-', 'Bold', 'Italic', 'Underline', '-','Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo','-','NumberedList','BulletedList' )
+                                                            );
+         * 
+         */
+        $this->ckeditor->config['language'] = 'indonesia';
+        $this->ckeditor->config['width'] = '730px';
+        $this->ckeditor->config['height'] = '300px';            
+
+        //Add Ckfinder to Ckeditor
+        $this->ckfinder->SetupCKEditor($this->ckeditor,'../../ckfinder/'); 
+        
+        $data['edit'] = $this->input->post('edit');
+        $data['user'] = $this->session->userdata('id_user');
+        $data['artikel'] = $this->artikel_model->get_artikelbyJenis('hubungi kami');
+        
+        $this->load->view('header_view');
+        $this->load->view('hubungikami_view',$data);
+        $this->load->view('footer_view');
+   }
       
    public function hubungikamiadmin()
 	{

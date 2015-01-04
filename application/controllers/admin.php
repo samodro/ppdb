@@ -47,27 +47,39 @@ class Admin extends CI_Controller {
         {
                 $periode = $this->periode_model->select_periode();
                 
+                
+                
+                
                 if($periode==null || ($periode!=null && $periode[0]->tahun!=date("Y")))
                 {
-                    $data = array(
-                        'id_periode' => '',
-                        'tahun'  => date("Y"),
-                        'status_periode' => 0,
-                        'kuota' => 100,
-                        'trash' => 'n'
-                    );
-                    $this->periode_model->add_periode($data);
+                    $status = false;
+                    foreach($periode as $row)
+                    {
+                        if($row->tahun==date("Y")) $status = true;
+                    }
                     
-                    $tes = array(
-                        'id_tes' => '',
-                        'tahun' => date("Y"),
-                        'trash' => 'n',
-                        'jenis_tes' => 'Tes Administratif',
-                        'bobot' => '1',
-                        'status' => '2'
-                        
-                    );
-                    $this->tes_model->add_tes($tes);
+                    if($status==false)
+                    {
+                        $data = array(
+                            'id_periode' => '',
+                            'tahun'  => date("Y"),
+                            'status_periode' => 0,
+                            'kuota' => 100,
+                            'trash' => 'n'
+                        );
+                        $this->periode_model->add_periode($data);
+
+                        $tes = array(
+                            'id_tes' => '',
+                            'tahun' => date("Y"),
+                            'trash' => 'n',
+                            'jenis_tes' => 'Tes Administratif',
+                            'bobot' => '1',
+                            'status' => '2'
+
+                        );
+                        $this->tes_model->add_tes($tes);
+                    }
                 }
                 
                 $this->load->view('admin/header_view');

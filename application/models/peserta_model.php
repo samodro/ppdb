@@ -1,7 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/*
- * Model pendaftaran NLC
- */
+
 
 class peserta_model extends CI_Model{
     private  $table_peserta;

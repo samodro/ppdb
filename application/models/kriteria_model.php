@@ -1,7 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/*
- * Model pendaftaran NLC
- */
+
 
 
 /*
@@ -126,10 +124,10 @@ class kriteria_model extends CI_Model{
         }
     }
     
-    function get_kriteria_afterinsert($timestamp, $zakat, $no_rekening)
+    function get_kriteria_afterinsert($id_tes, $jenis_kriteria, $tahun)
     {
-        $SQL = "select * from kriteria where  zakat = $zakat and no_rekening = '$no_rekening' and timestamp = ? and trash = 'n'";
-        $query = $this->db->query($SQL, $timestamp);
+        $SQL = "select * from kriteria where  id_tes = $id_tes and jenis_kriteria = '$jenis_kriteria' and $tahun = '$tahun' and trash = 'n'";
+        $query = $this->db->query($SQL);
         if($this->db->affected_rows() == 1)
         {
             foreach($query->result() as $row)

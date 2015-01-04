@@ -32,6 +32,10 @@ class Tes extends CI_Controller {
             $this->load->model('periode_model');
             $this->load->model('kriteria_model');
             $this->load->model('sub_kriteria_model');
+            $this->load->model('peserta_model');
+            $this->load->model('seleksi_model');
+            $this->load->model('kriteria_model');
+            $this->load->model('kriteria_seleksi_model');
             
             session_start();
             
@@ -374,6 +378,41 @@ class Tes extends CI_Controller {
                                 'trash' => 'n',
                             );
                 $this->kriteria_model->add_kriteria($kriteria);
+                
+                
+                //tambahan untuk otomatis update
+                $listpeserta = $this->peserta_model->select_peserta_periode($this->input->post('tahun'));
+                if($listpeserta!=null)
+                {
+                    $kriteriaafter = $this->kriteria_model->get_kriteria_afterinsert($kriteria['id_tes'],$kriteria['jenis_kriteria'],$kriteria['tahun']);
+                    foreach($listpeserta as $peserta)
+                    {
+                        
+                        $seleksi = $this->seleksi_model->select_seleksi_byPeserta($peserta->id_peserta);
+                        if(count($seleksi)>1)
+                        {                            
+                                
+                                $seleksi = $this->seleksi_model->get_seleksi_byPesertaTes($peserta->id_peserta, $kriteria['id_tes']);                                                                
+                                
+                                $kriteriaseleksi = array (
+                                        'id_kriteria_seleksi' => '',
+                                        'id_seleksi' => $seleksi->id_seleksi,
+                                        'id_kriteria' => $kriteriaafter->id_kriteria,
+                                        'jenis_kriteria' => $kriteriaafter->jenis_kriteria,
+                                        'nilai' => '0',
+                                        'status' => 0,
+                                        'trash' => 'n');
+                                
+
+                               $this->kriteria_seleksi_model->add_kriteriaseleksi($kriteriaseleksi);                    
+                   
+                        }
+                        
+                        $peserta->status_peserta = 0;
+                        $this->peserta_model->update_peserta($peserta->id_peserta,$peserta);
+                    }
+                }
+                
                 redirect(base_url().'tes/kriteria?id_tes='.$this->input->post('id_tes'),'refresh');
             }
             else
@@ -487,6 +526,39 @@ class Tes extends CI_Controller {
                 $this->tes_model->add_tes($tes);
                 
                 $this->automaticHuruf($this->tes_model->get_tes_afterinsert($tes['jenis_tes'],$tes['tahun'])->id_tes);
+                
+                
+                
+                //tambahan untuk bisa nambah kriteria setelah ada data siswa
+                
+                $listpeserta = $this->peserta_model->select_peserta_periode($this->input->post('tahun'));
+                
+                if($listpeserta!=null)
+                {
+                    $tesafter = $this->tes_model->get_tes_afterinsert($tes['jenis_tes'],$tes['tahun']);
+                    foreach($listpeserta as $peserta)
+                    {
+                        $seleksi = $this->seleksi_model->select_seleksi_byPeserta($peserta->id_peserta);
+                        if(count($seleksi)>1)
+                        {
+                            if($this->seleksi_model->get_seleksi_byPesertaTes($peserta->id_peserta, $tesafter->id_tes)) continue;
+                                $seleksi = array(
+                                        'id_seleksi'=> '',
+                                        'id_peserta'=> $peserta->id_peserta,
+                                        'id_tes'=> $tesafter->id_tes,
+                                        'totalnilai' => '0',
+                                        'status' => '0',
+                                        'tahun' => $peserta->periode,
+                                        'trash' => 'n'                                        
+                                    );
+
+                                $this->seleksi_model->add_seleksi($seleksi);
+                   
+                        }
+                        $peserta->status_peserta = 0;
+                        $this->peserta_model->update_peserta($peserta->id_peserta,$peserta);
+                    }
+                }
                 
                 redirect(base_url().'tes/lihatTes','refresh');
             }

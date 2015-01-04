@@ -198,7 +198,7 @@ class Seleksi extends CI_Controller {
             
         }
         
-        public function AHPsubKriteria($id_tes)
+        public function AHPsubKriteria($id_tes, $formSubmit)
         {
             $sub_kriteria = $this->sub_kriteria_model->select_sub_kriteria_byIdTes($id_tes);
             
@@ -319,11 +319,11 @@ class Seleksi extends CI_Controller {
             
         }
         
-        public function AHPKriteria($kriteria)
+        public function AHPKriteria($kriteria, $formSubmit)
         {
             $seleksi = $this->seleksi_model->get_seleksi($kriteria->id_seleksi);
             
-            $subKriteria = $this->AHPsubKriteria($seleksi->id_tes);
+            $subKriteria = $this->AHPsubKriteria($seleksi->id_tes, $formSubmit);
             
             $listKriteria = $this->kriteria_seleksi_model->select_kriteriaseleksi_new($kriteria->id_seleksi);
             
@@ -485,6 +485,7 @@ class Seleksi extends CI_Controller {
            $seleksi->totalnilai = $total;
            
            $this->seleksi_model->update_seleksi($seleksi->id_seleksi, $seleksi);
+           $this->updateStatusSeleksi($seleksi->id_seleksi);
            $this->updateStatusMahasiswa($seleksi->id_peserta);
         }
         
@@ -497,12 +498,13 @@ class Seleksi extends CI_Controller {
                 $kriteria->nilai = $this->input->post('nilai');
                 $kriteria->status = 1;
                 $this->kriteria_seleksi_model->update_kriteriaseleksi($kriteria->id_kriteria_seleksi, $kriteria);
-                
+                $formSubmit = $this->input->post('submitForm');
                 if($this->input->post('status')==1)
                 {
                     
-                    $this->AHPKriteria($kriteria);
+                    $this->AHPKriteria($kriteria,$formSubmit);
                     $this->updateStatusSeleksi($kriteria->id_seleksi);
+                    //$this->updateStatusMahasiswa(->id_peserta);
                     
                 }
                 else

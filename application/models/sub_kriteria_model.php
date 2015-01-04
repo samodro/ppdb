@@ -1,7 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/*
- * Model pendaftaran NLC
- */
+
 
 /*
      1  = penilaian sub_kriteria

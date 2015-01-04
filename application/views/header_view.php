@@ -8,6 +8,11 @@
     
     <!-- Custom styles for this template -->
      <link href="<?php echo base_url();?>css/bootstrap.css" rel="stylesheet">
+     
+     <!-- ckeditor -->
+     
+     <script type="text/javascript" src="<?php echo base_url();?>ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="<?php echo base_url();?>ckfinder/ckfinder.js"></script>
     
 </head>
 <body>
@@ -27,7 +32,7 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="<?php echo base_url();?>home/index">Beranda</a>
+    <a class="navbar-brand" href="<?php echo base_url();?>home">Beranda</a>
   </div>
   <div class="navbar-collapse collapse navbar-responsive-collapse">
     <ul class="nav navbar-nav">
