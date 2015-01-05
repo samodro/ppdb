@@ -32,18 +32,18 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="<?php echo base_url();?>home">Beranda</a>
+    
   </div>
   <div class="navbar-collapse collapse navbar-responsive-collapse">
     <ul class="nav navbar-nav">
 
-    
-         <li><a href="<?php echo base_url();?>home/peraturan">Peraturan</a></li>
-      <li><a href="<?php echo base_url();?>home/persyaratan">Persyaratan</a></li>      
-      <li><a href="<?php echo base_url();?>home/tatacarapendaftaran">Tata Cara Pendaftaran</a></li>
-      <li><a href="<?php echo base_url();?>home/jadwalkegiatan">Jadwal Kegiatan</a></li>
-      <li><a href="<?php echo base_url();?>home/hasilseleksi">Hasil Seleksi</a></li>
-      <li><a href="<?php echo base_url();?>home/hubungikami">Hubungi Kami</a></li>
+        <li><a <?php if($active == 'home') echo 'class="navbar-brand"'; ?> href="<?php echo base_url();?>home">Beranda</a></li>
+         <li><a <?php if($active == 'peraturan') echo 'class="navbar-brand"'; ?> href="<?php echo base_url();?>home/peraturan" >Peraturan</a></li>
+      <li><a <?php if($active == 'persyaratan') echo 'class="navbar-brand"'; ?> href="<?php echo base_url();?>home/persyaratan">Persyaratan</a></li>      
+      <li><a <?php if($active == 'tatacarapendaftaran') echo 'class="navbar-brand"'; ?> href="<?php echo base_url();?>home/tatacarapendaftaran">Tata Cara Pendaftaran</a></li>
+      <li><a <?php if($active == 'jadwalkegiatan') echo 'class="navbar-brand"'; ?> href="<?php echo base_url();?>home/jadwalkegiatan">Jadwal Kegiatan</a></li>
+      <li><a <?php if($active == 'hasilseleksi') echo 'class="navbar-brand"'; ?> href="<?php echo base_url();?>home/hasilseleksi">Hasil Seleksi</a></li>
+      <li><a <?php if($active == 'hubungikami') echo 'class="navbar-brand"'; ?> href="<?php echo base_url();?>home/hubungikami">Hubungi Kami</a></li>
       
       
     </ul>

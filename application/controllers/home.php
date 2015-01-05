@@ -51,8 +51,8 @@ class home extends CI_Controller {
         $data['edit'] = $this->input->post('edit');
         $data['user'] = $this->session->userdata('id_user');
         $data['artikel'] = $this->artikel_model->get_artikelbyJenis('home');
-        
-        $this->load->view('header_view');
+        $data['active'] = 'home';
+        $this->load->view('header_view',$data);
         $this->load->view('home_view',$data);
         $this->load->view('footer_view');
     }
@@ -122,8 +122,9 @@ class home extends CI_Controller {
         $data['edit'] = $this->input->post('edit');
         $data['user'] = $this->session->userdata('id_user');
         $data['artikel'] = $this->artikel_model->get_artikelbyJenis('peraturan');
+        $data['active'] = 'peraturan';
         
-        $this->load->view('header_view');
+        $this->load->view('header_view',$data);
         $this->load->view('peraturan_view',$data);
         $this->load->view('footer_view');
     }
@@ -163,8 +164,9 @@ class home extends CI_Controller {
         $data['edit'] = $this->input->post('edit');
         $data['user'] = $this->session->userdata('id_user');
         $data['artikel'] = $this->artikel_model->get_artikelbyJenis('persyaratan');
+        $data['active'] = 'persyaratan';
         
-        $this->load->view('header_view');
+        $this->load->view('header_view',$data);
         $this->load->view('persyaratan_view',$data);
         $this->load->view('footer_view');
         
@@ -206,7 +208,9 @@ class home extends CI_Controller {
         $data['user'] = $this->session->userdata('id_user');
         $data['artikel'] = $this->artikel_model->get_artikelbyJenis('tata cara pendaftaran');
         
-        $this->load->view('header_view');
+        $data['active'] = 'tatacarapendaftaran';
+        
+        $this->load->view('header_view',$data);
         $this->load->view('tatacarapendaftaran_view',$data);
         $this->load->view('footer_view');
     }
@@ -244,8 +248,9 @@ class home extends CI_Controller {
         $data['edit'] = $this->input->post('edit');
         $data['user'] = $this->session->userdata('id_user');
         $data['artikel'] = $this->artikel_model->get_artikelbyJenis('jadwal kegiatan');
+        $data['active'] = 'jadwalkegiatan';
         
-        $this->load->view('header_view');
+        $this->load->view('header_view',$data);
         $this->load->view('jadwalkegiatan_view',$data);
         $this->load->view('footer_view');
    }
@@ -292,7 +297,9 @@ class home extends CI_Controller {
 
         $data['kuota'] = @$kuota;
         $data['status'] = @$status;
-        $this->load->view('header_view');
+        $data['active'] = 'hasilseleksi';
+        
+        $this->load->view('header_view',$data);
         $this->load->view('hasilseleksi_view',$data);
         $this->load->view('footer_view');
     }
@@ -375,8 +382,9 @@ class home extends CI_Controller {
         $data['edit'] = $this->input->post('edit');
         $data['user'] = $this->session->userdata('id_user');
         $data['artikel'] = $this->artikel_model->get_artikelbyJenis('hubungi kami');
+        $data['active'] = 'hubungikami';
         
-        $this->load->view('header_view');
+        $this->load->view('header_view',$data);
         $this->load->view('hubungikami_view',$data);
         $this->load->view('footer_view');
    }
