@@ -70,7 +70,7 @@ class Peserta extends CI_Controller {
         
         public function editPeserta()
         {
-            if($this->input->post('nama') && $this->input->post('alamat'))
+            if($this->input->post('nama') && $this->input->post('asal'))
             {
                 $tgl = substr($this->input->post('tanggal'), 0, 2);
                 $bln = substr($this->input->post('tanggal'), 3, 2);
@@ -176,6 +176,49 @@ class Peserta extends CI_Controller {
                 }
                 
                 redirect(base_url().'peserta/lihatPeserta','refresh');
+            }
+            else
+            {
+                redirect(base_url().'peserta/lihatPeserta','refresh');
+            }
+        }
+        
+        public function generateNoTes()
+        {
+            if($this->input->get('tahun')!='')
+            {
+                $tahun =  $this->input->get('tahun');
+                
+                $peserta = $this->peserta_model->select_peserta_periode($tahun);
+                
+                $i = 1;
+                foreach($peserta as $row)
+                {
+                    $no_test = "";
+                    if($i<10)
+                    {
+                        $no_test = "000".$i;
+                    }
+                    else if($i < 100)
+                    {
+                        $no_test = "00".$i;
+                    }
+                    else if($i < 1000)
+                    {
+                        $no_test = "0".$i;
+                    }
+                    else
+                    {
+                        $no_test = $i;
+                    }
+                    $i++;
+                    $row->no_test = $no_test;
+                    
+                    $this->peserta_model->update_peserta($row->id_peserta,$row);
+                        
+                }
+                
+                redirect(base_url().'peserta/lihatPeserta?tahun='.$tahun,'refresh');
             }
             else
             {

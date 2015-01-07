@@ -35,7 +35,9 @@
                                 <button type="button" class="btn btn-primary btn-lg fa fa-plus-circle" data-toggle="modal" data-target="#myModalTambah">
                                    &nbsp; Tambah Calon Siswa Baru
                                 </button>
-                                
+                                <button type="button" id="generate" class="btn btn-success btn-lg fa fa-refresh">
+                                   &nbsp; Generate No Tes
+                                </button>                                
                                 <br/>
                                 <br/>                                
                                 <div class="table-responsive">
@@ -43,6 +45,7 @@
                                     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                         <thead>
                                             <tr>
+                                                <th>No Tes</th>
                                                 <th>Nama Peserta</th>                                                   
                                                 <th>Asal Sekolah</th>                                                                                          
                                                 <th></th>
@@ -52,7 +55,7 @@
                                             
                                              <?php   foreach ($peserta as $row): ?>
                                             <tr>
-                                                
+                                                <td><?php if($row->no_test=='') echo "-"; else echo $row->no_test; ?> </td>                                                
                                                 <td><?php echo $row->nama; ?> </td>                                                
                                                 <td><?php echo $row->asal_sekolah; ?></td>                                                                                               
                                                 <td>
@@ -215,10 +218,13 @@
 </div>
 
     <?php endforeach; endif;?>
-    <script>
+    <script>        
         $(function() {
             $('#periode').change(function() {
                 this.form.submit();
             });
+        });
+        $('#generate').click(function() {
+            window.location = "<?php echo base_url();?>peserta/generateNoTes?tahun=<?php echo $tahun;?>";
         });
     </script>

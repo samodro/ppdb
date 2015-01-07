@@ -44,6 +44,7 @@ class peserta_model extends CI_Model{
     {
         $this->db->where('trash','n');
         $this->db->where('periode',$periode);
+        $this->db->order_by('id_peserta', "asc");
         $SQL    =   $this->db->get($this->table_peserta);
         if($SQL->num_rows() > 0)
         {

@@ -28,9 +28,9 @@
                                                 <thead>
                                                     
                                                         <tr>
+                                                            <th>No Tes</th>
                                                             <th>Nama Peserta</th>
-                                                            <th>Asal Sekolah</th>
-                                                            <th>Nilai UN</th>
+                                                            <th>Asal Sekolah</th>                                                            
                                                             <th><?php if($tes->status==2) echo "Berkas"; else echo "Jumlah Nilai"; ?></th>
                                                             <th>Status</th>
                                                             <th></th>
@@ -41,9 +41,9 @@
                                                         <?php foreach($seleksi as $row): ?>
                                                         
                                                         <tr>
+                                                            <td><?php echo $row->no_test; ?></td>
                                                             <td><?php echo $row->nama; ?></td>
-                                                            <td><?php echo $row->asal_sekolah; ?></td>
-                                                            <td><?php echo $row->nilaiUN; ?></td>
+                                                            <td><?php echo $row->asal_sekolah; ?></td>                                                            
                                                             <td><?php if($tes->status==2) 
                                                             {
                                                                 
