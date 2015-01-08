@@ -341,6 +341,16 @@ class Tes extends CI_Controller {
                 //echo  $this->input->post('tahun');
                 $this->kriteria_model->update_kriteria($kriteria->id_kriteria,$kriteria);
                 
+                /*
+                $seleksi = $this->kriteria_seleksi_model->select_kriteriaseleksi_kriteria($kriteria->id_kriteria);
+                
+                foreach($seleksi as $row)
+                {
+                    $row->jenis_kriteria = $this->input->post('jenis');                
+                    $this->kriteria_seleksi_model->update_kriteriaseleksi($row->id_kriteria_seleksi,$row);
+                }
+                */
+                
                 redirect(base_url().'tes/kriteria?id_tes='.$this->input->post('id_tes'),'refresh');
             }
             else

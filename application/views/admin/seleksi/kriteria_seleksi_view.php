@@ -41,7 +41,7 @@
                                             <?php foreach($kriteria as $row): ?>
                                             <tr>
                                                 <td><?php echo $peserta->nama; ?></td>
-                                                <td><?php echo $row->jenis_kriteria; ?></td>
+                                                <td><?php echo $row->jenis; ?></td>
                                                 <?php if($tes->status!=2):?><td><?php echo $row->nilai; ?></td>   <?php endif;?>                                                                                                                                             
                                                 <td><?php 
                                                     //if($tes->status!=2) :

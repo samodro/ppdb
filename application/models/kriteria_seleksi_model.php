@@ -74,8 +74,26 @@ class kriteria_seleksi_model extends CI_Model{
     
     function select_kriteriaseleksi_seleksi($id_seleksi)
     {
+        $SQL = "select ks.*, k.jenis_kriteria as jenis from kriteriaseleksi ks, kriteria k where ks.id_kriteria = k.id_kriteria and ks.id_seleksi = '$id_seleksi' and ks.trash = 'n'";
+        $query = $this->db->query($SQL);
+        if($this->db->affected_rows() > 0)
+        {
+            foreach ($query->result() as $row) 
+            {
+                $data[] =   $row;
+            }
+            return $data;
+        }
+        else
+        {
+            return null;
+        }      
+    }
+    
+    function select_kriteriaseleksi_kriteria($id_kriteria)
+    {
         $this->db->where('trash','n');
-        $this->db->where('id_seleksi',$id_seleksi);
+        $this->db->where('id_kriteria',$id_kriteria);
         $SQL    =   $this->db->get($this->table_kriteriaseleksi);
         if($SQL->num_rows() > 0)
         {
