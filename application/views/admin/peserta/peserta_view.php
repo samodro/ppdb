@@ -36,7 +36,7 @@
                                    &nbsp; Tambah Calon Siswa Baru
                                 </button>
                                 <button type="button" id="generate" class="btn btn-success btn-lg fa fa-refresh">
-                                   &nbsp; Generate No Tes
+                                   &nbsp; Tentukan No Tes
                                 </button>                                
                                 <br/>
                                 <br/>                                
