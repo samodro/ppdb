@@ -181,6 +181,23 @@ class kriteria_seleksi_model extends CI_Model{
         }
     }   
     
+    function get_kriteriaseleksi_byPesertaandKriteria($id_peserta, $id_kriteria)
+    {
+        $SQL = "select ks.* from kriteriaseleksi ks, seleksi s where s.id_seleksi = ks.id_seleksi and s.id_peserta = 6 and ks.id_kriteria = 23 and ks.trash = 'n'";
+        $query = $this->db->query($SQL);
+        if($this->db->affected_rows() == 1)
+        {
+            foreach($query->result() as $row)
+            {
+                return $row;    
+            }
+        }
+        else
+        {
+            return null;
+        }
+    }   
+    
     
     
 }

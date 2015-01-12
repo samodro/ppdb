@@ -341,15 +341,24 @@ class Tes extends CI_Controller {
                 //echo  $this->input->post('tahun');
                 $this->kriteria_model->update_kriteria($kriteria->id_kriteria,$kriteria);
                 
-                /*
-                $seleksi = $this->kriteria_seleksi_model->select_kriteriaseleksi_kriteria($kriteria->id_kriteria);
                 
-                foreach($seleksi as $row)
-                {
-                    $row->jenis_kriteria = $this->input->post('jenis');                
-                    $this->kriteria_seleksi_model->update_kriteriaseleksi($row->id_kriteria_seleksi,$row);
+                //update nilai Seleksi
+                
+                $listpeserta = $this->peserta_model->select_peserta_periode($this->input->post('tahun'));
+                if($listpeserta!=null)
+                {                    
+                    foreach($listpeserta as $peserta)
+                    {
+                        
+                        $kriteria_seleksi = $this->kriteria_seleksi_model->get_kriteriaseleksi_byPesertaandKriteria($peserta->id_peserta, $kriteria->id_kriteria);
+                        if($kriteria->status == 5) $kriteria->status = 1;
+                        if($kriteria_seleksi!=null)
+                        {
+                            $this->editNilai($kriteria_seleksi->id_kriteria_seleksi, $kriteria_seleksi->nilai, $kriteria->status);
+                        }
+                    }
                 }
-                */
+                
                 
                 redirect(base_url().'tes/kriteria?id_tes='.$this->input->post('id_tes'),'refresh');
             }
@@ -583,9 +592,259 @@ class Tes extends CI_Controller {
             
         }
         
+        public function updateStatusMahasiswa($id_peserta)
+        {
+            $seleksi = $this->seleksi_model->select_seleksi_byPeserta($id_peserta);
+            
+            $complete = true;
+            foreach($seleksi as $row)
+            {
+                if($row->status==0) $complete = false;
+            }
+                       
+            $peserta = $this->peserta_model->get_peserta($id_peserta);
+            
+            if($complete && $peserta->status_peserta==0) $peserta->status_peserta = 1;
+            
+            $this->peserta_model->update_peserta($peserta->id_peserta, $peserta);
+            
+            
+            
+        }
+        
+        public function AHPsubKriteria($id_tes)
+        {
+            $sub_kriteria = $this->sub_kriteria_model->select_sub_kriteria_byIdTes($id_tes);
+            
+            $ahp1 = array();
+            $totalahp1 = array(); 
+            $totalahp2 = array(); 
+            
+            $i = 0;
+            
+            foreach($sub_kriteria as $row)
+            {
+                $ahp1[$i] = array();
+            }
+            
+            
+            $i = 0;
+            foreach($sub_kriteria as $row)
+            {
+                
+                $j = 0;
+                $totalahp1[$i] = 0;
+                foreach($sub_kriteria as $kolom)
+                {
+                    $ahp1[$j][$i] = $kolom->bobot/$row->bobot;
+                    //echo $j." - ".$i." - ".$ahp1[$j][$i]."<br/>";
+                    $totalahp1[$i] += $ahp1[$j][$i];
+                    $j++;
+                }
+                $i++;
+            }                                   
+                                                                                 
+            for($i = 0; $i<count($sub_kriteria); $i++)
+            {
+                $totalahp2[$i] = 0;
+                for($j = 0; $j<count($sub_kriteria); $j++)
+                {
+                    $ahp1[$i][$j] /= $totalahp1[$i];
+                     
+                    
+                    $totalahp2[$i] += $ahp1[$i][$j];
+                }
+                
+            }                                                        
+            
+            $subKriteria = array();
+            $i = 0;
+            foreach($sub_kriteria as $row)
+            {
+                
+                $subKriteria[$i] = array(
+                    'jenis_sub_kriteria' => $row->jenis_sub_kriteria,
+                    'bobot' => $row->bobot,
+                    'ahp' => $totalahp2[$i]
+                );
+                $i++;
+            }
+               
+            return $subKriteria;
+            
+        }
+        
+        public function AHPKriteria2($kriteria)
+        {
+            $seleksi = $this->seleksi_model->get_seleksi($kriteria->id_seleksi);
+            
+            $subKriteria = $this->AHPsubKriteria($seleksi->id_tes);
+            
+            $listKriteria = $this->kriteria_seleksi_model->select_kriteriaseleksi_new($kriteria->id_seleksi);
+            
+            //var_dump($subKriteria);
+            //echo count($listKriteria);
+            $ahp1 = array();
+            $totalahp1 = array(); 
+            $totalahp2 = array(); 
+            
+            $i = 0;
+            
+            foreach($listKriteria as $row)
+            {
+                $ahp1[$i] = array();
+            }
+            
+            
+            $i = 0;
+            foreach($listKriteria as $row)
+            {
+                
+                $j = 0;
+                $totalahp1[$i] = 0;
+                foreach($listKriteria as $kolom)
+                {
+                    $ahp1[$j][$i] = $kolom->bobot_kri/$row->bobot_kri;
+                    //echo $j." - ".$i." - ".$ahp1[$j][$i]."<br/>";
+                    $totalahp1[$i] += $ahp1[$j][$i];
+                    $j++;
+                }
+                $i++;
+            }
+            
+            
+            
+           
+                            
+           
+            
+           
+            for($i = 0; $i<count($listKriteria); $i++)
+            {
+                $totalahp2[$i] = 0;
+                for($j = 0; $j<count($listKriteria); $j++)
+                {
+                    $ahp1[$i][$j] /= $totalahp1[$i];
+                    
+                    
+                    $totalahp2[$i] += $ahp1[$i][$j];
+                }                
+            }
+            
+           
+           
+            
+           $total = 0;
+           $i = 0;
+           
+          
+           
+           foreach($listKriteria as $row)
+           {               
+               if($row->status_asli==1)
+               {                   
+                   foreach($subKriteria as $sub)
+                   {
+                       //echo $sub['jenis_sub_kriteria']."-".$row->nilai."<br/>";
+                       if($sub['jenis_sub_kriteria'] == $row->nilai)
+                       {                           
+                           $row->ahp = $sub['ahp'];
+                       }
+                   }              
+                                    
+                   $total += $row->ahp * $totalahp2[$i];
+                   
+               }
+               else
+               {                   
+                   foreach($subKriteria as $sub)
+                   {
+                       if($sub['jenis_sub_kriteria'] == $row->nilai)
+                       {                           
+                       }
+                   }                  
+               }               
+               $i++;
+           }           
+           
+           $seleksi->totalnilai = $total;
+           
+           $this->seleksi_model->update_seleksi($seleksi->id_seleksi, $seleksi);
+           $this->updateStatusSeleksi($seleksi->id_seleksi);
+           $this->updateStatusMahasiswa($seleksi->id_peserta);
+        }
+        
+        
+        public function editNilai($id_kriteria_seleksi, $nilai, $status)
+        {
+            $kriteria = $this->kriteria_seleksi_model->get_kriteriaseleksi($id_kriteria_seleksi);
+            //$kriteria->nilai = $nilai;
+            //$kriteria->status = 1;
+            //$this->kriteria_seleksi_model->update_kriteriaseleksi($kriteria->id_kriteria_seleksi, $kriteria);           
+            if($status==1)
+            {
+
+                $this->AHPKriteria2($kriteria);
+                $this->updateStatusSeleksi($kriteria->id_seleksi);
+                //$this->updateStatusMahasiswa(->id_peserta);
+
+            }
+            else
+            {
+                $listKriteria = $this->kriteria_seleksi_model->select_kriteriaseleksi_seleksi($kriteria->id_seleksi);
+
+                $total = 0;
+                $complete = true;
+                foreach($listKriteria as $row)
+                {
+                    $total += $row->nilai;
+                    if($row->status==0) $complete = false;
+                }
+
+                $seleksi = $this->seleksi_model->get_seleksi($kriteria->id_seleksi);
+                $seleksi->totalnilai = $total;
+                if($complete) $seleksi->status = 1;
+                $this->seleksi_model->update_seleksi($seleksi->id_seleksi, $seleksi);    
+
+                $this->updateStatusMahasiswa($seleksi->id_peserta);
+            }
+        }
+            
+        public function updateStatusSeleksi($id_seleksi)
+        {
+            $kriteria = $this->kriteria_seleksi_model->select_kriteriaseleksi_seleksi($id_seleksi);
+                
+            $done = true;
+
+            foreach($kriteria as $row)
+            {
+                if($row->status==0)
+                {
+                    $done = false;
+                    break;
+                }
+            }
+
+            $seleksi = $this->seleksi_model->get_seleksi($id_seleksi);
+
+            if($done)
+            {
+                $seleksi->status = 1;                
+            }
+            else
+            {
+                $seleksi->status = 0;
+            }
+                
+            $this->seleksi_model->update_seleksi($seleksi->id_seleksi, $seleksi);
+            
+            return $seleksi;
+        }
+        
 
         
 }
 
 /* End of file welcome.php */
 /* Location: ./application/controllers/welcome.php */
+?>
