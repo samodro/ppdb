@@ -1,6 +1,6 @@
      <div class="jumbotron">
           <?php if(isset($status) && $status==2): ?>
-          <h2>Hasil Seleksi Penerimaan Calon Siswa Baru <?php echo $tahun."/".($tahun+1); ?></h2>
+          <h2>Hasil Seleksi Penerimaan Calon Peserta Didik Baru <?php echo $tahun."/".($tahun+1); ?></h2>
              <br/>
     <div class="table-responsive">
         <?php if(isset($peserta) && $peserta!=null): ?>
@@ -20,7 +20,7 @@
                     <td><?php echo $row->nama; ?> </td>                                                
                     <td><?php echo $row->asal_sekolah; ?></td>                                        
                     <td>
-                         <?php if($row->status_peserta==2) echo "Lulus"; else "Tidak Lulus";?> 
+                         <?php if($row->status_peserta==2) echo "Diterima"; else "Tidak Diterima";?> 
                                                                   
                     </td>
                 </tr>
@@ -31,7 +31,7 @@
         
       
     </div>  
-            <?php else: echo "<h2>Maaf, hasil seleksi penerimaan calon siswa baru belum keluar</h2>";?>
+            <?php else: echo "<h2>Maaf, hasil seleksi penerimaan calon peserta didik baru belum keluar</h2>";?>
         <?php endif;?>
          </div>
     </div>

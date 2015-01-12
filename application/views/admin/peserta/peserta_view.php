@@ -121,10 +121,11 @@
                 <label>Asal Sekolah</label>
                 <input name="asal" class="form-control" style="width: 50%;" >                                
             </div>
+            <!--
             <div class="form-group">
                 <label>Nilai UN</label>
                 <input name="nilai" class="form-control" style="width: 20%;" >                                
-            </div>           
+            </div>   -->        
             <div class="form-group">
                 <label>Nama Orang Tua</label>
                 <input name="ortu" class="form-control" style="width: 50%;" >                                
@@ -175,10 +176,12 @@
                 <label>Asal Sekolah</label>
                 <input name="asal" class="form-control" value="<?php echo $row->asal_sekolah; ?>" style="width: 50%;" >                                
             </div>
+            <!--
             <div class="form-group">
                 <label>Nilai UN</label>
                 <input name="nilai" class="form-control" style="width: 20%;" value="<?php echo $row->nilaiUN; ?>">                                
             </div>
+            -->
          
             <div class="form-group">
                 <label>Nama Orang Tua</label>

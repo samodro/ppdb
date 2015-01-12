@@ -52,8 +52,7 @@
                                         <thead>
                                             <tr>
                                                 <th>Nama Peserta</th>                                                   
-                                                <th>Asal Sekolah</th>
-                                                <th>Nilai UN</th>
+                                                <th>Asal Sekolah</th>                                                
                                                 <th>Total Nilai</th>
                                                 <th>Hasil</th>
                                             </tr>
@@ -64,8 +63,7 @@
                                             <tr>
                                                 
                                                 <td><?php echo $row->nama; ?> </td>                                                
-                                                <td><?php echo $row->asal_sekolah; ?></td>
-                                                <td><?php echo $row->nilaiUN; ?></td>  
+                                                <td><?php echo $row->asal_sekolah; ?></td>                                                 
                                                 <td><?php echo $row->total; ?></td>      
                                                 <td>
                                                      <?php if($row->status_peserta==2) {?> 
