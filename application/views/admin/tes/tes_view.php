@@ -9,7 +9,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Pengaturan Seleksi Siswa Baru
+                            Pengaturan Seleksi
                         </h1>
                         
                     </div>

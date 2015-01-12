@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Daftar Petugas
+                            Data Petugas
                         </h1>
                         
                     </div>
@@ -41,7 +41,7 @@
                                                 
                                                 <td><?php echo $row->nama; ?> </td>                                                
                                                 <td><?php echo $row->username; ?></td>
-                                                <td><?php echo $row->pass; ?></td>                                                
+                                                <td>*****</td>                                                
                                                 <td>
                                                     <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModalEdit<?php echo $row->id_user;?>">
                                                         <i class="fa fa-edit"></i>
@@ -93,7 +93,7 @@
             </div>           
             <div class="form-group">
                 <label>Password</label>
-                <input name="pass" class="form-control" style="width: 50%;" >                                
+                <input name="pass" class="form-control" type="password" style="width: 50%;" >                                
             </div>
         
       </div>
@@ -132,7 +132,7 @@
             </div>           
             <div class="form-group">
                 <label>Password</label>
-                <input name="pass" class="form-control" style="width: 50%;" value="<?php echo $row->pass;?>">                                
+                <input name="pass" class="form-control"  type="password" style="width: 50%;" value="<?php echo $row->pass;?>">                                
             </div>
         
       </div>

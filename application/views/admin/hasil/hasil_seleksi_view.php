@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Daftar Calon Siswa Baru
+                            Daftar Calon Peserta Didik Baru
                         </h1>
                         
                     </div>
@@ -69,9 +69,9 @@
                                                 <td><?php echo $row->total; ?></td>      
                                                 <td>
                                                      <?php if($row->status_peserta==2) {?> 
-                                                     <button class="btn btn-success btn-xs" type="button" data-toggle="modal" data-target="#myModal<?php echo $row->id_peserta;?>">Lulus</button>
+                                                     <button class="btn btn-success btn-xs" type="button" data-toggle="modal" data-target="#myModal<?php echo $row->id_peserta;?>">Diterima</button>
                                                      <?php } else {?>
-                                                     <button class="btn btn-danger btn-xs" type="button" data-toggle="modal" data-target="#myModal<?php echo $row->id_peserta;?>">Tidak Lulus</button>
+                                                     <button class="btn btn-danger btn-xs" type="button" data-toggle="modal" data-target="#myModal<?php echo $row->id_peserta;?>">Tidak Diterima</button>
                                                      <?php }?>                                                   
                                                 </td>
                                             </tr>

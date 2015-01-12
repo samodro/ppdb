@@ -12,7 +12,37 @@
                 </div>
                 <!-- /.row -->
 
-                Selamat Datang di Panel Kontrol
+                Selamat datang di Sistem Pendukung Keputusan Penerimaan Peserta Didik Baru. Beberapa menu yang 
+
+tersedia yaitu: <br/> <br/>
+
+1. Petugas <br/>
+
+<div style="margin-left: 17px;">
+Menu ini digunakan untuk melakukan pengelolaan data petugas.<br/>
+</div>
+2. Pengaturan Seleksi <br/>
+<div style="margin-left: 17px;">
+Menu ini digunakan untuk melakukan pengaturan jenis seleksi yang akan dilaksanakan di 
+
+sekolah. <br/>
+</div>
+3. Calon Peserta Didik Baru <br/>
+<div style="margin-left: 17px;">
+Menu ini digunakan untuk melakukan pengelolaan data calon peserta didik baru. <br/>
+</div>
+4. Seleksi <br/>
+<div style="margin-left: 17px;">
+Menu ini digunakan untuk melakukan pengelolaan penilaian pada setiap jenis seleksi yang 
+
+diikuti oleh calon peserta didik baru.<br/>
+</div>
+5. Hasil Seleksi <br/>
+<div style="margin-left: 17px;">
+Menu ini digunakan melakukan pengelolaan hasil seleksi yang diikuti oleh setiap calon peserta 
+
+didik baru.<br/>
+</div>
 
                 
                
