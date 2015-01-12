@@ -293,7 +293,7 @@ class home extends CI_Controller {
 
             }
         }
-        $data['peserta'] = $this->peserta_model->select_peserta_periode_total($tahun);
+        $data['peserta'] = $this->peserta_model->select_peserta_periode_totalNew($tahun);
 
         $data['kuota'] = @$kuota;
         $data['status'] = @$status;

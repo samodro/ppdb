@@ -20,7 +20,7 @@
                     <td><?php echo $row->nama; ?> </td>                                                
                     <td><?php echo $row->asal_sekolah; ?></td>                                        
                     <td>
-                         <?php if($row->status_peserta==2) echo "Diterima"; else "Tidak Diterima";?> 
+                         <?php if($row->status_peserta==2) echo "Diterima"; else echo "Tidak Diterima";?> 
                                                                   
                     </td>
                 </tr>
