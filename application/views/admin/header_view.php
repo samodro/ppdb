@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin - Bootstrap Admin Template</title>
+    <title>PPDB</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<?php echo base_url();?>cssb/bootstrap.min.css" rel="stylesheet">
@@ -83,10 +83,10 @@
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        <!--<li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
                         </li>                        
-                        <li class="divider"></li>
-                        <li><a href="<?php echo base_url().'admin/logout';?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li class="divider"></li>-->
+                        <li><a href="<?php echo base_url().'admin/logout';?>"><i class="fa fa-sign-out fa-fw"></i> Keluar</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -99,7 +99,7 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li class="active">
-                        <a href="<?php echo base_url();?>admin/dashboard"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                        <a href="<?php echo base_url();?>admin/dashboard"><i class="fa fa-fw fa-dashboard"></i> Panel Kontrol</a>
                     </li>
                     <?php if ($this->session->userdata('type')=='admin'): ?>
                     <li>

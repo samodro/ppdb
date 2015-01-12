@@ -414,7 +414,10 @@ class Tes extends CI_Controller {
                                         'trash' => 'n');
                                 
 
-                               $this->kriteria_seleksi_model->add_kriteriaseleksi($kriteriaseleksi);                    
+                               $this->kriteria_seleksi_model->add_kriteriaseleksi($kriteriaseleksi); 
+                               
+                               $seleksi->status = 0;
+                               $this->seleksi_model->update_seleksi($seleksi->id_seleksi, $seleksi);
                    
                         }
                         
