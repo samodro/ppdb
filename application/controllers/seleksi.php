@@ -506,8 +506,8 @@ class Seleksi extends CI_Controller {
         
         
         public function editNilai()
-        {
-            if($this->input->post('id_kriteria_seleksi') && $this->input->post('nilai'))
+        {                                    
+            if($this->input->post('id_kriteria_seleksi') && ($this->input->post('nilai') || $this->input->post('nilai')==0))
             {
                 $kriteria = $this->kriteria_seleksi_model->get_kriteriaseleksi($this->input->post('id_kriteria_seleksi'));
                 $kriteria->nilai = $this->input->post('nilai');
