@@ -127,6 +127,7 @@ class Hasil extends CI_Controller {
                         $this->peserta_model->update_status($row->id_peserta, 2);
                     else
                         $this->peserta_model->update_status($row->id_peserta, 1);
+                    $i++;
 
                 }
 
