@@ -70,7 +70,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Sistem Penerimaan Siswa Baru</a>
+                <a class="navbar-brand" href="index.html">Sistem Pendukung Keputusan Penerimaan Peserta Didik Baru</a>
             </div>
             <!-- /.navbar-header -->
 

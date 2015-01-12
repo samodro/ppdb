@@ -230,38 +230,40 @@ class Seleksi extends CI_Controller {
                 $i++;
             }
             
-            echo "<h1>SUB KRITERIA</h1>";
-            echo "<br/> TABEL 1 <br/>";
-            
-            echo "<table border='2'><thead><tr>";
-            echo "<th></th>";
-            for($i = 0; $i<count($sub_kriteria); $i++)
+            if( $formSubmit != 'newsubmit' ) 
             {
-                echo "<th>".$sub_kriteria[$i]->jenis_sub_kriteria."</th>";
-            }
-            echo "</tr></thead>";
-            
-            for($i = 0; $i<count($sub_kriteria); $i++)
-            {
-                echo "<tr>";
-                echo "<td>".$sub_kriteria[$i]->jenis_sub_kriteria."</td>";
-                for($j = 0; $j<count($sub_kriteria); $j++)
+                echo "<h1>SUB KRITERIA</h1>";
+                echo "<br/> TABEL 1 <br/>";
+
+                echo "<table border='2'><thead><tr>";
+                echo "<th></th>";
+                for($i = 0; $i<count($sub_kriteria); $i++)
                 {
-                    echo "<td>".sprintf("%.2f", $ahp1[$i][$j])."</td>";
+                    echo "<th>".$sub_kriteria[$i]->jenis_sub_kriteria."</th>";
                 }
-                echo "</tr>";
+                echo "</tr></thead>";
+            
+                for($i = 0; $i<count($sub_kriteria); $i++)
+                {
+                    echo "<tr>";
+                    echo "<td>".$sub_kriteria[$i]->jenis_sub_kriteria."</td>";
+                    for($j = 0; $j<count($sub_kriteria); $j++)
+                    {
+                        echo "<td>".sprintf("%.2f", $ahp1[$i][$j])."</td>";
+                    }
+                    echo "</tr>";
+                }
+
+                echo "<tr>";
+                echo "<td>Total</td>";                      
+                for($i = 0; $i<count($sub_kriteria); $i++)
+                {
+                    echo "<td>".$totalahp1[$i]."</td>";
+                }
+
+                echo "</tr></table>";
+
             }
-            
-            echo "<tr>";
-            echo "<td>Total</td>";                      
-            for($i = 0; $i<count($sub_kriteria); $i++)
-            {
-                echo "<td>".$totalahp1[$i]."</td>";
-            }
-            
-            echo "</tr></table>";
-            
-            
           
             
            
@@ -279,28 +281,30 @@ class Seleksi extends CI_Controller {
             }
             
                       
-            
-            echo "<br/> TABEL 2 <br/>";
-            echo "<table border='2'><thead><tr>";
-            echo "<th></th>";
-            for($i = 0; $i<count($sub_kriteria); $i++)
+            if( $formSubmit != 'newsubmit' ) 
             {
-                echo "<th>".$sub_kriteria[$i]->jenis_sub_kriteria."</th>";
-            }
-            echo "<th>Eigen Vektor Normalisasi sub-Kriteria</th></tr></thead>";
-            for($i = 0; $i<count($sub_kriteria); $i++)
-            {
-                echo "<tr>";
-                echo "<td>".$sub_kriteria[$i]->jenis_sub_kriteria."</td>";
-                for($j = 0; $j<count($sub_kriteria); $j++)
+                echo "<br/> TABEL 2 <br/>";
+                echo "<table border='2'><thead><tr>";
+                echo "<th></th>";
+                for($i = 0; $i<count($sub_kriteria); $i++)
                 {
-                    echo "<td>".sprintf("%.2f", $ahp1[$i][$j])."</td>";
+                    echo "<th>".$sub_kriteria[$i]->jenis_sub_kriteria."</th>";
                 }
-                echo "<td>".$totalahp2[$i]."</td>";
-                echo "</tr>";
+                echo "<th>Eigen Vektor Normalisasi sub-Kriteria</th></tr></thead>";
+                for($i = 0; $i<count($sub_kriteria); $i++)
+                {
+                    echo "<tr>";
+                    echo "<td>".$sub_kriteria[$i]->jenis_sub_kriteria."</td>";
+                    for($j = 0; $j<count($sub_kriteria); $j++)
+                    {
+                        echo "<td>".sprintf("%.2f", $ahp1[$i][$j])."</td>";
+                    }
+                    echo "<td>".$totalahp2[$i]."</td>";
+                    echo "</tr>";
+                }
+
+                echo "</table>"; 
             }
-            
-            echo "</table>"; 
             
             $subKriteria = array();
             $i = 0;
@@ -358,38 +362,40 @@ class Seleksi extends CI_Controller {
             }
             
             
-            
+            if( $formSubmit != 'newsubmit' ) 
+            {
+                
             //echo count($listKriteria);
-            echo "<h1>KRITERIA</h1>";
-            echo "<br/> TABEL 1 <br/>";
-            
-            echo "<table border='2'><thead><tr>";
-            echo "<th></th>";
-            for($i = 0; $i<count($listKriteria); $i++)
-            {
-                echo "<th>".$listKriteria[$i]->jenis_kriteria."</th>";
-            }
-            echo "</tr></thead>";
-            for($i = 0; $i<count($listKriteria); $i++)
-            {
-                echo "<tr>";
-                echo "<td>".$listKriteria[$i]->jenis_kriteria."</td>";
-                for($j = 0; $j<count($listKriteria); $j++)
+                echo "<h1>KRITERIA</h1>";
+                echo "<br/> TABEL 1 <br/>";
+
+                echo "<table border='2'><thead><tr>";
+                echo "<th></th>";
+                for($i = 0; $i<count($listKriteria); $i++)
                 {
-                    echo "<td>".$ahp1[$i][$j]."</td>";
+                    echo "<th>".$listKriteria[$i]->jenis_kriteria."</th>";
                 }
-                echo "</tr>";
+                echo "</tr></thead>";
+                for($i = 0; $i<count($listKriteria); $i++)
+                {
+                    echo "<tr>";
+                    echo "<td>".$listKriteria[$i]->jenis_kriteria."</td>";
+                    for($j = 0; $j<count($listKriteria); $j++)
+                    {
+                        echo "<td>".$ahp1[$i][$j]."</td>";
+                    }
+                    echo "</tr>";
+                }
+
+                echo "<tr>";
+                echo "<td>Total</td>";                      
+                for($i = 0; $i<count($listKriteria); $i++)
+                {
+                    echo "<td>".$totalahp1[$i]."</td>";
+                }
+
+                echo "</tr></table>";
             }
-            
-            echo "<tr>";
-            echo "<td>Total</td>";                      
-            for($i = 0; $i<count($listKriteria); $i++)
-            {
-                echo "<td>".$totalahp1[$i]."</td>";
-            }
-            
-            echo "</tr></table>";
-            
            
             for($i = 0; $i<count($listKriteria); $i++)
             {
@@ -403,84 +409,93 @@ class Seleksi extends CI_Controller {
                 }                
             }
             
-            echo "<br/> TABEL 2 <br/>";
-            echo "<table border='2'><thead><tr>";
-            echo "<th></th>";
-            for($i = 0; $i<count($listKriteria); $i++)
+            if( $formSubmit != 'newsubmit' ) 
             {
-                echo "<th>".$listKriteria[$i]->jenis_kriteria."</th>";
-            }
-            echo "<th>Eigen Vektor Normalisasi Kriteria</th></tr></thead>";
-            for($i = 0; $i<count($listKriteria); $i++)
-            {
-                echo "<tr>";
-                echo "<td>".$listKriteria[$i]->jenis_kriteria."</td>";
-                for($j = 0; $j<count($listKriteria); $j++)
+                echo "<br/> TABEL 2 <br/>";
+                echo "<table border='2'><thead><tr>";
+                echo "<th></th>";
+                for($i = 0; $i<count($listKriteria); $i++)
                 {
-                    echo "<td>".$ahp1[$i][$j]."</td>";
+                    echo "<th>".$listKriteria[$i]->jenis_kriteria."</th>";
                 }
-                echo "<td>".$totalahp2[$i]."</td>";
-                echo "</tr>";
+                echo "<th>Eigen Vektor Normalisasi Kriteria</th></tr></thead>";
+                for($i = 0; $i<count($listKriteria); $i++)
+                {
+                    echo "<tr>";
+                    echo "<td>".$listKriteria[$i]->jenis_kriteria."</td>";
+                    for($j = 0; $j<count($listKriteria); $j++)
+                    {
+                        echo "<td>".$ahp1[$i][$j]."</td>";
+                    }
+                    echo "<td>".$totalahp2[$i]."</td>";
+                    echo "</tr>";
+                }
+
+               echo "</table>";
             }
-            
-           echo "</table>";
             
            $total = 0;
            $i = 0;
            
-           echo "<br/> TABEL 3 <br/>";
-           echo "<table border='2'><thead><tr>";
-           echo "<th>Jenis Kriteria</th>";
-           echo "<th>Nilai</th>";
-           echo "<th>Eigen Vektor sub-Kriteria</th>";
-           echo "<th>Eigen Vektor Kriteria</th>";
-           echo "<th>Status</th>";
-           echo "<th>Hasil</th>";
+           if( $formSubmit != 'newsubmit' ) 
+           {
+               echo "<br/> TABEL 3 <br/>";
+               echo "<table border='2'><thead><tr>";
+               echo "<th>Jenis Kriteria</th>";
+               echo "<th>Nilai</th>";
+               echo "<th>Eigen Vektor sub-Kriteria</th>";
+               echo "<th>Eigen Vektor Kriteria</th>";
+               echo "<th>Status</th>";
+               echo "<th>Hasil</th>";
 
-           echo "</tr></thead>";
+               echo "</tr></thead>";
+           }
            
            foreach($listKriteria as $row)
            {
-               echo "<tr>";
-               echo "<td>".$row->jenis_kriteria."</td>";
+               if( $formSubmit != 'newsubmit' ) 
+               {
+                   echo "<tr>";
+                   echo "<td>".$row->jenis_kriteria."</td>";
+               }
                if($row->status_asli==1)
                {
-                   echo "<td>".$row->nilai."</td>";
+                   if( $formSubmit != 'newsubmit' ) echo "<td>".$row->nilai."</td>";
                    foreach($subKriteria as $sub)
                    {
                        //echo $sub['jenis_sub_kriteria']."-".$row->nilai."<br/>";
                        if($sub['jenis_sub_kriteria'] == $row->nilai)
                        {
-                           echo "<td>".$sub['ahp']."</td>";
+                           if( $formSubmit != 'newsubmit' ) echo "<td>".$sub['ahp']."</td>";
                            $row->ahp = $sub['ahp'];
                        }
                    }
-                   echo "<td>".$totalahp2[$i]."</td>";
-                   echo "<td>".$row->status_asli."</td>";
+                   if( $formSubmit != 'newsubmit' ) echo "<td>".$totalahp2[$i]."</td>";
+                   if( $formSubmit != 'newsubmit' ) echo "<td>".$row->status_asli."</td>";
                    
-                   echo "<td>".$row->ahp * $totalahp2[$i]."</td>";
+                   if( $formSubmit != 'newsubmit' ) echo "<td>".$row->ahp * $totalahp2[$i]."</td>";
                    $total += $row->ahp * $totalahp2[$i];
                    
                }
                else
                {
-                   echo "<td>".$row->nilai."</td>";
+                   if( $formSubmit != 'newsubmit' ) echo "<td>".$row->nilai."</td>";
                    foreach($subKriteria as $sub)
                    {
                        if($sub['jenis_sub_kriteria'] == $row->nilai)
                        {
-                           echo "<td>".$sub['ahp']."</td>";
+                           if( $formSubmit != 'newsubmit' ) echo "<td>".$sub['ahp']."</td>";
                        }
                    }
-                   echo "<td>".$totalahp2[$i]."</td>";
-                   echo "<td>".$row->status_asli."</td>";
-                   echo "<td>0</td>";
+                   if( $formSubmit != 'newsubmit' ) echo "<td>".$totalahp2[$i]."</td>";
+                   if( $formSubmit != 'newsubmit' ) echo "<td>".$row->status_asli."</td>";
+                   if( $formSubmit != 'newsubmit' ) echo "<td>0</td>";
                }
-               echo "</tr>";
+               if( $formSubmit != 'newsubmit' ) echo "</tr>";
                $i++;
            }
-           echo "<tr><td></td><td></td><td></td><td></td>";
-           echo "<td></td><td>".$total."</td></tr></table>";
+           if( $formSubmit != 'newsubmit' ) echo "<tr><td></td><td></td><td></td><td></td>";
+           if( $formSubmit != 'newsubmit' ) echo "<td></td><td>".$total."</td></tr></table>";
            
            $seleksi->totalnilai = $total;
            
@@ -577,3 +592,4 @@ class Seleksi extends CI_Controller {
 
 /* End of file welcome.php */
 /* Location: ./application/controllers/welcome.php */
+?>
