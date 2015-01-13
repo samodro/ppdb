@@ -162,24 +162,7 @@ class kriteria_seleksi_model extends CI_Model{
         {
             return null;
         }
-    }
-    
-    function get_kriteriaseleksi_afterinsert($timestamp, $zakat, $no_rekening)
-    {
-        $SQL = "select * from kriteriaseleksi where  zakat = $zakat and no_rekening = '$no_rekening' and timestamp = ? and trash = 'n'";
-        $query = $this->db->query($SQL, $timestamp);
-        if($this->db->affected_rows() == 1)
-        {
-            foreach($query->result() as $row)
-            {
-                return $row;    
-            }
-        }
-        else
-        {
-            return null;
-        }
-    }   
+    }        
     
     function get_kriteriaseleksi_byPesertaandKriteria($id_peserta, $id_kriteria)
     {

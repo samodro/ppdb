@@ -16,7 +16,7 @@
                 <!-- /.row -->
 
                 <div class="row">
-                    <div class="col-lg-8">
+                    <div class="col-lg-12">
 
                         <form role="form" action="<?php echo base_url();?>tes/doTambahTes">                                                                                                                                                            
                                 <div class="table-responsive">

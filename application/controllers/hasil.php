@@ -47,8 +47,45 @@ class Hasil extends CI_Controller {
                 $this->load->view('admin/footer_view');
 	}
        
-        public function hasilSeleksi()
+        public function updateStatusMahasiswa($id_peserta)
         {
+            $seleksi = $this->seleksi_model->select_seleksi_byPeserta($id_peserta);
+            
+            $complete = true;
+            foreach($seleksi as $row)
+            {
+                if($row->status==0) $complete = false;
+            }
+                       
+            $peserta = $this->peserta_model->get_peserta($id_peserta);
+            
+            if($complete && $peserta->status_peserta==0) $peserta->status_peserta = 1;
+            
+            $this->peserta_model->update_peserta($peserta->id_peserta, $peserta);
+            
+            
+            
+        }
+        
+        public function updateMahasiswa($tahun)
+        {            
+            $listpeserta = $this->peserta_model->select_peserta_periode($tahun);
+            if($listpeserta!=null)
+            {                    
+                foreach($listpeserta as $peserta)
+                {
+
+                    $seleksi = $this->seleksi_model->select_seleksi_byPeserta($peserta->id_peserta);
+                    if(count($seleksi)>1)
+                    {                           
+                        $this->updateStatusMahasiswa($peserta->id_peserta);
+                    } 
+                }
+            }
+        }
+        
+        public function hasilSeleksi()
+        {            
             if($this->input->get('tahun')!='')
             {
                 $tahun =  $this->input->get('tahun');
@@ -58,6 +95,9 @@ class Hasil extends CI_Controller {
                 $tahun = date("Y");
             }
 
+            //tambahan
+            $this->updateMahasiswa($tahun);
+            
             $data['tahun'] = $tahun;
 
             $data['periode'] = $this->periode_model->select_periode();

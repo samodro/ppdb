@@ -59,9 +59,14 @@ class Peserta extends CI_Controller {
                 
                 $data['tahun'] = $tahun;
                 
+                
+                
                 $data['periode'] = $this->periode_model->select_periode();
                 
                 $data['peserta'] = $this->peserta_model->select_peserta_periode($tahun);
+                
+                //tambahan untuk cek seleksi
+                $this->cekSeleksi($tahun, $data['peserta']);
                 
                 $this->load->view('admin/header_view');
                 $this->load->view('admin/peserta/peserta_view',$data);
@@ -226,6 +231,47 @@ class Peserta extends CI_Controller {
             }
         }
         
+        public function cekSeleksi($tahun, $listpeserta)
+        {                        
+            $tes = $this->tes_model->select_tes_periode($tahun);
+            
+            foreach($listpeserta as $peserta)
+            {
+                $cek = $this->seleksi_model->select_seleksi_byPeserta($peserta->id_peserta);   
+                if(count($cek)==0)
+                {
+                    $seleksi = array(
+                        'id_seleksi'=> '',
+                        'id_peserta'=> $peserta->id_peserta,
+                        'id_tes'=> $tes[0]->id_tes,
+                        'totalnilai' => '0',
+                        'status' => '0',
+                        'tahun' => $peserta->periode,
+                        'trash' => 'n'                                        
+                    );
+
+                    $this->seleksi_model->add_seleksi($seleksi);
+
+                    $seleksiafter = $this->seleksi_model->get_seleksi_afterinsert($peserta->id_peserta, $tes[0]->id_tes, $peserta->periode);
+                    $kriteria = $this->kriteria_model->select_kriteria_tes($tes[0]->id_tes);
+
+                    foreach ($kriteria as $row)
+                    {
+                        $kriteriaseleksi = array (
+                            'id_kriteria_seleksi' => '',
+                            'id_seleksi' => $seleksiafter->id_seleksi,
+                            'id_kriteria' => $row->id_kriteria,
+                            'jenis_kriteria' => $row->jenis_kriteria,
+                            'nilai' => '0',
+                            'status' => 0,
+                            'trash' => 'n'
+                        );
+
+                        $this->kriteria_seleksi_model->add_kriteriaseleksi($kriteriaseleksi);
+                    }
+                }
+            }
+        }
         
 }
 

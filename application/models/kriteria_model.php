@@ -126,7 +126,7 @@ class kriteria_model extends CI_Model{
     
     function get_kriteria_afterinsert($id_tes, $jenis_kriteria, $tahun)
     {
-        $SQL = "select * from kriteria where  id_tes = $id_tes and jenis_kriteria = '$jenis_kriteria' and $tahun = '$tahun' and trash = 'n'";
+        $SQL = "select * from kriteria where  id_tes = $id_tes and jenis_kriteria = '$jenis_kriteria' and $tahun = '$tahun' and trash = 'n' order by id_kriteria desc limit 0,1";
         $query = $this->db->query($SQL);
         if($this->db->affected_rows() == 1)
         {

@@ -51,6 +51,7 @@
                                     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                         <thead>
                                             <tr>
+                                                <th>No Tes </th>
                                                 <th>Nama Peserta</th>                                                   
                                                 <th>Asal Sekolah</th>                                                
                                                 <th>Total Nilai</th>
@@ -61,7 +62,7 @@
                                             
                                               <?php  foreach ($peserta as $row): ?>
                                             <tr>
-                                                
+                                                <td><?php echo $row->no_test; ?></td>
                                                 <td><?php echo $row->nama; ?> </td>                                                
                                                 <td><?php echo $row->asal_sekolah; ?></td>                                                 
                                                 <td><?php echo $row->total; ?></td>      

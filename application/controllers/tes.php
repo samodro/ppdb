@@ -375,6 +375,17 @@ class Tes extends CI_Controller {
                 $kriteria = $this->kriteria_model->get_kriteria($this->input->post('id_kriteria'));                                                                                
                 $kriteria->trash  = 'y';
                 $this->kriteria_model->update_kriteria($kriteria->id_kriteria,$kriteria);
+                
+                
+                //tambahan untuk delete kriteria
+                $kriteria = $this->kriteria_seleksi_model->select_kriteriaseleksi_kriteria($kriteria->id_kriteria);
+                
+                foreach($kriteria as $row)
+                {
+                    $row->trash = 'y';
+                    $this->kriteria_seleksi_model->update_kriteriaseleksi($row->id_kriteria_seleksi, $row);
+                }
+                
                 redirect(base_url().'tes/kriteria?id_tes='.$this->input->post('id_tes'));
             }
             else
@@ -500,6 +511,25 @@ class Tes extends CI_Controller {
                 $tes = $this->tes_model->get_tes($this->input->post('id_tes'));                                                                                
                 $tes->trash  = 'y';
                 $this->tes_model->update_tes($tes->id_tes,$tes);
+                
+                //tambahan untuk bisa delete tes     
+                $seleksi = $this->seleksi_model->select_seleksi_tes($tes->id_tes);
+                
+                foreach($seleksi as $row)
+                {
+                    $row->trash = 'y';
+                    $this->seleksi_model->update_seleksi($row->id_seleksi, $row);
+                    
+                    $kriteria = $this->kriteria_seleksi_model->select_kriteriaseleksi_seleksi($row->id_seleksi);
+                    foreach($kriteria as $kri)
+                    {
+                        $kri->trash = 'y';
+                        unset($kri->jenis);
+                        $this->kriteria_seleksi_model->update_kriteriaseleksi($kri->id_kriteria_seleksi, $kri);
+                    }
+                    
+                }
+                
                 redirect(base_url().'tes/lihatTes','refresh');
             }
             else
