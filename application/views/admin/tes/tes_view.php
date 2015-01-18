@@ -46,7 +46,7 @@
                                             <tr>
                                                 <th>Jenis Tes</th>
                                                 <th>Tipe Tes</th>
-                                                <th>Bobot</th>
+                                                <th>Pengali</th>
                                                 <th>Validasi Kriteria</th>
                                                 <th></th>
                                             </tr>
