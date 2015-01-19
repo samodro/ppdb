@@ -1,4 +1,6 @@
-
+<?php $ci = & get_instance();
+      $ci->load->model('seleksi_model');  
+?>
         <div id="page-wrapper">
 
             <div class="container-fluid">
@@ -55,7 +57,8 @@
                                                 <th>Nama Peserta</th>                                                   
                                                 <th>Asal Sekolah</th>                                                
                                                 <th>Total Nilai</th>
-                                                <th>Hasil</th>
+                                                <th>Hasil</th>    
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -72,6 +75,11 @@
                                                      <?php } else {?>
                                                      <button class="btn btn-danger btn-xs" type="button" data-toggle="modal" data-target="#myModal<?php echo $row->id_peserta;?>">Tidak Diterima</button>
                                                      <?php }?>                                                   
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModalEdit<?php echo $row->id_peserta;?>">
+                                                        <i class="fa fa-edit"></i>
+                                                    </button>
                                                 </td>
                                             </tr>
                                             <?php endforeach;?>
@@ -166,3 +174,51 @@
 </div>
 
 <?php endforeach; endif;?>
+
+<?php if(isset($peserta) && $peserta!=null):?>
+<?php foreach ($peserta as $row): ?> 
+<div class="modal fade" id="myModalEdit<?php echo $row->id_peserta;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <form role="form" action="<?php echo base_url();?>peserta/editPeserta" method="post"> 
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Detail Nilai Calon Siswa Baru</h4>
+      </div>
+      <div class="modal-body" style="overflow-y:auto;max-height: 420px;">
+        
+            <input name="tahun" value="<?php echo $tahun; ?>" class="form-control" style="display:none;" >
+            <input name="id_peserta" value="<?php echo $row->id_peserta; ?>" class="form-control" style="display:none;" >
+                   
+            <?php $listSeleksi = $ci->seleksi_model->select_seleksi_byPesertaNew($row->id_peserta);?>
+            <table class="table table-bordered table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th>Jenis Tes</th>
+                        <th>Nilai</th>
+                        <th>Pengali</th>                        
+                    </tr>
+                </thead>
+
+            <?php foreach($listSeleksi as $seleksi): if($seleksi->status_tes!=2):?>
+                
+                <tr>
+                    <td><?php echo $seleksi->jenis_tes; ?></td>
+                    <td><?php echo $seleksi->totalnilai; ?></td>
+                    <td><?php echo $seleksi->bobot; ?></td>
+                </tr>
+            <?php endif; endforeach; ?>
+            </table>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Keluar</button>
+        <button type="submit" class="btn btn-primary" >Simpan</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+    
+    <?php endforeach; endif;?>
+    

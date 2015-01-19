@@ -106,6 +106,24 @@ class seleksi_model extends CI_Model{
         }
     }
     
+    function select_seleksi_byPesertaNew($id_peserta)
+    {
+        $SQL = "select s.*, t.*,t.status as 'status_tes' from seleksi s, tes t where s.id_tes = t.id_tes and s.trash = 'n' and t.trash = 'n' and s.id_peserta = $id_peserta";
+        $query = $this->db->query($SQL);
+        if($this->db->affected_rows() > 0)
+        {
+            foreach ($query->result() as $row) 
+            {
+                $data[] =   $row;
+            }
+            return $data;
+        }
+        else
+        {
+            return null;
+        }
+    }
+    
     function get_seleksi($id_seleksi)
     {
         $SQL = "select * from seleksi where id_seleksi = ? and trash = 'n'";

@@ -7,8 +7,10 @@
         <table class="table table-bordered table-hover table-striped">
             <thead style="background: #2fa4e7; color: white;">
                 <tr>
+                    <th>No Tes</th>
                     <th>Nama Peserta</th>                                                   
                     <th>Asal Sekolah</th>                 
+                    <th>Nilai Total</th>
                     <th>Keterangan</th>
                 </tr>
             </thead>
@@ -16,9 +18,10 @@
 
                   <?php  foreach ($peserta as $row): ?>
                 <tr>
-
+                    <td><?php echo $row->no_test; ?></td>
                     <td><?php echo $row->nama; ?> </td>                                                
-                    <td><?php echo $row->asal_sekolah; ?></td>                                        
+                    <td><?php echo $row->asal_sekolah; ?></td>
+                    <td><?php echo number_format((float)$row->total, 2, '.', '');?></td>
                     <td>
                          <?php if($row->status_peserta==2) echo "Diterima"; else echo "Tidak Diterima";?> 
                                                                   
