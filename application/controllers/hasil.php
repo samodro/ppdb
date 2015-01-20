@@ -203,6 +203,36 @@ class Hasil extends CI_Controller {
             }
         }
         
+        public function detail()
+        {
+            $listSeleksi = $this->seleksi_model->select_seleksi_detail();
+            
+            echo '<table>
+                                        <thead>
+                                            <tr>
+                                                <th>No Tes </th>
+                                                <th>Nama Peserta</th>                                                   
+                                                <th>Jenis Seleksi</th>                                                
+                                                <th>Total Nilai</th>
+                                                <th>Jenis Kriteria</th>    
+                                                <th>Nilai Kriteria</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>';
+            foreach($listSeleksi as $row)
+            {
+                echo '<tr>
+                    <td>'.$row->no_test.'</td>
+                    <td>'.$row->nama.'</td>
+                    <td>'.$row->jenis_tes.'</td>
+                    <td>'.$row->totalnilai.'</td>
+                    <td>'.$row->jenis_kriteria.'</td>
+                    <td>'.$row->nilai.'</td>
+                    </tr>';
+            }
+            echo '</tbody></table>';
+        }
+        
         
 }
 

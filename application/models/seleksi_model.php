@@ -124,6 +124,26 @@ class seleksi_model extends CI_Model{
         }
     }
     
+    function select_seleksi_detail()
+    {
+        $SQL = "select s.id_seleksi, p.no_test, p.nama, t.jenis_tes, s.totalnilai, k.jenis_kriteria, ks.nilai
+                 from seleksi s, peserta p, tes t, kriteriaseleksi ks, kriteria k where p.id_peserta = s.id_peserta and t.id_tes = s.id_tes and t.status != 2 and t.trash = 'n' and s.trash = 'n' and p.trash = 'n' and k.trash = 'n' and ks.trash = 'n' and k.id_kriteria = ks.id_kriteria and s.id_seleksi = ks.id_seleksi order by p.no_test, t.jenis_tes asc
+                ";
+        $query = $this->db->query($SQL);
+        if($this->db->affected_rows() > 0)
+        {
+            foreach ($query->result() as $row) 
+            {
+                $data[] =   $row;
+            }
+            return $data;
+        }
+        else
+        {
+            return null;
+        }
+    }
+    
     function get_seleksi($id_seleksi)
     {
         $SQL = "select * from seleksi where id_seleksi = ? and trash = 'n'";

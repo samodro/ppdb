@@ -80,6 +80,11 @@
                                                     <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModalEdit<?php echo $row->id_peserta;?>">
                                                         <i class="fa fa-edit"></i>
                                                     </button>
+                                                    <a href="<?php echo base_url()."hasil/detail"; ?> " style="color: white;">
+                                                    <button type="button" class="btn btn-danger btn-xs" >
+                                                        <i class="fa fa-search"></i>
+                                                    </button>
+                                                    </a>
                                                 </td>
                                             </tr>
                                             <?php endforeach;?>
@@ -180,7 +185,7 @@
 <div class="modal fade" id="myModalEdit<?php echo $row->id_peserta;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
   <div class="modal-dialog">
     <div class="modal-content">
-        <form role="form" action="<?php echo base_url();?>peserta/editPeserta" method="post"> 
+        <form role="form" action="<?php echo base_url();?>hasil/detailHasil" method="post"> 
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h4 class="modal-title" id="myModalLabel">Detail Nilai Calon Siswa Baru</h4>
@@ -212,8 +217,7 @@
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Keluar</button>
-        <button type="submit" class="btn btn-primary" >Simpan</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Keluar</button>        
       </div>
       </form>
     </div>
