@@ -9,7 +9,7 @@ class Ckeditor extends CI_Controller {
 	public function __construct() {
  
 		//parent::Controller();
-		 parent::__construct(); for CI 2.x users
+		 parent::__construct(); 
 
 		$this->load->helper('ckeditor');
  

@@ -266,20 +266,21 @@ class Seleksi extends CI_Controller {
             }
           
             
-           
+           $total = 0;
             for($i = 0; $i<count($sub_kriteria); $i++)
             {
                 $totalahp2[$i] = 0;
                 for($j = 0; $j<count($sub_kriteria); $j++)
                 {
-                    $ahp1[$i][$j] /= $totalahp1[$i];
+                    $ahp1[$i][$j] /= $totalahp1[$j];
                      
                     
                     $totalahp2[$i] += $ahp1[$i][$j];
                 }
-                
+                $totalahp2[$i] /= count($sub_kriteria);
             }
             
+           
                       
             if( $formSubmit != 'newsubmit' ) 
             {
@@ -397,17 +398,21 @@ class Seleksi extends CI_Controller {
                 echo "</tr></table>";
             }
            
+            $total = 0;
             for($i = 0; $i<count($listKriteria); $i++)
             {
                 $totalahp2[$i] = 0;
                 for($j = 0; $j<count($listKriteria); $j++)
                 {
-                    $ahp1[$i][$j] /= $totalahp1[$i];
+                    $ahp1[$i][$j] /= $totalahp1[$j];
                     
                     
                     $totalahp2[$i] += $ahp1[$i][$j];
-                }                
+                }        
+               $totalahp2[$i] /= count($listKriteria);
             }
+            
+           
             
             if( $formSubmit != 'newsubmit' ) 
             {
@@ -497,7 +502,7 @@ class Seleksi extends CI_Controller {
            if( $formSubmit != 'newsubmit' ) echo "<tr><td></td><td></td><td></td><td></td>";
            if( $formSubmit != 'newsubmit' ) echo "<td></td><td>".$total."</td></tr></table>";
            
-           $seleksi->totalnilai = $total;
+           $seleksi->totalnilai = $total/(1/3)*100;
            
            $this->seleksi_model->update_seleksi($seleksi->id_seleksi, $seleksi);
            $this->updateStatusSeleksi($seleksi->id_seleksi);

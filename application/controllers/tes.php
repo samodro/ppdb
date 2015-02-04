@@ -93,23 +93,21 @@ class Tes extends CI_Controller {
                     $totalahp2[$i] = 0;
                     for($j = 0; $j<count($listKriteria); $j++)
                     {
-                        $ahp1[$i][$j] /= $totalahp1[$i];
+                        $ahp1[$i][$j] /= $totalahp1[$j];
 
 
                         $totalahp2[$i] += $ahp1[$i][$j];
                     }                
                 }
 
-
+               
+                
                 $max = 0;
-
-
                 for($i = 0; $i<count($listKriteria); $i++)
-                {                
-
-                    if($totalahp2[$i]>$max) $max = $totalahp2[$i];
-
+                {
+                    $max += $totalahp2[$i]/$totalahp1[$i];
                 }
+                
 
                 if(count($listKriteria)>2)
                 {
@@ -241,11 +239,12 @@ class Tes extends CI_Controller {
                 $totalahp2[$i] = 0;
                 for($j = 0; $j<count($listKriteria); $j++)
                 {
-                    $ahp1[$i][$j] /= $totalahp1[$i];
+                    $ahp1[$i][$j] /= $totalahp1[$j];
                     
                     
                     $totalahp2[$i] += $ahp1[$i][$j];
                 }                
+                $totalahp2[$i] /= count($listKriteria);
             }
             
             
@@ -266,13 +265,21 @@ class Tes extends CI_Controller {
                 {
                     echo "<td>".$ahp1[$i][$j]."</td>";
                 }
-                if($totalahp2[$i]>$max) $max = $totalahp2[$i];
+               
                 echo "<td>".$totalahp2[$i]."</td>";
                 echo "</tr>";
             }
             
            echo "</table>";
             
+           
+           $max = 0;
+            for($i = 0; $i<count($listKriteria); $i++)
+            {
+                $max += $totalahp2[$i]/$totalahp1[$i];
+                echo $totalahp1[$i]."<br/>";
+            }
+            echo "<br/>MAX : ".$max."<br/>";
            
            $CI = ($max-count($listKriteria))/(count($listKriteria)-1);
            
